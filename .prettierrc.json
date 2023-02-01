@@ -5,7 +5,7 @@
   "tabWidth": 2,
   "useTabs": false,
   "endOfLine": "auto",
-  "importOrder": ["^[./]", "^@/(.*)$", "^@src/(.*)$"],
+  "importOrder": ["^[./]", "^@mui/(.*)$", "^@/(.*)$"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
