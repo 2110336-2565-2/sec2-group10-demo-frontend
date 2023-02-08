@@ -18,24 +18,29 @@ const Navbar = () => {
     >
       <Stack spacing={4} height={'100%'}>
         <Stack spacing={1.5}>
+          {/* Change Typo to Button */}
           <Typography variant="h2">DEMO</Typography>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
+          {/* Change Typo to Button */}
           <Typography variant="h6">Home</Typography>
           <Typography variant="h6">Playlist</Typography>
         </Stack>
         <Stack spacing={1.5}>
+          {/* Change Typo to Button */}
           <Typography variant="h2">For Artists</Typography>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
+          {/* Change Typo to Button */}
           <Typography variant="h6">Upload Song</Typography>
           <Typography variant="h6" whiteSpace="pre-line">
             {'View \n Upload Status'}
           </Typography>
         </Stack>
         <Stack spacing={1.5} mt={'auto !important'}>
+          {/* Wait for Auth */}
           <Typography variant="h6">UserName</Typography>
           <Typography variant="subtitle2">
             Contact us: contact@gmail.com
