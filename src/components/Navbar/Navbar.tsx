@@ -1,4 +1,6 @@
 import { Divider, Drawer, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
+import DemoLogo from '../../assets/demo-logo.svg'
 
 const Navbar = () => {
   return (
@@ -19,7 +21,16 @@ const Navbar = () => {
       <Stack spacing={4} height={'100%'}>
         <Stack spacing={1.5}>
           {/* Change Typo to Button */}
-          <Typography variant="h2">DEMO</Typography>
+          <Stack
+            direction="row"
+            spacing={3.5}
+            alignContent="center"
+            pr={2}
+            pl={2}
+          >
+            <Image src={DemoLogo} alt="demo-logo" width={46} height={41} />
+            <Typography variant="h2">DEMO</Typography>
+          </Stack>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
