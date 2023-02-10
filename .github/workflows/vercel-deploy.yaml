@@ -1,0 +1,58 @@
+name: Vercel PR
+
+on:
+  push:
+    branches: [dev, main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node-version: [16.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Set-up Environment
+        run: |
+          if [ "$REF" == 'refs/heads/dev' ]
+          then
+            cp .env.development .env
+          else
+            cp .env.production .env
+          fi
+          rm .env.development .env.production
+          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
+
+      - name: Deploy to Development
+        uses: amondnet/vercel-action@v25
+        if: github.ref == 'refs/heads/dev'
+        id: deploy-vercel-development
+        with:
+          github-comment: false
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          alias-domains: dev-demo-by-tuder.vercel.app
+
+      - name: Deploy to Production
+        uses: amondnet/vercel-action@v25
+        if: github.ref == 'refs/heads/main'
+        id: deploy-vercel-production
+        with:
+          github-comment: false
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
