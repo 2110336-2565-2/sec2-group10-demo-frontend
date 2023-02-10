@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 const registerSchema = z.object({
   username: z.string().min(3).max(20),
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string().min(5),
   confirmPassword: z.string().min(6).max(20),
 })
 
@@ -79,7 +79,7 @@ const RegisterForm = () => {
             variant="standard"
             helperText={
               !!formState.errors.password &&
-              'Password must be between 6 and 20 characters'
+              'Password must be at least 5 characters'
             }
             error={!!formState.errors.password}
             {...register('password')}
