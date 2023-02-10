@@ -1,4 +1,5 @@
 import {
+  Components,
   createTheme,
   PaletteOptions,
   Shadows,
@@ -60,6 +61,20 @@ const palette: PaletteOptions = {
   },
 }
 
+const components: Components = {
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        '.MuiInputBase-root': {
+          '&:before': {
+            borderBottom: '1px solid #fff',
+          },
+        },
+      },
+    },
+  },
+}
+
 const shadows: Shadows = Array(25).fill('none') as Shadows
 
 const themeOptions: ThemeOptions = {
@@ -67,6 +82,7 @@ const themeOptions: ThemeOptions = {
     fontFamily: ['Comfortaa', 'Noto Sans Thai', 'sans-serif'].join(','),
   },
   palette: palette,
+  components: components,
   shadows: shadows,
 }
 
