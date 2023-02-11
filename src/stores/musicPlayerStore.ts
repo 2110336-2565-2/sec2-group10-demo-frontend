@@ -8,24 +8,6 @@ interface Music {
   source: string
 }
 
-// mock musics
-const musics: Music[] = [
-  {
-    name: 'เสแสร้ง (Pretend) [feat. Moon]',
-    artist: 'Paper Planes',
-    coverImage: 'https://picsum.photos/200/300',
-    source:
-      'https://demo-by-tuder-sound-bucket.s3.ap-southeast-1.amazonaws.com/01+%E0%B9%80%E0%B8%AA%E0%B9%81%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%87+(Pretend)+%5Bfeat.+Moon%5D+-+Paper+Planes.mp3',
-  },
-  {
-    name: 'ซ้ำซ้ำ',
-    artist: 'Paper Planes',
-    coverImage: 'https://picsum.photos/200/300',
-    source:
-      'https://demo-by-tuder-sound-bucket.s3.ap-southeast-1.amazonaws.com/02+%E0%B8%8B%E0%B9%89%E0%B8%B3%E0%B8%8B%E0%B9%89%E0%B8%B3.m4a',
-  },
-]
-
 const safeIndex = (index: number, length: number) => {
   if (index < 0) {
     return length - 1
@@ -37,7 +19,7 @@ const safeIndex = (index: number, length: number) => {
 }
 
 export const volumeAtom = atomWithStorage('volume', 50)
-export const playlistsAtom = atom<Music[]>(musics)
+export const playlistsAtom = atom<Music[]>([])
 export const indexAtom = atom(0)
 export const musicAtom = atom((get) => {
   const index = get(indexAtom)

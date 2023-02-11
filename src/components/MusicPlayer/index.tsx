@@ -9,15 +9,11 @@ import {
 } from '@/stores/musicPlayerStore'
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
-import useSound from 'use-sound'
+
 import MusicControl from './MusicControl'
 import MusicTimeLine from './MusicTimeLine'
 import SoundControl from './SoundControl'
-
-interface UseSoundExtraOptions {
-  html5?: boolean
-  onend?: () => void
-}
+import { useSound } from '@/hooks/useSound'
 
 const MusicPlayer = () => {
   const volume = useAtomValue(volumeAtom)
@@ -25,14 +21,13 @@ const MusicPlayer = () => {
   const [, skipNext] = useAtom(skipNextAtom)
   const [, skipPrevious] = useAtom(skipPreviousAtom)
   const [autoPlay, setAutoPlay] = useAtom(autoPlayAtom)
-  const [play, { pause, duration, sound, stop }] =
-    useSound<UseSoundExtraOptions>(music?.source || '', {
-      html5: true,
-      volume: volume / 100,
-      onend: () => {
-        skipNext(true)
-      },
-    })
+  const musicSource = music?.source || (null as unknown as string)
+  const [play, { pause, duration, sound, stop }] = useSound(musicSource, {
+    volume: volume / 100,
+    onend: () => {
+      skipNext(true)
+    },
+  })
 
   useEffect(() => {
     if (sound) {
