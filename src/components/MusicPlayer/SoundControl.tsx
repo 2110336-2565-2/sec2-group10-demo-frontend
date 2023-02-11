@@ -32,7 +32,7 @@ const SoundControl = () => {
       return (
         <VolumeMuteRoundedIcon fontSize="large" sx={{ cursor: 'pointer' }} />
       )
-    if (volume < 0.5)
+    if (volume < 50)
       return (
         <VolumeDownRoundedIcon fontSize="large" sx={{ cursor: 'pointer' }} />
       )
