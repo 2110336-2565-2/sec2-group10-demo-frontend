@@ -1,9 +1,9 @@
 import { Stack, Typography, Slider } from '@mui/material'
+import { Howl } from 'howler'
 import { useState, useRef, useEffect } from 'react'
-import useSound from 'use-sound'
 
 interface MusicTimeLineProps {
-  sound: ReturnType<typeof useSound>[1]['sound']
+  sound?: Howl
   duration: number
   onTimeChange?: (v: number) => void
 }
@@ -15,7 +15,7 @@ const MusicTimeLine = ({ sound, duration }: MusicTimeLineProps) => {
   const requestRef = useRef<number>(0)
   useEffect(() => {
     const updateSeek = () => {
-      const seek = sound?.seek([])
+      const seek = sound?.seek()
       if (typeof seek === 'number' && !isSeeking) {
         setCurrentTime(~~(seek * 10) / 10)
       }

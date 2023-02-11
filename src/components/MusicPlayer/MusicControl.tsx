@@ -1,6 +1,5 @@
 import { Stack } from '@mui/material'
 import { useState, useRef, useEffect } from 'react'
-import useSound from 'use-sound'
 
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded'
 import RepeatRoundedIcon from '@mui/icons-material/RepeatRounded'
@@ -8,9 +7,10 @@ import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded'
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded'
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded'
+import { Howl } from 'howler'
 
 interface MusicControlProps {
-  sound?: ReturnType<typeof useSound>[1]['sound']
+  sound?: Howl
   onPlay?: () => void
   onPause?: () => void
   onSkipNext?: () => void
