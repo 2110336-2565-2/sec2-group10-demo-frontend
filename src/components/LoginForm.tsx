@@ -1,34 +1,26 @@
-import {
-  Box,
-  Divider,
-  Typography,
-  Stack,
-  TextField,
-  Button,
-  ButtonProps,
-} from '@mui/material'
+import { Box, Divider, Typography, Stack, TextField } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import DemoLogo from '@/assets/demo-logo.svg'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Button from './Button'
 
 const loginSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(20),
+  password: z.string(),
 })
 
 type Login = z.infer<typeof loginSchema>
 
 const LoginForm = () => {
-  const { register, handleSubmit /*, formState*/ } = useForm<Login>({
+  const { register, handleSubmit, formState } = useForm<Login>({
     resolver: zodResolver(loginSchema),
     mode: 'onSubmit',
   })
   const loginUser = async (data: Login) => {
     //TODO: login user api
-    console.log('here')
     console.log(data)
   }
 
@@ -60,6 +52,10 @@ const LoginForm = () => {
             label="Email"
             variant="standard"
             placeholder="Email"
+            helperText={
+              !!formState.errors.email && 'Please enter a valid email address'
+            }
+            error={!!formState.errors.email}
             {...register('email')}
           />
           <TextField
@@ -71,19 +67,22 @@ const LoginForm = () => {
           />
         </Stack>
         <Stack spacing={2}>
-          <MyButton variant="contained" onClick={handleSubmit(loginUser)}>
-            <Typography>Login</Typography>
-          </MyButton>
-          <Divider></Divider>
-          <MyButton variant="text" LinkComponent={Link} href={'/signup'}>
-            <Typography>sign up</Typography>
-          </MyButton>
+          <Button
+            variant="contained"
+            text="Login"
+            onClick={handleSubmit(loginUser)}
+          />
+          <Divider />
+          <Button
+            variant="text"
+            text="sign up"
+            LinkComponent={Link}
+            href={'/signup'}
+          />
         </Stack>
       </Stack>
     </Box>
   )
 }
-const MyButton = ({ children, ...props }: ButtonProps) => {
-  return <Button {...props}>{children}</Button>
-}
+
 export default LoginForm
