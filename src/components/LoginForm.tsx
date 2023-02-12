@@ -60,20 +60,12 @@ const LoginForm = () => {
             label="Email"
             variant="standard"
             placeholder="Email"
-            sx={{
-              '& .MuiInput-underline:before': { borderBottomColor: 'white' },
-              '& .MuiInput-underline:after': { borderBottomColor: 'default' },
-            }}
             {...register('email')}
           />
           <TextField
             label="Password"
             variant="standard"
             type="password"
-            sx={{
-              '& .MuiInput-underline:before': { borderBottomColor: 'white' },
-              '& .MuiInput-underline:after': { borderBottomColor: 'default' },
-            }}
             placeholder="Password"
             {...register('password')}
           />
