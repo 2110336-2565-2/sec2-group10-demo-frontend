@@ -1,6 +1,8 @@
+import { CheckBox, CloudUpload, Home, QueueMusic } from '@mui/icons-material'
 import { Divider, Drawer, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import DemoLogo from '../../assets/demo-logo.svg'
+import Button from '../Button'
 
 const Navbar = () => {
   return (
@@ -13,7 +15,6 @@ const Navbar = () => {
           backgroundColor: 'container.main',
           border: '0px',
           width: '290px',
-          alignItems: 'center',
           padding: '24px 32px',
         },
       }}
@@ -34,21 +35,16 @@ const Navbar = () => {
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
-          {/* Change Typo to Button */}
-          <Typography variant="h6">Home</Typography>
-          <Typography variant="h6">Playlist</Typography>
+          <Button startIcon={<Home />} text="Home" />
+          <Button startIcon={<QueueMusic />} text="Playlist" />
         </Stack>
         <Stack spacing={1.5}>
-          {/* Change Typo to Button */}
           <Typography variant="h2">For Artists</Typography>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
-          {/* Change Typo to Button */}
-          <Typography variant="h6">Upload Song</Typography>
-          <Typography variant="h6" whiteSpace="pre-line">
-            {'View \n Upload Status'}
-          </Typography>
+          <Button startIcon={<CloudUpload />} text="Upload Song" />
+          <Button startIcon={<CheckBox />} text={'View\nUpload Status'} />
         </Stack>
         <Stack spacing={1.5} mt={'auto !important'}>
           {/* Wait for Auth */}
