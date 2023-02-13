@@ -37,7 +37,7 @@ const LoginForm = () => {
       <Stack spacing={6} justifyContent={'center'}>
         <Stack
           direction="row"
-          spacing={2}
+          spacing={3.5}
           alignItems={'center'}
           justifyContent={'center'}
         >
@@ -45,9 +45,9 @@ const LoginForm = () => {
           <Typography variant="h1">Demo</Typography>
         </Stack>
         <Stack alignItems={'center'}>
-          <Typography variant="h2">Login</Typography>
+          <Typography variant="h2">SIGN IN</Typography>
         </Stack>
-        <Stack spacing={2}>
+        <Stack spacing={3}>
           <TextField
             label="Email"
             variant="standard"
@@ -66,10 +66,10 @@ const LoginForm = () => {
             {...register('password')}
           />
         </Stack>
-        <Stack spacing={2}>
+        <Stack spacing={3}>
           <Button
             variant="contained"
-            text="Login"
+            text="SIGN IN"
             onClick={handleSubmit(loginUser)}
           />
           <Divider />
