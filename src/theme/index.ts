@@ -84,6 +84,20 @@ const components: Components = {
   },
 }
 
+const components: Components = {
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        '.MuiInputBase-root': {
+          '&:before': {
+            borderBottom: '1px solid #fff',
+          },
+        },
+      },
+    },
+  },
+}
+
 const shadows: Shadows = Array(25).fill('none') as Shadows
 
 const themeOptions: ThemeOptions = {
