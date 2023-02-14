@@ -42,6 +42,7 @@ const RegisterForm = () => {
     }
     console.log(sendData)
     await http.post('/users', sendData).then(() => {
+      // TODO: signin
       router.push('/signin')
     })
   }
