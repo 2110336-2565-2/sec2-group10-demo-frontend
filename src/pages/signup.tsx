@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import RegisterForm from '@/components/RegisterForm'
 
-export default function Register() {
+export default function Signup() {
   return (
     <Grid
       container

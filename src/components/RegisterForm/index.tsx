@@ -13,6 +13,8 @@ import Link from 'next/link'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { http } from '@/services/apiAxios'
+import { useRouter } from 'next/router'
 
 const registerSchema = z.object({
   username: z.string().min(3).max(20),
@@ -24,14 +26,24 @@ const registerSchema = z.object({
 type Register = z.infer<typeof registerSchema>
 
 const RegisterForm = () => {
+  const router = useRouter()
   const { register, handleSubmit, formState } = useForm<Register>({
     resolver: zodResolver(registerSchema),
     mode: 'onSubmit',
   })
 
   const registerUser = async (data: Register) => {
-    //TODO: register user api
-    console.log(data)
+    //TODO: Handle error
+    // - Already register
+    const sendData = {
+      username: data.username,
+      password: data.password,
+      email: data.email,
+    }
+    console.log(sendData)
+    await http.post('/users', sendData).then(() => {
+      router.push('/login')
+    })
   }
 
   return (
