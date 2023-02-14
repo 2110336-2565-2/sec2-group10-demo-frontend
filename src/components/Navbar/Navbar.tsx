@@ -107,7 +107,7 @@ const Navbar = () => {
               height: '40px',
             }}
           >
-            <Typography variant="h4">SIGN IN</Typography>
+            <Typography variant="h4">Log In</Typography>
           </Button>
           <Typography variant="subtitle2">
             Contact us: contact@gmail.com
