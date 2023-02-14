@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { theme, createEmotionCache } from '@/theme'
 import { SessionProvider } from 'next-auth/react'
+import DesktopLayout from '@/layout/DesktopLoayput'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -24,7 +25,9 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         <SessionProvider session={session}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <DesktopLayout>
+            <Component {...pageProps} />
+          </DesktopLayout>
         </SessionProvider>
       </ThemeProvider>
     </CacheProvider>

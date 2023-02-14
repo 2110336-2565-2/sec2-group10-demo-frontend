@@ -14,7 +14,10 @@ const Navbar = () => {
     <Drawer
       anchor="left"
       variant="permanent"
-      open={true}
+      sx={{
+        width: '290px',
+        flexShrink: 0,
+      }}
       PaperProps={{
         sx: {
           backgroundColor: 'container.main',
