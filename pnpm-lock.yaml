@@ -5,7 +5,7 @@ specifiers:
   '@emotion/react': ^11.10.5
   '@emotion/server': ^11.10.0
   '@emotion/styled': ^11.10.5
-  '@hookform/resolvers': ^2.9.10
+  '@hookform/resolvers': ^2.9.11
   '@mui/material': ^5.11.6
   '@next/font': 13.1.6
   '@trivago/prettier-plugin-sort-imports': ^4.0.0
@@ -25,9 +25,9 @@ specifiers:
   prettier: ^2.8.3
   react: 18.2.0
   react-dom: 18.2.0
-  react-hook-form: ^7.43.0
+  react-hook-form: ^7.43.1
   typescript: 4.9.4
-  zod: ^3.20.2
+  zod: ^3.20.6
 
 dependencies:
   '@emotion/cache': 11.10.5
@@ -2717,8 +2717,8 @@ packages:
       next: 13.1.6_biqbaboplfbrettd7655fr4n2y
       oauth: 0.9.15
       openid-client: 5.4.0
-      preact: 10.12.0
-      preact-render-to-string: 5.2.6_preact@10.12.0
+      preact: 10.12.1
+      preact-render-to-string: 5.2.6_preact@10.12.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       uuid: 8.3.2
@@ -2997,17 +2997,17 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
-  /preact-render-to-string/5.2.6_preact@10.12.0:
+  /preact-render-to-string/5.2.6_preact@10.12.1:
     resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
     peerDependencies:
       preact: '>=10'
     dependencies:
-      preact: 10.12.0
+      preact: 10.12.1
       pretty-format: 3.8.0
     dev: false
 
-  /preact/10.12.0:
-    resolution: {integrity: sha512-+w8ix+huD8CNZemheC53IPjMUFk921i02o30u0K6h53spMX41y/QhVDnG/nU2k42/69tvqWmVsgNLIiwRAcmxg==}
+  /preact/10.12.1:
+    resolution: {integrity: sha512-l8386ixSsBdbreOAkqtrwqHwdvR35ID8c3rKPa8lCWuO86dBi32QWHV4vfsZK1utLLFMvw+Z5Ad4XLkZzchscg==}
     dev: false
 
   /prelude-ls/1.2.1:
