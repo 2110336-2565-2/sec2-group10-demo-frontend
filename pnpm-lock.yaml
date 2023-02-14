@@ -6,6 +6,7 @@ specifiers:
   '@emotion/server': ^11.10.0
   '@emotion/styled': ^11.10.5
   '@hookform/resolvers': ^2.9.11
+  '@mui/icons-material': ^5.11.0
   '@mui/material': ^5.11.6
   '@next/font': 13.1.6
   '@trivago/prettier-plugin-sort-imports': ^4.0.0
@@ -38,6 +39,7 @@ dependencies:
   '@emotion/server': 11.10.0
   '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
   '@hookform/resolvers': 2.9.11_react-hook-form@7.43.1
+  '@mui/icons-material': 5.11.0_j5wvuqirnhynb4halegp2mqooy
   '@mui/material': 5.11.6_rqh7qj4464ntrqrt6banhaqg4q
   '@next/font': 13.1.6
   '@types/node': 18.11.18
@@ -572,6 +574,23 @@ packages:
 
   /@mui/core-downloads-tracker/5.11.6:
     resolution: {integrity: sha512-lbD3qdafBOf2dlqKhOcVRxaPAujX+9UlPC6v8iMugMeAXe0TCgU3QbGXY3zrJsu6ex64WYDpH4y1+WOOBmWMuA==}
+    dev: false
+
+  /@mui/icons-material/5.11.0_j5wvuqirnhynb4halegp2mqooy:
+    resolution: {integrity: sha512-I2LaOKqO8a0xcLGtIozC9xoXjZAto5G5gh0FYUMAlbsIHNHIjn4Xrw9rvjY20vZonyiGrZNMAlAXYkY6JvhF6A==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.13
+      '@mui/material': 5.11.6_rqh7qj4464ntrqrt6banhaqg4q
+      '@types/react': 18.0.27
+      react: 18.2.0
     dev: false
 
   /@mui/material/5.11.6_rqh7qj4464ntrqrt6banhaqg4q:
