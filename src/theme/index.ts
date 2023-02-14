@@ -13,9 +13,15 @@ declare module '@mui/material/styles' {
     container: {
       main: string
     }
+    gray: {
+      main: string
+    }
   }
   interface PaletteOptions {
     container: {
+      main: string
+    }
+    gray: {
       main: string
     }
   }
@@ -58,6 +64,9 @@ const palette: PaletteOptions = {
   },
   container: {
     main: '#0D173C',
+  },
+  gray: {
+    main: '#D9D9D9',
   },
 }
 
