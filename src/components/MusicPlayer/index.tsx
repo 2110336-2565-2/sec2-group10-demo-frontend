@@ -14,8 +14,11 @@ import MusicControl from './MusicControl'
 import MusicTimeLine from './MusicTimeLine'
 import SoundControl from './SoundControl'
 import { useSound } from '@/hooks/useSound'
+import { useShow } from '@/hooks/useShow'
+import FullSizeContent from './FullSizeContent'
 
 const MusicPlayer = () => {
+  const fullSize = useShow()
   const volume = useAtomValue(volumeAtom)
   const music = useAtomValue(musicAtom)
   const [, skipNext] = useAtom(skipNextAtom)
@@ -63,8 +66,39 @@ const MusicPlayer = () => {
     stop()
   }
 
+  const HandleFullSize = () => {
+    return (
+      <Box
+        onClick={() => {
+          music && fullSize.onShow()
+        }}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    )
+  }
+
   return (
-    <Box py={2} px={4} bgcolor="container.main" borderRadius={'24px'}>
+    <Box
+      py={2}
+      px={4}
+      bgcolor="container.main"
+      borderRadius={'24px'}
+      position="absolute"
+      height={fullSize.show ? '100%' : 'auto'}
+      width="100%"
+      bottom={0}
+      zIndex={10}
+      display="flex"
+      flexDirection="column-reverse"
+    >
+      <HandleFullSize />
       <Stack spacing={2}>
         <Stack
           direction={'row'}
@@ -77,10 +111,15 @@ const MusicPlayer = () => {
             overflow={'hidden'}
             textOverflow={'ellipsis'}
           >
-            <Typography variant="h4" noWrap>
+            <Typography variant="h4" noWrap maxWidth="fit-content" zIndex={10}>
               {music?.name}
             </Typography>
-            <Typography variant="subtitle2" noWrap>
+            <Typography
+              variant="subtitle2"
+              noWrap
+              maxWidth="fit-content"
+              zIndex={10}
+            >
               {music?.artist}
             </Typography>
           </Stack>
@@ -95,6 +134,16 @@ const MusicPlayer = () => {
         </Stack>
         <MusicTimeLine sound={sound} duration={(duration || 0) / 1000} />
       </Stack>
+      {fullSize.show && (
+        <FullSizeContent
+          title={music?.name || ''}
+          artist={music?.artist || ''}
+          coverImage={music?.coverImage || ''}
+          onClose={() => {
+            fullSize.onClose()
+          }}
+        />
+      )}
     </Box>
   )
 }

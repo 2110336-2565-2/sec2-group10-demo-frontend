@@ -40,40 +40,42 @@ const SoundControl = () => {
   }
 
   return (
-    <Stack
-      direction={'row'}
-      spacing={1.5}
-      alignItems={'center'}
-      flex={1}
-      justifyContent="flex-end"
-    >
-      <Box display={'flex'} onClick={toggleMute}>
-        <VolumeIcon />
-      </Box>
-      <Slider
-        aria-label="Volume"
-        value={volume}
-        onChange={(_, v) => setVolume(v as number)}
-        disabled={isMute}
-        onWheel={(e) => {
-          const delta = e.deltaY > 0 ? -1 : 1
-          setVolume((v) => {
-            const newVolume = v + delta * 5
-            const boundVolume = Math.min(Math.max(newVolume, 0), 100)
-            return boundVolume
-          })
-        }}
-        sx={{
-          maxWidth: '128px',
-          '& .MuiSlider-thumb': {
-            display: 'none',
-          },
-          '& .MuiSlider-rail': {
-            backgroundColor: 'gray.main',
-            opacity: '1',
-          },
-        }}
-      />
+    <Stack alignItems="flex-end" flex={1}>
+      <Stack
+        direction={'row'}
+        spacing={1.5}
+        alignItems={'center'}
+        zIndex={10}
+        maxWidth="170px"
+        width="100%"
+      >
+        <Box display={'flex'} onClick={toggleMute}>
+          <VolumeIcon />
+        </Box>
+        <Slider
+          aria-label="Volume"
+          value={volume}
+          onChange={(_, v) => setVolume(v as number)}
+          disabled={isMute}
+          onWheel={(e) => {
+            const delta = e.deltaY > 0 ? -1 : 1
+            setVolume((v) => {
+              const newVolume = v + delta * 5
+              const boundVolume = Math.min(Math.max(newVolume, 0), 100)
+              return boundVolume
+            })
+          }}
+          sx={{
+            '& .MuiSlider-thumb': {
+              display: 'none',
+            },
+            '& .MuiSlider-rail': {
+              backgroundColor: 'gray.main',
+              opacity: '1',
+            },
+          }}
+        />
+      </Stack>
     </Stack>
   )
 }

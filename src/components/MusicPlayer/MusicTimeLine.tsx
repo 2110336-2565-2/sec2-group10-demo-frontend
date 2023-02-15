@@ -39,6 +39,7 @@ const MusicTimeLine = ({ sound, duration }: MusicTimeLineProps) => {
       justifyContent={'space-between'}
       alignItems={'center'}
       spacing={4}
+      zIndex={10}
     >
       <Typography variant="h4" flex={'0 0 60px'}>
         {timeFormat(currTime)}
