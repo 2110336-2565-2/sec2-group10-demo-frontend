@@ -37,7 +37,7 @@ const LoginForm = () => {
     //TODO: login user api
     setLoading(true)
     const result = await signIn('credentials', {
-      username: data.email,
+      email: data.email,
       password: data.password,
       redirect: false,
     })

@@ -18,11 +18,16 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Button from '../Button'
 
-const registerSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(5),
-  confirmPassword: z.string().min(6).max(20),
-})
+const registerSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(5),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Password is not match',
+    path: ['confirmPassword'],
+  })
 
 type Register = z.infer<typeof registerSchema>
 

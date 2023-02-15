@@ -10,14 +10,14 @@ declare module 'next-auth' {
 }
 
 interface UserLogin {
-  username: string
+  email: string
   password: string
 }
 const login = async (u: UserLogin) => {
   // TODO: wait for backend api docs
   const Endpoint = API_HOST + '/auth/login'
   const body = {
-    username: u.username,
+    email: u.email,
     password: u.password,
   }
 
@@ -38,7 +38,7 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'Username' },
+        email: { label: 'Email', type: 'text', placeholder: 'Email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, _req) {
