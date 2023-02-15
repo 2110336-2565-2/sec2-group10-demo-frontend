@@ -1,4 +1,4 @@
-name: Vercel PR
+name: Vercel Deploy
 
 on:
   push:
