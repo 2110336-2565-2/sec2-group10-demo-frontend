@@ -46,6 +46,8 @@ const Navbar = () => {
           <Button
             startIcon={<Home sx={{ fontSize: '30px !important' }} />}
             sx={{ ...ButtonStyling, height: '30px' }}
+            LinkComponent={Link}
+            href={'/home'}
           >
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
               Home
@@ -109,7 +111,14 @@ const Navbar = () => {
             LinkComponent={Link}
             href={'/login'}
           >
-            <Typography variant="h4">LOGIN</Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                textDecoration: 'underline',
+              }}
+            >
+              LOGIN
+            </Typography>
           </Button>
           <Typography variant="subtitle2">
             Contact us: contact@gmail.com

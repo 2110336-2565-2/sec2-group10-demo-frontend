@@ -106,7 +106,7 @@ const LoginForm = () => {
             <Divider />
             <Button
               variant="text"
-              text="sign up"
+              text="SIGN UP"
               LinkComponent={Link}
               href={'/signup'}
             />
