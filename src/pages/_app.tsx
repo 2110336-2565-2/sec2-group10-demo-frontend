@@ -6,6 +6,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import { theme, createEmotionCache } from '@/theme'
 import { SessionProvider } from 'next-auth/react'
 import DesktopLayout from '@/layout/DesktopLoayput'
+import '@/styles/globals.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
