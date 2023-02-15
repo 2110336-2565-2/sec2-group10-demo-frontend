@@ -1,17 +1,15 @@
-import { Grid } from '@mui/material'
+import { Stack } from '@mui/material'
 import RegisterForm from '@/components/RegisterForm'
 
 export default function Signup() {
   return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
+    <Stack
       justifyContent="center"
-      style={{ minHeight: '100vh' }}
+      alignItems="center"
+      width="100%"
+      height="100%"
     >
       <RegisterForm />
-    </Grid>
+    </Stack>
   )
 }
