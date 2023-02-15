@@ -1,8 +1,8 @@
 import { CheckBox, CloudUpload, Home, QueueMusic } from '@mui/icons-material'
 import { Button, Divider, Drawer, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
+import Link from 'next/link'
 import DemoLogo from '../../assets/demo-logo.svg'
-
 const ButtonStyling = {
   justifyContent: 'left',
   color: 'white',
@@ -106,8 +106,10 @@ const Navbar = () => {
               ...ButtonStyling,
               height: '40px',
             }}
+            LinkComponent={Link}
+            href={'/login'}
           >
-            <Typography variant="h4">Log In</Typography>
+            <Typography variant="h4">LOGIN</Typography>
           </Button>
           <Typography variant="subtitle2">
             Contact us: contact@gmail.com

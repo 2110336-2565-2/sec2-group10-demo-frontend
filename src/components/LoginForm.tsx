@@ -74,7 +74,7 @@ const LoginForm = () => {
           </Stack>
           {loginError && (
             <Alert severity="error" onClose={() => setLoginError(false)}>
-              The username or password you entered is incorrect
+              The email address or password you entered is incorrect
             </Alert>
           )}
           <Stack spacing={3}>
