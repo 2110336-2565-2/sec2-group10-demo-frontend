@@ -7,6 +7,7 @@ const DesktopLayout = ({ children }: PropsWithChildren) => {
     <Box display="flex" minHeight="100vh">
       <Navbar />
       <Box
+        position="relative"
         sx={{
           flexGrow: 1,
           px: 2,
