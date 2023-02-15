@@ -12,7 +12,7 @@ const DesktopLayout = ({ children }: PropsWithChildren) => {
           px: 2,
           py: 3,
           background:
-            'linear-gradient(180deg, rgba(0,97,166,1) 0%, 8%, rgba(4,4,47,1) 68%)',
+            'linear-gradient(180deg, rgba(2,49,105,1), 20%, rgba(4,4,47,1) 80%)',
         }}
       >
         {children}
