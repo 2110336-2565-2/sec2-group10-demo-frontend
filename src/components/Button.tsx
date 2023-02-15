@@ -2,12 +2,14 @@ import {
   Button as MuiButton,
   ButtonProps as MuiButtonProps,
   Typography,
+  TypographyProps,
 } from '@mui/material'
 
 interface ButtonProps extends MuiButtonProps {
   text?: string
   active?: boolean
   underline?: boolean
+  textVariant?: TypographyProps['variant']
 }
 
 const Button = ({
@@ -17,6 +19,7 @@ const Button = ({
   active,
   text,
   underline,
+  textVariant,
   ...props
 }: ButtonProps) => {
   const getColor = () => {
@@ -39,7 +42,7 @@ const Button = ({
       }}
     >
       <Typography
-        variant="h6"
+        variant={textVariant || 'h6'}
         sx={{
           textDecoration: underline ? 'underline' : 'none',
         }}
