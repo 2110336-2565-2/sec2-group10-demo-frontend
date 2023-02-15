@@ -117,7 +117,9 @@ const Navbar = () => {
                 src={data?.user?.image || undefined}
                 sx={{ width: 30, height: 30 }}
               />
-              <Typography variant="h5">{data?.user?.name}</Typography>
+              <Typography variant="h5" noWrap>
+                {data?.user?.name}
+              </Typography>
             </Stack>
           ) : (
             <Button
