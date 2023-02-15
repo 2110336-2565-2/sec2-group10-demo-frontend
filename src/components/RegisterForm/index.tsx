@@ -1,12 +1,21 @@
-import { Box, Container, Stack, TextField, Typography } from '@mui/material'
 import DemoLogo from '@/assets/demo-logo.svg'
+import { http } from '@/services/apiAxios'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Alert,
+  Box,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
+import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { http } from '@/services/apiAxios'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import Button from '../Button'
 
 const registerSchema = z.object({
@@ -19,6 +28,7 @@ type Register = z.infer<typeof registerSchema>
 
 const RegisterForm = () => {
   const router = useRouter()
+  const [registerError, setRegisterError] = useState(false)
   const { register, handleSubmit, formState } = useForm<Register>({
     resolver: zodResolver(registerSchema),
     mode: 'onSubmit',
@@ -32,9 +42,16 @@ const RegisterForm = () => {
       email: data.email,
     }
     console.log(sendData)
-    await http.post('/users', sendData).then(() => {
-      router.push('/login')
-    })
+    await http
+      .post('/users', sendData)
+      .then(() => {
+        router.push('/login')
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          setRegisterError(true)
+        }
+      })
   }
 
   return (
@@ -58,6 +75,11 @@ const RegisterForm = () => {
             <Image src={DemoLogo} width={64} height={64} alt="Demo Logo" />
             <Typography variant="h1">DEMO</Typography>
           </Stack>
+          {registerError && (
+            <Alert severity="error" onClose={() => setRegisterError(false)}>
+              This email address has already been registered.
+            </Alert>
+          )}
           <Stack spacing={2}>
             <TextField
               label="Email *"
