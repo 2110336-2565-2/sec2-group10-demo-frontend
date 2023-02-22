@@ -1,5 +1,13 @@
 import { CheckBox, CloudUpload, Home, QueueMusic } from '@mui/icons-material'
-import { Button, Divider, Drawer, Stack, Typography } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  Divider,
+  Drawer,
+  Stack,
+  Typography,
+} from '@mui/material'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import DemoLogo from '../../assets/demo-logo.svg'
@@ -10,6 +18,7 @@ const ButtonStyling = {
 }
 
 const Navbar = () => {
+  const { data, status } = useSession()
   return (
     <Drawer
       anchor="left"
@@ -102,25 +111,37 @@ const Navbar = () => {
           </Button>
         </Stack>
         <Stack spacing={1.5} mt={'auto !important'}>
-          {/* Wait for Auth */}
-          <Button
-            variant="text"
-            sx={{
-              ...ButtonStyling,
-              height: '40px',
-            }}
-            LinkComponent={Link}
-            href={'/login'}
-          >
-            <Typography
-              variant="h4"
+          {status === 'authenticated' ? (
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Avatar
+                alt="avatar-icon"
+                src={data?.user?.image || undefined}
+                sx={{ width: 30, height: 30 }}
+              />
+              <Typography variant="h5" noWrap>
+                {data?.user?.name}
+              </Typography>
+            </Stack>
+          ) : (
+            <Button
+              variant="text"
               sx={{
-                textDecoration: 'underline',
+                ...ButtonStyling,
+                height: '40px',
               }}
+              LinkComponent={Link}
+              href={'/login'}
             >
-              LOGIN
-            </Typography>
-          </Button>
+              <Typography
+                variant="h4"
+                sx={{
+                  textDecoration: 'underline',
+                }}
+              >
+                LOGIN
+              </Typography>
+            </Button>
+          )}
           <Typography variant="subtitle2">
             Contact us: contact@gmail.com
           </Typography>

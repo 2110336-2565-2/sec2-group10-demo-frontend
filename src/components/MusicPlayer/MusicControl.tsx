@@ -35,40 +35,36 @@ const MusicControl = (p: MusicControlProps) => {
   }, [p?.sound])
 
   return (
-    <Stack
-      direction={'row'}
-      spacing={3}
-      alignItems={'center'}
-      flex={1}
-      justifyContent="center"
-    >
-      <ShuffleRoundedIcon onClick={p.onShuffle} sx={{ cursor: 'pointer' }} />
-      <Stack direction={'row'}>
-        <SkipPreviousRoundedIcon
-          sx={{ cursor: 'pointer' }}
-          fontSize={'large'}
-          onClick={p.onSkipPrevious}
-        />
-        {isPlaying ? (
-          <PauseRoundedIcon
-            onClick={p.onPause}
+    <Stack flex={1} alignItems="center">
+      <Stack direction={'row'} spacing={3} alignItems={'center'} zIndex={10}>
+        <ShuffleRoundedIcon onClick={p.onShuffle} sx={{ cursor: 'pointer' }} />
+        <Stack direction={'row'}>
+          <SkipPreviousRoundedIcon
+            sx={{ cursor: 'pointer' }}
             fontSize={'large'}
+            onClick={p.onSkipPrevious}
+          />
+          {isPlaying ? (
+            <PauseRoundedIcon
+              onClick={p.onPause}
+              fontSize={'large'}
+              sx={{ cursor: 'pointer' }}
+            />
+          ) : (
+            <PlayArrowRoundedIcon
+              onClick={p.onPlay}
+              fontSize={'large'}
+              sx={{ cursor: 'pointer' }}
+            />
+          )}
+          <SkipNextRoundedIcon
+            fontSize={'large'}
+            onClick={p.onSkipNext}
             sx={{ cursor: 'pointer' }}
           />
-        ) : (
-          <PlayArrowRoundedIcon
-            onClick={p.onPlay}
-            fontSize={'large'}
-            sx={{ cursor: 'pointer' }}
-          />
-        )}
-        <SkipNextRoundedIcon
-          fontSize={'large'}
-          onClick={p.onSkipNext}
-          sx={{ cursor: 'pointer' }}
-        />
+        </Stack>
+        <RepeatRoundedIcon onClick={p.onRepeat} sx={{ cursor: 'pointer' }} />
       </Stack>
-      <RepeatRoundedIcon onClick={p.onRepeat} sx={{ cursor: 'pointer' }} />
     </Stack>
   )
 }

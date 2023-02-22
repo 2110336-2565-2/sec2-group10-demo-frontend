@@ -24,7 +24,7 @@ jobs:
 
       - name: Set-up Environment
         run: |
-          if [ "$REF" == 'refs/heads/dev' ]
+          if [ '${{ github.ref }}' == 'refs/heads/dev' ]
           then
             cp .env.development .env
           else
