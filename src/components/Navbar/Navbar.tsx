@@ -1,4 +1,4 @@
-import { CheckBox, CloudUpload, Home, QueueMusic } from '@mui/icons-material'
+import { CloudUpload, Home, QueueMusic } from '@mui/icons-material'
 import {
   Avatar,
   Button,
@@ -92,6 +92,18 @@ const Navbar = () => {
             </Typography>
           </Button>
           <Button
+            startIcon={<QueueMusic sx={{ fontSize: '30px !important' }} />}
+            sx={{
+              ...ButtonStyling,
+              height: '30px',
+            }}
+          >
+            <Typography variant="h6" sx={{ textTransform: 'none' }}>
+              Playlist
+            </Typography>
+          </Button>
+          {/* hide upload status */}
+          {/* <Button
             startIcon={<CheckBox sx={{ fontSize: '30px !important' }} />}
             sx={{
               ...ButtonStyling,
@@ -108,8 +120,9 @@ const Navbar = () => {
             >
               {'View\n upload Status'}
             </Typography>
-          </Button>
+          </Button> */}
         </Stack>
+
         <Stack spacing={1.5} mt={'auto !important'}>
           {status === 'authenticated' ? (
             <Stack direction="row" spacing={1} alignItems="center">
