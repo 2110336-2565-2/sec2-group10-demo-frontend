@@ -1,10 +1,11 @@
 import Image from 'next/image'
-import { Button, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
-import Link from 'next/link'
 const MusicStyling = {
+  display: 'flex',
   justifyContent: 'center',
-  color: 'container.main',
+  alignItems: 'center',
+  bgcolor: 'container.light',
   width: '190px',
   height: '266px',
   padding: '8px',
@@ -15,11 +16,14 @@ const MusicStyling = {
 
 const NewPlaylist = () => {
   return (
-    <Button
+    <Box
       sx={{
         ...MusicStyling,
       }}
-      LinkComponent={Link}
+      onClick={() => {
+        // TODO: initial playlist untitled
+        console.log('click')
+      }}
     >
       <Stack spacing={3.5} alignContent="center">
         <Image
@@ -32,7 +36,7 @@ const NewPlaylist = () => {
           Add a new playlist
         </Typography>
       </Stack>
-    </Button>
+    </Box>
   )
 }
 
