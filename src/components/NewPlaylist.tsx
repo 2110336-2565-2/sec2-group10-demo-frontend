@@ -1,25 +1,18 @@
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
-const MusicStyling = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  bgcolor: 'container.light',
-  width: '190px',
-  height: '266px',
-  padding: '8px',
-  gap: '8px',
-  boxShadow: '0px 2px 12px rgba(0, 0, 0, 0.5)',
-  borderRadius: '4px',
-}
 
 const NewPlaylist = () => {
   return (
     <Box
-      sx={{
-        ...MusicStyling,
-      }}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      columnGap={1.5}
+      width="190px"
+      height="266px"
+      borderRadius="4px"
+      boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
       onClick={() => {
         // TODO: initial playlist untitled
         console.log('click')
