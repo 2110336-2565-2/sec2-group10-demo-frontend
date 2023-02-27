@@ -1,4 +1,4 @@
-import { CheckBox, CloudUpload, Home, QueueMusic } from '@mui/icons-material'
+import { CloudUpload, Home, QueueMusic } from '@mui/icons-material'
 import {
   Avatar,
   Button,
@@ -24,15 +24,15 @@ const Navbar = () => {
       anchor="left"
       variant="permanent"
       sx={{
-        width: '290px',
+        width: '240px',
         flexShrink: 0,
       }}
       PaperProps={{
         sx: {
           backgroundColor: 'container.main',
           border: '0px',
-          width: '290px',
-          padding: '24px 32px',
+          width: '240px',
+          padding: '32px 24px',
         },
       }}
     >
@@ -41,13 +41,14 @@ const Navbar = () => {
           {/* Change Typo to Button */}
           <Stack
             direction="row"
-            spacing={3.5}
+            spacing={1.5}
             alignContent="center"
+            alignItems="center"
             pr={2}
             pl={2}
           >
             <Image src={DemoLogo} alt="demo-logo" width={46} height={41} />
-            <Typography variant="h2">DEMO</Typography>
+            <Typography variant="h3">DEMO</Typography>
           </Stack>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
@@ -75,7 +76,7 @@ const Navbar = () => {
           </Button>
         </Stack>
         <Stack spacing={1.5}>
-          <Typography variant="h2">For Artists</Typography>
+          <Typography variant="h3">For Artists</Typography>
           <Divider sx={{ borderBottomWidth: '3px' }} />
         </Stack>
         <Stack spacing={1.5}>
@@ -91,6 +92,18 @@ const Navbar = () => {
             </Typography>
           </Button>
           <Button
+            startIcon={<QueueMusic sx={{ fontSize: '30px !important' }} />}
+            sx={{
+              ...ButtonStyling,
+              height: '30px',
+            }}
+          >
+            <Typography variant="h6" sx={{ textTransform: 'none' }}>
+              Playlist
+            </Typography>
+          </Button>
+          {/* hide upload status */}
+          {/* <Button
             startIcon={<CheckBox sx={{ fontSize: '30px !important' }} />}
             sx={{
               ...ButtonStyling,
@@ -107,8 +120,9 @@ const Navbar = () => {
             >
               {'View\n upload Status'}
             </Typography>
-          </Button>
+          </Button> */}
         </Stack>
+
         <Stack spacing={1.5} mt={'auto !important'}>
           {status === 'authenticated' ? (
             <Stack direction="row" spacing={1} alignItems="center">
