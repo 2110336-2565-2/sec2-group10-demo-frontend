@@ -2,6 +2,7 @@ import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 
 interface Props {
+  id: string
   image: string
   playlistName: string
   creatorName: string
