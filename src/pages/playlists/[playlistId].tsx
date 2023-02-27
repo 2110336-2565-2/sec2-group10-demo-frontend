@@ -33,7 +33,7 @@ const Playlist = () => {
   const playlistId = router.query.playlistId as string
 
   return (
-    <Stack spacing={2} minHeight={'100%'} px={5}>
+    <Stack spacing={2} minHeight={'100%'}>
       <PlaylistTitle
         playlistId={playlistId}
         playlistName={playlistName}
@@ -49,14 +49,7 @@ const Playlist = () => {
         px="16px"
         pb="24px"
         bgcolor={alpha('#000', 0.1)}
-      >
-        {/* <MusicTable /> */}
-        {Array.from({ length: 100 }).map((_, index) => (
-          <Box key={index} py={2}>
-            <Typography variant="h2">Song {index}</Typography>
-          </Box>
-        ))}
-      </Box>
+      ></Box>
     </Stack>
   )
 }
