@@ -9,7 +9,7 @@ const NewPlaylist = () => {
       justifyContent="center"
       alignItems="center"
       columnGap={1.5}
-      bgcolor="contianer.light"
+      bgcolor="container.light"
       width="190px"
       height="266px"
       borderRadius="4px"
