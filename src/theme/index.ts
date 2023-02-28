@@ -85,6 +85,14 @@ const components: Components = {
       },
     },
   },
+  MuiMenu: {
+    styleOverrides: {
+      paper: {
+        backgroundColor: `${palette.container.light} !important`,
+        boxShadow: '-3px 1px 14px rgba(0, 0, 0, 0.5) !important',
+      },
+    },
+  },
 }
 
 const shadows: Shadows = Array(25).fill('none') as Shadows
