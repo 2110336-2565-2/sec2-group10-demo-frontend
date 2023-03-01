@@ -1,3 +1,4 @@
+import createCache from '@emotion/cache'
 import {
   Components,
   createTheme,
@@ -6,7 +7,6 @@ import {
   ThemeOptions,
 } from '@mui/material'
 import { overrideMuiTypography } from './typography'
-import createCache from '@emotion/cache'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -78,9 +78,13 @@ const components: Components = {
     styleOverrides: {
       root: {
         '.MuiInputBase-root': {
+          backgroundColor: 'yellow',
           '&:before': {
             borderBottom: '1px solid #fff',
           },
+        },
+        '& .MuiInputBase-root.Mui-focused': {
+          backgroundColor: 'gray',
         },
       },
     },

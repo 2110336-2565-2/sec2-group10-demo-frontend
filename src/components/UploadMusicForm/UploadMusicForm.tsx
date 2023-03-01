@@ -51,6 +51,8 @@ const UploadMusicForm = () => {
               <TextField
                 variant="outlined"
                 placeholder="Music Name"
+                color="primary"
+                inputProps={{ style: { height: '16px', padding: '8px 12px' } }}
                 {...register('musicName')}
               />
             </Stack>
@@ -59,11 +61,12 @@ const UploadMusicForm = () => {
               <TextField
                 variant="outlined"
                 placeholder="Add an Album"
+                inputProps={{ style: { height: '16px', padding: '8px 12px' } }}
                 {...register('albumName')}
               />
             </Stack>
             <Stack spacing={0.5}>
-              <Typography variant="subtitle1">Select Album*</Typography>
+              <Typography variant="subtitle1">Upload Music*</Typography>
               <Button variant="contained" text="Upload" color="secondary" />
             </Stack>
           </Stack>
