@@ -1,11 +1,14 @@
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
-interface Music {
-  name: string
+export interface Music {
+  id: string
+  title: string
   artist: string
-  coverImage: string
+  album: string
   source: string
+  coverImage: string
+  length: number
 }
 
 const safeIndex = (index: number, length: number) => {
@@ -67,18 +70,25 @@ export const skipPreviousAtom = atom<null, [boolean], void>(
 /**
  * Set playlists and play the first music
  * @param playlists - Array of music
- * @param play - Play the first music or not
+ * @param options - Options
  * @returns
  * @example
  * const [, setPlaylists] = useAtom(setPlaylistsAtom)
- * setPlaylists([music1, music2], true)
- * setPlaylists([music1, music2], false)
+ * setPlaylists(playlists, { playNow: true, startIndex: 0 })
+ * setPlaylists(playlists, { playNow: false, startIndex: 0 })
+ * setPlaylists(playlists, { playNow: true, startIndex: 1 })
  */
-export const setPlaylistsAtom = atom<null, [Music[], boolean], void>(
+interface SetPlaylistsOptions {
+  playNow?: boolean
+  startIndex?: number
+}
+export const setPlaylistsAtom = atom<
   null,
-  (_get, set, playlists, play) => {
-    set(autoPlayAtom, play)
-    set(playlistsAtom, playlists)
-    set(indexAtom, 0)
-  }
-)
+  [Music[], SetPlaylistsOptions],
+  void
+>(null, (_get, set, playlists, options) => {
+  const { playNow = true, startIndex = 0 } = options
+  set(autoPlayAtom, playNow)
+  set(playlistsAtom, playlists)
+  set(indexAtom, startIndex)
+})
