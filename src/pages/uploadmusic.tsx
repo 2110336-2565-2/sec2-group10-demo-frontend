@@ -1,7 +1,7 @@
 import UploadMusicForm from '@/components/UploadMusicForm/UploadMusicForm'
 import { Stack } from '@mui/material'
 
-const PondTest = () => {
+const UploadMusic = () => {
   return (
     <Stack
       justifyContent="center"
@@ -14,4 +14,4 @@ const PondTest = () => {
   )
 }
 
-export default PondTest
+export default UploadMusic
