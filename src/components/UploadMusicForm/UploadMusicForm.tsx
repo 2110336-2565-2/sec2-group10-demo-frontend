@@ -29,17 +29,24 @@ const UploadMusicForm = () => {
         sx={{
           borderRadius: '24px',
           bgcolor: 'container.main',
+          width: '470px',
+          margin: 'auto',
         }}
       >
-        <Stack spacing={'27px'}>
+        <Stack spacing={3.5}>
           <Typography variant="h1" align="center">
             Upload Music
           </Typography>
-          <Stack spacing={2.5} sx={{ alignItems: 'center' }}>
+          <Stack spacing={2.5}>
             <Box
-              sx={{ width: '190px', height: '168px', backgroundColor: 'white' }}
+              sx={{
+                width: '190px',
+                height: '168px',
+                backgroundColor: 'white',
+                margin: 'auto',
+              }}
             />
-            <Stack spacing={0.5} sx={{ width: '390px' }}>
+            <Stack spacing={0.5}>
               <Typography variant="subtitle1">Music Name*</Typography>
               <TextField
                 variant="outlined"
@@ -47,27 +54,24 @@ const UploadMusicForm = () => {
                 {...register('musicName')}
               />
             </Stack>
-            <Stack spacing={0.5} sx={{ width: '390px' }}>
+            <Stack spacing={0.5}>
               <Typography variant="subtitle1">Select Album*</Typography>
               <TextField
                 variant="outlined"
-                type="password"
                 placeholder="Add an Album"
                 {...register('albumName')}
               />
             </Stack>
-            <Stack spacing={0.5} sx={{ width: '390px' }}>
+            <Stack spacing={0.5}>
               <Typography variant="subtitle1">Select Album*</Typography>
               <Button variant="contained" text="Upload" color="secondary" />
             </Stack>
           </Stack>
           <Button
             variant="contained"
-            sx={{ width: '100px', height: '50px' }}
+            text="Submit"
             onClick={handleSubmit(uploadMusic)}
-          >
-            <Typography variant="h6">Submit</Typography>
-          </Button>
+          />
         </Stack>
       </Box>
     </Container>
