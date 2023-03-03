@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['picsum.photos'],
+    unoptimized: true,
+    domains: ['picsum.photos', 'media3.giphy.com'],
   },
 }
 

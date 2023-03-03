@@ -1,8 +1,18 @@
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
+import { createPlaylist } from '@/queries/usePlaylist'
+import { useRouter } from 'next/router'
 
 const NewPlaylist = () => {
+  const router = useRouter()
+
+  const handleCreatePlaylist = async () => {
+    const newItem = await createPlaylist()
+    console.log('create New', newItem)
+    router.push(`/playlists/${newItem._id}`)
+  }
+
   return (
     <Box
       display="flex"
@@ -10,15 +20,13 @@ const NewPlaylist = () => {
       alignItems="center"
       bgcolor="container.light"
       borderRadius="4px"
-      px={'6%'}
       py={'10%'}
-      pb={'20%'}
       width={'100%'}
       height={'100%'}
       boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
-      onClick={() => {
-        // TODO: initial playlist untitled
-        console.log('click')
+      onClick={handleCreatePlaylist}
+      sx={{
+        cursor: 'pointer',
       }}
     >
       <Stack spacing={3.5} alignItems="center" width="100%">

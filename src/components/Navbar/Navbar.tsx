@@ -63,7 +63,7 @@ const Navbar = () => {
               Home
             </Typography>
           </Button>
-          <Button
+          {/* <Button
             startIcon={<QueueMusic sx={{ fontSize: '30px !important' }} />}
             sx={{
               ...ButtonStyling,
@@ -73,7 +73,7 @@ const Navbar = () => {
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
               Playlist
             </Typography>
-          </Button>
+          </Button> */}
         </Stack>
         <Stack spacing={1.5}>
           <Typography variant="h3">For Artists</Typography>
@@ -97,9 +97,11 @@ const Navbar = () => {
               ...ButtonStyling,
               height: '30px',
             }}
+            LinkComponent={Link}
+            href={'/playlists'}
           >
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
-              Playlist
+              My Playlist
             </Typography>
           </Button>
           {/* hide upload status */}
