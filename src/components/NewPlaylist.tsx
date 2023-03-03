@@ -8,25 +8,30 @@ const NewPlaylist = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      columnGap={1.5}
       bgcolor="container.light"
-      width="190px"
-      height="266px"
       borderRadius="4px"
+      px={'6%'}
+      py={'10%'}
+      pb={'20%'}
+      width={'100%'}
+      height={'100%'}
       boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
       onClick={() => {
         // TODO: initial playlist untitled
         console.log('click')
       }}
     >
-      <Stack spacing={3.5} alignContent="center">
-        <Image
-          src={AddPlaylistLogo}
-          alt="addplaylist-icon"
-          width={120}
-          height={120}
-        />
-        <Typography variant="caption" sx={{ color: 'text.primary' }}>
+      <Stack spacing={3.5} alignItems="center" width="100%">
+        <Box
+          sx={{
+            width: '70%',
+            position: 'relative',
+            aspectRatio: '1 / 1',
+          }}
+        >
+          <Image src={AddPlaylistLogo} fill alt="addplaylist-icon" />
+        </Box>
+        <Typography variant="h5" align="center" sx={{ color: 'text.primary' }}>
           Add a new playlist
         </Typography>
       </Stack>
