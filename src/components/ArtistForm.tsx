@@ -1,4 +1,5 @@
 import { Box, Container, Stack, TextField, Typography } from '@mui/material'
+import Button from './Button'
 
 const ArtistForm = () => {
   return (
@@ -12,40 +13,40 @@ const ArtistForm = () => {
           width: '100%',
         }}
       >
-        <Stack spacing={6} justifyContent={'center'}>
-          <Stack
-            direction="row"
-            spacing={2}
-            alignItems="center"
-            justifyContent={'center'}
-          >
-            {/* <Image src={DemoLogo} width={64} height={64} alt="Demo Logo" /> */}
-            <Typography variant="h1">DEMO</Typography>
+        <Stack spacing={3} justifyContent={'center'}>
+          <Stack>
+            <Typography variant="h2">Artist Form</Typography>
           </Stack>
+          <Stack>
+            <Stack spacing={2}>
+              <Stack spacing={0.5}>
+                <Typography variant="subtitle1">Account number *</Typography>
 
-          <Stack spacing={2}>
-            <TextField label="Email *" variant="standard" />
-            <TextField type="password" label="Password *" variant="standard" />
-            <TextField
-              type="password"
-              label="Confirm Password *"
-              variant="standard"
-            />
-          </Stack>
-          <Stack spacing={3}>
-            <Stack
-              direction={'row'}
-              alignItems="center"
-              justifyContent={'center'}
-            >
-              <Typography variant="subtitle2">Have an account?</Typography>
-              {/* <Button
-                textVariant="subtitle2"
-                variant="text"
-                text="LOGIN"
-                LinkComponent={Link}
-                href={'/login'}
-              /> */}
+                <TextField
+                  variant="outlined"
+                  placeholder="Account number"
+                  inputProps={{
+                    style: { height: '16px', padding: '8px 12px' },
+                  }}
+                  sx={{ input: { color: 'secondary' } }}
+                />
+              </Stack>
+              <Stack spacing={0.5}>
+                <Typography variant="subtitle1">Bank *</Typography>
+                <TextField
+                  variant="outlined"
+                  placeholder="Bank"
+                  inputProps={{
+                    style: { height: '16px', padding: '8px 12px' },
+                  }}
+                  sx={{ input: { color: 'secondary' } }}
+                />
+              </Stack>
+              <Button
+                variant="contained"
+                text="Register"
+                style={{ textTransform: 'none' }}
+              />
             </Stack>
           </Stack>
         </Stack>
