@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import DemoLogo from '../../assets/demo-logo.svg'
@@ -19,6 +19,11 @@ const ButtonStyling = {
 
 const Navbar = () => {
   const { data, status } = useSession()
+
+  const handleLogout = async () => {
+    const logout_return = await signOut()
+    console.log('logout', logout_return)
+  }
   return (
     <Drawer
       anchor="left"
@@ -63,7 +68,7 @@ const Navbar = () => {
               Home
             </Typography>
           </Button>
-          <Button
+          {/* <Button
             startIcon={<QueueMusic sx={{ fontSize: '30px !important' }} />}
             sx={{
               ...ButtonStyling,
@@ -73,7 +78,7 @@ const Navbar = () => {
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
               Playlist
             </Typography>
-          </Button>
+          </Button> */}
         </Stack>
         <Stack spacing={1.5}>
           <Typography variant="h3">For Artists</Typography>
@@ -97,9 +102,11 @@ const Navbar = () => {
               ...ButtonStyling,
               height: '30px',
             }}
+            LinkComponent={Link}
+            href={'/playlists'}
           >
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
-              Playlist
+              My Playlist
             </Typography>
           </Button>
           {/* hide upload status */}
@@ -125,16 +132,21 @@ const Navbar = () => {
 
         <Stack spacing={1.5} mt={'auto !important'}>
           {status === 'authenticated' ? (
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Avatar
-                alt="avatar-icon"
-                src={data?.user?.image || undefined}
-                sx={{ width: 30, height: 30 }}
-              />
-              <Typography variant="h5" noWrap>
-                {data?.user?.name}
-              </Typography>
-            </Stack>
+            <>
+              <Button variant="contained" onClick={handleLogout}>
+                Logout
+              </Button>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Avatar
+                  alt="avatar-icon"
+                  src={data?.user?.image || undefined}
+                  sx={{ width: 30, height: 30 }}
+                />
+                <Typography variant="h5" noWrap>
+                  {data?.user?.name}
+                </Typography>
+              </Stack>
+            </>
           ) : (
             <Button
               variant="text"
