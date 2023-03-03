@@ -112,7 +112,7 @@ const MusicPlayer = () => {
             textOverflow={'ellipsis'}
           >
             <Typography variant="h4" noWrap maxWidth="fit-content" zIndex={10}>
-              {music?.name}
+              {music?.title}
             </Typography>
             <Typography
               variant="subtitle2"
@@ -136,7 +136,7 @@ const MusicPlayer = () => {
       </Stack>
       {fullSize.show && (
         <FullSizeContent
-          title={music?.name || ''}
+          title={music?.title || ''}
           artist={music?.artist || ''}
           coverImage={music?.coverImage || ''}
           onClose={() => {
