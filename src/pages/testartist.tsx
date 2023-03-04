@@ -1,15 +1,11 @@
-import ArtistForm from '@/components/ArtistForm'
+import ArtistRegisterForm from '@/components/ArtistRegisterForm'
+
 import { Stack } from '@mui/material'
 
 const testartist = () => {
   return (
-    <Stack
-      justifyContent="center"
-      alignItems="center"
-      width="100%"
-      height="100%"
-    >
-      <ArtistForm />
+    <Stack>
+      <ArtistRegisterForm show />
     </Stack>
   )
 }
