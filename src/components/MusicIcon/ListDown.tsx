@@ -2,8 +2,19 @@ import { Menu, MenuItem, Fade, Stack } from '@mui/material'
 import { usePlaylists } from '@/queries/usePlaylist'
 import { MouseEvent, useState } from 'react'
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded'
+import * as React from 'react'
+import { http } from '@/services/apiAxios'
 
-export default function ListDown() {
+interface addMusicToPlaylistProp {
+  playlistID: string
+  musicID: string
+}
+
+interface Props {
+  inputMusicID: string
+}
+
+const ListDown = ({ inputMusicID }: Props) => {
   const playlists = usePlaylists()
   const [anchorElPlaylist, setAnchorElPlaylist] = useState<null | HTMLElement>(
     null
@@ -18,10 +29,21 @@ export default function ListDown() {
     setAnchorElPlaylist(null)
   }
 
-  const DoSomethingHandler = () => {
-    console.log('hello')
-    console.log(playlists)
-    // TODO: add to playlist API
+  const addMusicToPlaylist = async ({
+    playlistID,
+    musicID,
+  }: addMusicToPlaylistProp) => {
+    console.log('/users/playlists/' + playlistID + '/musics')
+    http
+      .post('/users/playlists/' + playlistID + '/musics', {
+        musicIds: [musicID],
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -60,7 +82,10 @@ export default function ListDown() {
             key={playlist._id}
             onClick={() => {
               handleClosePlaylist()
-              DoSomethingHandler()
+              addMusicToPlaylist({
+                playlistID: playlist._id,
+                musicID: inputMusicID,
+              })
             }}
           >
             {playlist.name}
@@ -70,3 +95,5 @@ export default function ListDown() {
     </div>
   )
 }
+
+export default ListDown

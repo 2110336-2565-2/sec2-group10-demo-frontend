@@ -3,8 +3,11 @@ import * as React from 'react'
 import { IconButton, Menu, MenuItem, Fade } from '@mui/material'
 
 import ListDown from '@/components/MusicIcon/ListDown'
+interface Props {
+  musicID: string
+}
 
-export default function LongMenu() {
+const LongMenu = ({ musicID }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,8 +42,11 @@ export default function LongMenu() {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>Love</MenuItem>
-        <ListDown />
+
+        <ListDown inputMusicID={musicID} />
       </Menu>
     </div>
   )
 }
+
+export default LongMenu
