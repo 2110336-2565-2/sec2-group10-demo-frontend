@@ -23,8 +23,10 @@ export default function LongMenu() {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
+        size="small"
+        sx={{ p: 0 }}
       >
-        <MoreVertIcon color="secondary" />
+        <MoreVertIcon sx={{ color: 'text.primary' }} />
       </IconButton>
       <Menu
         id="fade-menu"
@@ -37,7 +39,6 @@ export default function LongMenu() {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>Love</MenuItem>
-
         <ListDown />
       </Menu>
     </div>

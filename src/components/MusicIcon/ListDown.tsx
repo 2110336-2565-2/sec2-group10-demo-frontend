@@ -1,15 +1,18 @@
-import * as React from 'react'
-import { Menu, MenuItem, Fade } from '@mui/material'
-import { http } from '@/services/apiAxios'
+import { Menu, MenuItem, Fade, Stack } from '@mui/material'
 import { usePlaylists } from '@/queries/usePlaylist'
+import { MouseEvent, useState } from 'react'
+import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded'
 
 export default function ListDown() {
   const playlists = usePlaylists()
-  const [anchorElPlaylist, setAnchorElPlaylist] =
-    React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorElPlaylist)
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const [anchorElPlaylist, setAnchorElPlaylist] = useState<null | HTMLElement>(
+    null
+  )
+  const [menuOnLeft, setMenuOnLeft] = useState(false)
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorElPlaylist(event.currentTarget)
+    const displayLeft = window.innerWidth - event.clientX < 200
+    setMenuOnLeft(displayLeft)
   }
   const handleClosePlaylist = () => {
     setAnchorElPlaylist(null)
@@ -21,25 +24,17 @@ export default function ListDown() {
     // TODO: add to playlist API
   }
 
-  const ListAllPlaylist = async () => {
-    http.get('/users/playlists/all').then(
-      (response) => {
-        console.log(response)
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
-  }
   return (
     <div>
-      <MenuItem
-        onClick={(e) => {
-          ListAllPlaylist()
-          handleClick(e)
-        }}
-      >
-        Add to playlist
+      <MenuItem onClick={handleClick}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          Add to playlist
+          <ArrowRightRoundedIcon />
+        </Stack>
       </MenuItem>
 
       <Menu
@@ -47,10 +42,16 @@ export default function ListDown() {
         MenuListProps={{
           'aria-labelledby': 'fade-button',
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{
+          horizontal: menuOnLeft ? 'left' : 'right',
+          vertical: 'bottom',
+        }}
+        transformOrigin={{
+          horizontal: !menuOnLeft ? 'left' : 'right',
+          vertical: 'center',
+        }}
         anchorEl={anchorElPlaylist}
-        open={open}
+        open={!!anchorElPlaylist}
         onClose={handleClosePlaylist}
         TransitionComponent={Fade}
       >

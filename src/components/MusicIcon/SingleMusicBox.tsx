@@ -1,16 +1,16 @@
 import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 import LongMenu from '@/components/MusicIcon/LongMenu'
-import { setPlaylistsAtom } from '@/stores/musicPlayerStore'
+import { Music, setPlaylistsAtom } from '@/stores/musicPlayerStore'
 import { useAtom } from 'jotai'
 
 interface Props {
-  music: any
+  music: Music
 }
 
 const SingleMusicBox = ({ music }: Props) => {
   const [, setPlaylists] = useAtom(setPlaylistsAtom)
-  const MusicHandler = () => {
+  const playMusic = () => {
     setPlaylists([music], {})
   }
 
@@ -22,14 +22,9 @@ const SingleMusicBox = ({ music }: Props) => {
       boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
       sx={{
         borderRadius: '4px',
-        position: 'relative',
         bgcolor: 'container.light',
-        zIndex: 'relative',
       }}
-      style={{ zIndex: 1 }}
-      onClick={() => {
-        MusicHandler()
-      }}
+      onClick={playMusic}
     >
       <Stack spacing={3} justifyContent={'center'}>
         <Box
@@ -44,23 +39,22 @@ const SingleMusicBox = ({ music }: Props) => {
             style={{
               borderRadius: '4px',
             }}
-            alt="mock image"
+            alt="music-cover-image"
           />
         </Box>
-        <Stack spacing={0.5}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="baseline"
+        <Stack spacing={0.5} position="relative">
+          <Box
+            position="absolute"
+            top={0}
+            right={0}
+            onClick={(e) => e.stopPropagation()}
           >
-            <Typography noWrap variant="h5">
-              {music.name}
-            </Typography>
-            <Box style={{ zIndex: 2 }} sx={{ zIndex: 'absolute' }}>
-              <LongMenu />
-            </Box>
-          </Stack>
-          <Typography noWrap variant="body1" color="text.secondary">
+            <LongMenu />
+          </Box>
+          <Typography noWrap variant="h5" pr={2.5}>
+            {music.title}
+          </Typography>
+          <Typography noWrap variant="body1" color="text.secondary" pr={2.5}>
             {music.artist}
           </Typography>
         </Stack>
