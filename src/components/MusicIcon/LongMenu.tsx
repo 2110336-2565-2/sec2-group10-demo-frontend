@@ -1,6 +1,6 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import * as React from 'react'
-import { IconButton, Menu, MenuItem, Fade } from '@mui/material'
+import { IconButton, Menu, MenuItem, Fade, Typography } from '@mui/material'
 
 import ListDown from '@/components/MusicIcon/ListDown'
 interface Props {
@@ -41,7 +41,11 @@ const LongMenu = ({ musicID }: Props) => {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Love</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Typography noWrap variant="subtitle1">
+            Love
+          </Typography>
+        </MenuItem>
 
         <ListDown inputMusicID={musicID} />
       </Menu>

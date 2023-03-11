@@ -1,9 +1,19 @@
-import { Menu, MenuItem, Fade, Stack } from '@mui/material'
+import {
+  Menu,
+  MenuItem,
+  Fade,
+  Stack,
+  Alert,
+  Typography,
+  IconButton,
+} from '@mui/material'
 import { usePlaylists } from '@/queries/usePlaylist'
 import { MouseEvent, useState } from 'react'
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded'
 import * as React from 'react'
 import { http } from '@/services/apiAxios'
+import { useSession } from 'next-auth/react'
+import CloseIcon from '@mui/icons-material/Close'
 
 interface addMusicToPlaylistProp {
   playlistID: string
@@ -46,6 +56,8 @@ const ListDown = ({ inputMusicID }: Props) => {
       })
   }
 
+  const loginStatus = useSession()
+
   return (
     <div>
       <MenuItem onClick={handleClick}>
@@ -54,44 +66,92 @@ const ListDown = ({ inputMusicID }: Props) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          Add to playlist
+          <Typography noWrap variant="subtitle1">
+            Add to playlist
+          </Typography>
+
           <ArrowRightRoundedIcon />
         </Stack>
       </MenuItem>
 
-      <Menu
-        id="fade-menu"
-        MenuListProps={{
-          'aria-labelledby': 'fade-button',
-        }}
-        anchorOrigin={{
-          horizontal: menuOnLeft ? 'left' : 'right',
-          vertical: 'bottom',
-        }}
-        transformOrigin={{
-          horizontal: !menuOnLeft ? 'left' : 'right',
-          vertical: 'center',
-        }}
-        anchorEl={anchorElPlaylist}
-        open={!!anchorElPlaylist}
-        onClose={handleClosePlaylist}
-        TransitionComponent={Fade}
-      >
-        {playlists?.map((playlist) => (
-          <MenuItem
-            key={playlist._id}
-            onClick={() => {
-              handleClosePlaylist()
-              addMusicToPlaylist({
-                playlistID: playlist._id,
-                musicID: inputMusicID,
-              })
+      {loginStatus.status === 'authenticated' ? (
+        <>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              'aria-labelledby': 'fade-button',
             }}
+            anchorOrigin={{
+              horizontal: menuOnLeft ? 'left' : 'right',
+              vertical: 'bottom',
+            }}
+            transformOrigin={{
+              horizontal: !menuOnLeft ? 'left' : 'right',
+              vertical: 'center',
+            }}
+            anchorEl={anchorElPlaylist}
+            open={!!anchorElPlaylist}
+            onClose={handleClosePlaylist}
+            TransitionComponent={Fade}
           >
-            {playlist.name}
-          </MenuItem>
-        ))}
-      </Menu>
+            {playlists?.map((playlist) => (
+              <MenuItem
+                key={playlist._id}
+                onClick={() => {
+                  handleClosePlaylist()
+                  addMusicToPlaylist({
+                    playlistID: playlist._id,
+                    musicID: inputMusicID,
+                  })
+                }}
+              >
+                {playlist.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+      ) : (
+        <Menu
+          style={{ height: '100%', width: '100%' }}
+          id="fade-menu"
+          MenuListProps={{
+            'aria-labelledby': 'fade-button',
+          }}
+          anchorOrigin={{
+            horizontal: menuOnLeft ? 'left' : 'right',
+            vertical: 'bottom',
+          }}
+          transformOrigin={{
+            horizontal: !menuOnLeft ? 'left' : 'right',
+            vertical: 'center',
+          }}
+          anchorEl={anchorElPlaylist}
+          open={!!anchorElPlaylist}
+          onClose={handleClosePlaylist}
+          TransitionComponent={Fade}
+        >
+          <Alert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  handleClosePlaylist()
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            style={{ height: '100%', width: '100%' }}
+          >
+            <Typography noWrap variant="subtitle1">
+              Please log in to use playlists
+            </Typography>
+          </Alert>
+        </Menu>
+      )}
     </div>
   )
 }
