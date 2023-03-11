@@ -8,6 +8,11 @@ interface PlaylistResponse {
   coverImage: string
 }
 
+interface PlaylistCreate {
+  name: string
+  coverImage: string
+}
+
 const getPlaylists = () => {
   return http.get<PlaylistResponse[]>('users/playlists/all')
 }
@@ -22,11 +27,10 @@ const usePlaylists = () => {
   return playlists
 }
 
-const createPlaylist = async () => {
+const createPlaylist = async ({ name, coverImage }: PlaylistCreate) => {
   return await http.post<PlaylistResponse>('/users/playlists', {
-    name: 'My playlist',
-    coverImage:
-      'https://media4.giphy.com/media/oFI7FttD0iC8V2Iqmy/200.webp?cid=ecf05e473ikrev2dhowy4c19im8uv2nyp4m3qk9w6jinyw56&rid=200.webp&ct=g',
+    name: name,
+    coverImage: coverImage,
   })
 }
 

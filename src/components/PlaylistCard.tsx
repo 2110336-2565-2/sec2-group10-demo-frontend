@@ -9,6 +9,11 @@ interface Props {
   creatorName: string
 }
 const PlaylistCard = (props: Props) => {
+  const coverImage = props.image
+    ? props.image
+    : 'https://i.ibb.co/k61nhmb/playlist-default-image.jpg'
+  const creatorName = props.creatorName ? props.creatorName : 'Anonymous'
+
   return (
     <Link
       href={`/playlists/${props.id}`}
@@ -33,11 +38,7 @@ const PlaylistCard = (props: Props) => {
             }}
           >
             <Image
-              src={
-                props.image
-                  ? props.image
-                  : 'https://media3.giphy.com/media/3MC2ZFkYPmx8c/200w.webp?cid=ecf05e4772tut4l5xknorgs0vw1u0x4clda9wuqyx3jmmzpn&rid=200w.webp&ct=g'
-              }
+              src={coverImage}
               fill
               style={{
                 borderRadius: '4px',
@@ -50,7 +51,7 @@ const PlaylistCard = (props: Props) => {
               {props.playlistName}
             </Typography>
             <Typography noWrap variant="body1" color="text.secondary">
-              {props.creatorName ? props.creatorName : 'Anonymous'}
+              {creatorName}
             </Typography>
           </Stack>
         </Stack>

@@ -8,7 +8,11 @@ const NewPlaylist = () => {
   const router = useRouter()
 
   const handleCreatePlaylist = async () => {
-    const newItem = await createPlaylist()
+    const defaultItem = {
+      name: 'MyPlaylist',
+      coverImage: 'https://i.ibb.co/k61nhmb/playlist-default-image.jpg',
+    }
+    const newItem = await createPlaylist(defaultItem)
     console.log('create New', newItem)
     router.push(`/playlists/${newItem._id}`)
   }
