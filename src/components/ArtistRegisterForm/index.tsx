@@ -4,14 +4,20 @@ import { InputBox } from '../PremiumRegisterForm'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { formatBankAccount, validateBankAccount } from './utils'
 interface ArtistRegisterFormProps {
   show: boolean
   onClose?: () => void
 }
-const artistRegisterSchema = z.object({
-  accountNumber: z.string(),
-  bank: z.string().min(1),
-})
+const artistRegisterSchema = z
+  .object({
+    accountNumber: z.string(),
+    bank: z.string().min(1),
+  })
+  .refine((data) => validateBankAccount(data.accountNumber), {
+    message: 'Invalid account number',
+    path: ['accountNumber'],
+  })
 type ArtistRegisterFormValues = z.infer<typeof artistRegisterSchema>
 const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
   const { register, handleSubmit, formState } =
@@ -47,8 +53,9 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
             placeholder="Account number"
             {...register('accountNumber')}
             error={!!formState.errors.accountNumber}
+            transform={(value) => formatBankAccount(value)}
             helperText={
-              formState.errors.accountNumber && 'accountNumber is required'
+              formState.errors.accountNumber && 'Invalid account number'
             }
           />
 
