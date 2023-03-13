@@ -2,11 +2,13 @@ import { Box, Typography, Stack, Divider } from '@mui/material'
 import EditableTypography from '@/components/EditableTypography'
 import EditableImage from '@/components/EditableImage'
 import Button from '@/components/Button'
-import { usePlaylists } from '@/queries/getplaylist'
+import { usePlaylists } from '@/queries/usePlaylist'
 // import karn
 import { useShow } from '@/hooks/useShow'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import PremiumRegisterForm from '@/components/PremiumRegisterForm'
+import { useUserProfile } from '@/queries/useProfile'
 
 const ButtonStyling = {
   width: '261px',
@@ -14,6 +16,8 @@ const ButtonStyling = {
   textTransform: 'none',
 }
 const UpgradeAccount = () => {
+  const upgradeToPremium = useShow()
+  // const upgradeToArtist = useShow()
   return (
     <Box
       width="100%"
@@ -39,6 +43,11 @@ const UpgradeAccount = () => {
               text="Upgrade to Premium"
               variant="contained"
               textVariant="h5"
+              onClick={upgradeToPremium.onShow}
+            />
+            <PremiumRegisterForm
+              show={upgradeToPremium.show}
+              onClose={upgradeToPremium.onClose}
             />
           </Stack>
           <Stack
@@ -62,8 +71,6 @@ const UpgradeAccount = () => {
 
 // TODO: delete mock data
 const profileName = 'Username'
-const numberOfFollowers = 10
-const numberOfFollowing = 10
 const profileImage = 'https://picsum.photos/200/400'
 
 interface EditProfile {
@@ -170,7 +177,10 @@ const ProfileTitle = ({
 
 const Profile = () => {
   const playLists = usePlaylists()
-  const numberOfPublicPlaylists = playLists.length
+  const userProfile = useUserProfile()
+  const numberOfPublicPlaylists = playLists?.length
+  const numberOfFollowers = userProfile?.followerCount
+  const numberOfFollowing = userProfile?.followingCount
   return (
     <Stack
       justifyContent="flex-start"
@@ -181,9 +191,9 @@ const Profile = () => {
     >
       <ProfileTitle
         profileName={profileName}
-        numberOfPublicPlaylists={numberOfPublicPlaylists}
-        numberOfFollowers={numberOfFollowers}
-        numberOfFollowing={numberOfFollowing}
+        numberOfPublicPlaylists={numberOfPublicPlaylists || 0}
+        numberOfFollowers={numberOfFollowers || 0}
+        numberOfFollowing={numberOfFollowing || 0}
         profileImageUrl={profileImage}
       />
       <UpgradeAccount />
