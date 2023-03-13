@@ -80,10 +80,6 @@ const UpgradeAccount = () => {
   )
 }
 
-// TODO: delete mock data
-const profileName = 'Username'
-const profileImage = 'https://picsum.photos/200/400'
-
 interface EditProfile {
   name: string
   profileImage: File
