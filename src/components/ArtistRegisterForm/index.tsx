@@ -5,6 +5,9 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { formatBankAccount, validateBankAccount } from './utils'
+import { http } from '@/services/apiAxios'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 interface ArtistRegisterFormProps {
   show: boolean
   onClose?: () => void
@@ -19,17 +22,33 @@ const artistRegisterSchema = z
     path: ['accountNumber'],
   })
 type ArtistRegisterFormValues = z.infer<typeof artistRegisterSchema>
+
 const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
   const { register, handleSubmit, formState } =
     useForm<ArtistRegisterFormValues>({
       mode: 'onChange',
       resolver: zodResolver(artistRegisterSchema),
     })
-
-  const onSubmit = handleSubmit((data) => {
+  const router = useRouter()
+  const onSubmit = handleSubmit(async (data) => {
     // TODO: call premium user api
-    console.log(data)
+    const sendData = {
+      accountNumber: data.accountNumber,
+      bankName: data.bank,
+    }
+    await http
+      .put('/users/role/artist', sendData)
+      .then(() => {
+        router.push('/home')
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          alert(e.response?.data.message)
+          console.log(e)
+        }
+      })
   })
+
   return (
     <Dialog
       open={show}
