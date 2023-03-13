@@ -3,16 +3,18 @@ import { Box, Container, Stack, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Button from '../Button'
+import EditableImage from '../EditableImage'
 
 const MusicSchema = z.object({
   musicName: z.string(),
   albumName: z.string(),
+  musicCover: z.instanceof(File),
 })
 
 type Music = z.infer<typeof MusicSchema>
 
 const UploadMusicForm = () => {
-  const { register, handleSubmit } = useForm<Music>({
+  const { register, handleSubmit, control } = useForm<Music>({
     resolver: zodResolver(MusicSchema),
     mode: 'onSubmit',
   })
@@ -42,10 +44,20 @@ const UploadMusicForm = () => {
               sx={{
                 width: '190px',
                 height: '168px',
-                backgroundColor: 'white',
                 margin: 'auto',
               }}
-            />
+            >
+              <EditableImage
+                src={
+                  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNUSJvzHwAD8wIj6JICsAAAAABJRU5ErkJggg=='
+                }
+                alt="playlist-cover-image"
+                width={190}
+                height={168}
+                name="musicCover"
+                control={control}
+              />
+            </Box>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Add a Music Name*</Typography>
               <TextField
