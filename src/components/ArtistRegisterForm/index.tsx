@@ -39,7 +39,7 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
     await http
       .put('/users/role/artist', sendData)
       .then(() => {
-        router.push('/home')
+        router.push('/profile')
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {
@@ -47,6 +47,7 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
           console.log(e)
         }
       })
+    onClose?.()
   })
 
   return (

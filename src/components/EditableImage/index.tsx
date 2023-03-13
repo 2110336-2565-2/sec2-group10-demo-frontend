@@ -19,6 +19,7 @@ interface EditableImageProps<F extends FieldValues> {
   enable?: boolean
   name: Path<F>
   control: Control<F>
+  borderRadius?: string
 }
 
 const EditableImage = <F extends FieldValues>({
@@ -29,6 +30,7 @@ const EditableImage = <F extends FieldValues>({
   enable,
   name,
   control,
+  borderRadius,
 }: EditableImageProps<F>) => {
   const { field } = useController({
     name,
@@ -70,7 +72,7 @@ const EditableImage = <F extends FieldValues>({
         fill
         sizes="100%"
         priority
-        style={{ objectFit: 'cover' }}
+        style={{ objectFit: 'cover', borderRadius }}
       />
       <Stack
         zIndex={1}
@@ -86,6 +88,7 @@ const EditableImage = <F extends FieldValues>({
         onClick={() => {
           uploadInputRef.current?.click()
         }}
+        borderRadius={borderRadius}
       >
         <input
           type="file"

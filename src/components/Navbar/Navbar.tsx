@@ -10,6 +10,7 @@ import {
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import DemoLogo from '../../assets/demo-logo.svg'
 const ButtonStyling = {
   justifyContent: 'left',
@@ -19,10 +20,11 @@ const ButtonStyling = {
 
 const Navbar = () => {
   const { data, status } = useSession()
-
+  const router = useRouter()
   const handleLogout = async () => {
-    const logout_return = await signOut()
+    const logout_return = await signOut({ redirect: false })
     console.log('logout', logout_return)
+    router.push('/login')
   }
   return (
     <Drawer
@@ -136,7 +138,14 @@ const Navbar = () => {
               <Button variant="contained" onClick={handleLogout}>
                 Logout
               </Button>
-              <Stack direction="row" spacing={1} alignItems="center">
+              <Stack
+                direction="row"
+                spacing={1}
+                alignItems="center"
+                onClick={() => {
+                  router.push('/profile')
+                }}
+              >
                 <Avatar
                   alt="avatar-icon"
                   src={data?.user?.image || undefined}
