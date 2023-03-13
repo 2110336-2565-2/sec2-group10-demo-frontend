@@ -120,7 +120,7 @@ interface TransformProps {
   transform?: (value: string) => string
 }
 
-const InputBox = forwardRef(
+export const InputBox = forwardRef(
   (
     {
       label,
