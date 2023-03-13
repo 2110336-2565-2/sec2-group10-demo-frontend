@@ -23,6 +23,7 @@ const SingleMusicBox = ({ music }: Props) => {
       sx={{
         borderRadius: '4px',
         bgcolor: 'container.light',
+        cursor: 'pointer',
       }}
       onClick={playMusic}
     >
