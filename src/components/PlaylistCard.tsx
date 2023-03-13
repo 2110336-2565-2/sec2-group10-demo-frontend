@@ -1,3 +1,4 @@
+import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,9 +10,7 @@ interface Props {
   creatorName: string
 }
 const PlaylistCard = (props: Props) => {
-  const coverImage = props.image
-    ? props.image
-    : 'https://i.ibb.co/k61nhmb/playlist-default-image.jpg'
+  const coverImage = props.image ? props.image : DEFAULT_COVER_IMAGE
   const creatorName = props.creatorName ? props.creatorName : 'Anonymous'
 
   return (

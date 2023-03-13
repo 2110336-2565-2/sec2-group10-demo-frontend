@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
 import { createPlaylist } from '@/queries/usePlaylist'
 import { useRouter } from 'next/router'
+import { DEFAULT_COVER_IMAGE } from '@/constants'
 
 const NewPlaylist = () => {
   const router = useRouter()
@@ -10,7 +11,7 @@ const NewPlaylist = () => {
   const handleCreatePlaylist = async () => {
     const defaultItem = {
       name: 'MyPlaylist',
-      coverImage: 'https://i.ibb.co/k61nhmb/playlist-default-image.jpg',
+      coverImage: DEFAULT_COVER_IMAGE,
     }
     const newItem = await createPlaylist(defaultItem)
     console.log('create New', newItem)
