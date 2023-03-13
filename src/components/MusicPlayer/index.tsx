@@ -24,7 +24,7 @@ const MusicPlayer = () => {
   const [, skipNext] = useAtom(skipNextAtom)
   const [, skipPrevious] = useAtom(skipPreviousAtom)
   const [autoPlay, setAutoPlay] = useAtom(autoPlayAtom)
-  const musicSource = music?.source || (null as unknown as string)
+  const musicSource = music?.url || (null as unknown as string)
   const [play, { pause, duration, sound, stop }] = useSound(musicSource, {
     volume: volume / 100,
     onend: () => {
@@ -112,7 +112,7 @@ const MusicPlayer = () => {
             textOverflow={'ellipsis'}
           >
             <Typography variant="h4" noWrap maxWidth="fit-content" zIndex={10}>
-              {music?.title}
+              {music?.name}
             </Typography>
             <Typography
               variant="subtitle2"
@@ -120,7 +120,7 @@ const MusicPlayer = () => {
               maxWidth="fit-content"
               zIndex={10}
             >
-              {music?.artist}
+              {music?.ownerName}
             </Typography>
           </Stack>
           <MusicControl
@@ -136,8 +136,8 @@ const MusicPlayer = () => {
       </Stack>
       {fullSize.show && (
         <FullSizeContent
-          title={music?.title || ''}
-          artist={music?.artist || ''}
+          title={music?.name || ''}
+          artist={music?.ownerName || ''}
           coverImage={music?.coverImage || ''}
           onClose={() => {
             fullSize.onClose()

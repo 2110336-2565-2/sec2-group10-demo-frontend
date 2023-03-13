@@ -2,6 +2,8 @@ import { http } from '@/services/apiAxios'
 import { useState, useEffect } from 'react'
 
 interface ProfileResponse {
+  username: string
+  profilePicture: string
   followerCount: number
   followingCount: number
   playlistCount: number

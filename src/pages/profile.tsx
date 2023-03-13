@@ -188,6 +188,7 @@ const Profile = () => {
   const numberOfPublicPlaylists = playLists?.length
   const numberOfFollowers = userProfile?.followerCount
   const numberOfFollowing = userProfile?.followingCount
+
   return (
     <Stack
       justifyContent="flex-start"
@@ -197,11 +198,11 @@ const Profile = () => {
       spacing={2.5}
     >
       <ProfileTitle
-        profileName={profileName}
+        profileName={userProfile?.username || ''}
         numberOfPublicPlaylists={numberOfPublicPlaylists || 0}
         numberOfFollowers={numberOfFollowers || 0}
         numberOfFollowing={numberOfFollowing || 0}
-        profileImageUrl={profileImage}
+        profileImageUrl={userProfile?.profilePicture || ''}
       />
       <UpgradeAccount />
     </Stack>

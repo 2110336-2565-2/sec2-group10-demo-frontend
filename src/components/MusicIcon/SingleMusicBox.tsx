@@ -50,13 +50,13 @@ const SingleMusicBox = ({ music }: Props) => {
             right={0}
             onClick={(e) => e.stopPropagation()}
           >
-            <LongMenu musicID={music.id} />
+            <LongMenu musicID={music.musicId} />
           </Box>
           <Typography noWrap variant="h5" pr={2.5}>
-            {music.title}
+            {music.name}
           </Typography>
           <Typography noWrap variant="body1" color="text.secondary" pr={2.5}>
-            {music.artist}
+            {music.ownerName}
           </Typography>
         </Stack>
       </Stack>

@@ -1,3 +1,5 @@
+import ConfirmDialog from '@/components/ConfirmDialog'
+
 export default function Home() {
-  return <>Demo krub</>
+  return <ConfirmDialog open={true} />
 }
