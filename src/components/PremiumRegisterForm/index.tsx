@@ -58,7 +58,7 @@ const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
     await http
       .put('/users/role/premium', sendData)
       .then(() => {
-        router.push('/home')
+        router.push('/profile')
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {

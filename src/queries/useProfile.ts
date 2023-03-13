@@ -7,6 +7,20 @@ interface ProfileResponse {
   playlistCount: number
 }
 
+const getRoleProfile = () => {
+  return http.get<[]>('/users/role')
+}
+
+const useRoleProfile = () => {
+  const [role, setRole] = useState<[]>()
+
+  useEffect(() => {
+    getRoleProfile().then(setRole).catch(console.log)
+  }, [])
+
+  return role
+}
+
 const getUserProfile = () => {
   return http.get<ProfileResponse>('users/profile')
 }
@@ -21,4 +35,4 @@ const useUserProfile = () => {
   return profile
 }
 
-export { getUserProfile, useUserProfile }
+export { getUserProfile, useUserProfile, getRoleProfile, useRoleProfile }

@@ -22,8 +22,9 @@ const Navbar = () => {
   const { data, status } = useSession()
   const router = useRouter()
   const handleLogout = async () => {
-    const logout_return = await signOut()
+    const logout_return = await signOut({ redirect: false })
     console.log('logout', logout_return)
+    router.push('/login')
   }
   return (
     <Drawer

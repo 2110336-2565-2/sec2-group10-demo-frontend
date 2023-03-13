@@ -4,12 +4,13 @@ import EditableImage from '@/components/EditableImage'
 import Button from '@/components/Button'
 import { usePlaylists } from '@/queries/usePlaylist'
 // import karn
+import { useRoleProfile } from '@/queries/useProfile'
 import { useShow } from '@/hooks/useShow'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import PremiumRegisterForm from '@/components/PremiumRegisterForm'
 import { useUserProfile } from '@/queries/useProfile'
-
+import ArtistRegisterForm from '@/components/ArtistRegisterForm'
 const ButtonStyling = {
   width: '261px',
   height: '44px',
@@ -17,7 +18,10 @@ const ButtonStyling = {
 }
 const UpgradeAccount = () => {
   const upgradeToPremium = useShow()
-  // const upgradeToArtist = useShow()
+  const upgradeToArtist = useShow()
+  const userRole = useRoleProfile()
+  const isPremium = (userRole as any)?.includes('premium')
+  const isArtist = (userRole as any)?.includes('artist')
   return (
     <Box
       width="100%"
@@ -44,6 +48,7 @@ const UpgradeAccount = () => {
               variant="contained"
               textVariant="h5"
               onClick={upgradeToPremium.onShow}
+              disabled={isPremium}
             />
             <PremiumRegisterForm
               show={upgradeToPremium.show}
@@ -61,6 +66,12 @@ const UpgradeAccount = () => {
               variant="contained"
               textVariant="h5"
               text="Register"
+              onClick={upgradeToArtist.onShow}
+              disabled={isArtist}
+            />
+            <ArtistRegisterForm
+              show={upgradeToArtist.show}
+              onClose={upgradeToArtist.onClose}
             />
           </Stack>
         </Stack>
