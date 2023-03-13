@@ -1,12 +1,12 @@
+import createCache from '@emotion/cache'
 import {
+  alpha,
   Components,
   createTheme,
-  PaletteOptions,
   Shadows,
   ThemeOptions,
 } from '@mui/material'
 import { overrideMuiTypography } from './typography'
-import createCache from '@emotion/cache'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -29,8 +29,8 @@ declare module '@mui/material/styles' {
   }
 }
 
-const palette: PaletteOptions = {
-  mode: 'light',
+const palette = {
+  mode: 'light' as const,
   primary: {
     main: '#3f3fe4',
     light: '#6565e9',
@@ -81,6 +81,15 @@ const components: Components = {
           '&:before': {
             borderBottom: '1px solid #fff',
           },
+        },
+        '.MuiOutlinedInput-root': {
+          backgroundColor: alpha('#FFFFFF', 0.16),
+          '&.Mui-focused fieldset': {
+            borderColor: alpha('#FFFFFF', 0.16),
+          },
+        },
+        '& .MuiOutlinedInput-root.Mui-focused': {
+          backgroundColor: alpha('#FFFFFF', 0.04),
         },
       },
     },

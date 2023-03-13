@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
-import { createPlaylist } from '@/queries/usePlaylist'
-import { useRouter } from 'next/router'
 import { DEFAULT_COVER_IMAGE } from '@/constants'
+import { createPlaylist } from '@/queries/usePlaylist'
+import { Box, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const NewPlaylist = () => {
   const router = useRouter()
