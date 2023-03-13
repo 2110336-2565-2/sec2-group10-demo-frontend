@@ -1,0 +1,28 @@
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  overflow: 'auto'
+}
+
+
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background-color: #4343cc;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6565e9;
+  border: 0;
+} 
+

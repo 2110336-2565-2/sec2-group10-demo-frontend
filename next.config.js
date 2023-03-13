@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  reactStrictMode: true,
+  images: {
+    domains: ['storage.googleapis.com', 'picsum.photos', 'media4.giphy.com', 'ibb.co', 'i.ibb.co'],
   },
 }
 
