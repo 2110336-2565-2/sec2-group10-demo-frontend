@@ -15,11 +15,13 @@ const TestHome = () => {
           <Grid key={randomMusic.musicId} {...{ xs: 6, sm: 4, md: 3, lg: 2 }}>
             <SingleMusicBox
               music={{
-                musicId: randomMusic.musicId,
-                name: randomMusic.name,
+                id: randomMusic.musicId,
+                title: randomMusic.name,
                 artist: randomMusic.ownerName,
-                coverImage: randomMusic.coverImage,
+                album: randomMusic.albumName,
                 source: randomMusic.url,
+                coverImage: randomMusic.coverImage,
+                length: randomMusic.duration,
               }}
             />
           </Grid>

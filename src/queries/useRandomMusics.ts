@@ -3,9 +3,13 @@ import { useEffect, useState } from 'react'
 
 interface RandomMusicResponse {
   name: string
+  albumId: string
   coverImage: string
   url: string
+  ownerId: string
+  duration: number
   musicId: string
+  albumName: string
   ownerName: string
 }
 

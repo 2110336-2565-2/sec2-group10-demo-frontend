@@ -1,11 +1,11 @@
 import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 import LongMenu from '@/components/MusicIcon/LongMenu'
-import { setPlaylistsAtom } from '@/stores/musicPlayerStore'
+import { setPlaylistsAtom, Music } from '@/stores/musicPlayerStore'
 import { useAtom } from 'jotai'
 
 interface Props {
-  music: any
+  music: Music
 }
 
 const SingleMusicBox = ({ music }: Props) => {
@@ -49,10 +49,10 @@ const SingleMusicBox = ({ music }: Props) => {
             right={0}
             onClick={(e) => e.stopPropagation()}
           >
-            <LongMenu musicID={music.musicId} />
+            <LongMenu musicID={music.id} />
           </Box>
           <Typography noWrap variant="h5" pr={2.5}>
-            {music.name}
+            {music.title}
           </Typography>
           <Typography noWrap variant="body1" color="text.secondary" pr={2.5}>
             {music.artist}
