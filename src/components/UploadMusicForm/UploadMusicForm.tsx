@@ -1,6 +1,8 @@
+import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Box, Container, Stack, TextField, Typography } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { useRef } from 'react'
+import { useController, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Button from '../Button'
 import EditableImage from '../EditableImage'
@@ -8,7 +10,8 @@ import EditableImage from '../EditableImage'
 const MusicSchema = z.object({
   musicName: z.string(),
   albumName: z.string(),
-  musicCover: z.instanceof(File),
+  musicCover: z.any(),
+  musicFile: z.any(),
 })
 
 type Music = z.infer<typeof MusicSchema>
@@ -23,6 +26,12 @@ const UploadMusicForm = () => {
     //TODO: login user api
     console.log(data)
   }
+
+  const musicFileRef = useRef<HTMLInputElement | null>(null)
+  const { field: field } = useController({
+    name: 'musicFile',
+    control: control,
+  })
 
   return (
     <Container maxWidth="sm">
@@ -48,9 +57,7 @@ const UploadMusicForm = () => {
               }}
             >
               <EditableImage
-                src={
-                  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNUSJvzHwAD8wIj6JICsAAAAABJRU5ErkJggg=='
-                }
+                src={DEFAULT_COVER_IMAGE}
                 alt="playlist-cover-image"
                 width={190}
                 height={168}
@@ -78,10 +85,30 @@ const UploadMusicForm = () => {
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Upload Music*</Typography>
+              <input
+                type="file"
+                accept=".mp3, audio/*"
+                ref={(r) => {
+                  musicFileRef.current = r
+                  field.ref(r)
+                }}
+                onChange={(e) => {
+                  if (e.target.files) {
+                    field.onChange(e.target.files[0])
+                  }
+                }}
+                style={{ display: 'none' }}
+              />
+              <Typography variant="caption">
+                {musicFileRef.current?.value.split('\\').pop()}
+              </Typography>
               <Button
                 variant="contained"
                 text="Upload"
                 sx={{ backgroundColor: 'secondary.dark' }}
+                onClick={() => {
+                  musicFileRef.current?.click()
+                }}
               />
             </Stack>
           </Stack>
