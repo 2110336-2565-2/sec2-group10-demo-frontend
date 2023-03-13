@@ -1,5 +1,14 @@
-import ConfirmDialog from '@/components/ConfirmDialog'
+import { GetServerSideProps } from 'next'
 
 export default function Home() {
-  return <ConfirmDialog open={true} />
+  return <></>
+}
+
+export const getServersideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/home',
+      permanent: true,
+    },
+  }
 }
