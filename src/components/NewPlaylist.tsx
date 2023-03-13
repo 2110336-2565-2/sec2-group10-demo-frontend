@@ -1,32 +1,50 @@
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
+import { createPlaylist } from '@/queries/usePlaylist'
+import { useRouter } from 'next/router'
+import { DEFAULT_COVER_IMAGE } from '@/constants'
 
 const NewPlaylist = () => {
+  const router = useRouter()
+
+  const handleCreatePlaylist = async () => {
+    const defaultItem = {
+      name: 'MyPlaylist',
+      coverImage: DEFAULT_COVER_IMAGE,
+    }
+    const newItem = await createPlaylist(defaultItem)
+    console.log('create New', newItem)
+    router.push(`/playlists/${newItem._id}`)
+  }
+
   return (
     <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
-      columnGap={1.5}
       bgcolor="container.light"
-      width="190px"
-      height="266px"
       borderRadius="4px"
+      py={'10%'}
+      width={'100%'}
+      height={'100%'}
       boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
-      onClick={() => {
-        // TODO: initial playlist untitled
-        console.log('click')
+      onClick={handleCreatePlaylist}
+      sx={{
+        cursor: 'pointer',
       }}
     >
-      <Stack spacing={3.5} alignContent="center">
-        <Image
-          src={AddPlaylistLogo}
-          alt="addplaylist-icon"
-          width={120}
-          height={120}
-        />
-        <Typography variant="caption" sx={{ color: 'text.primary' }}>
+      <Stack spacing={3.5} alignItems="center" width="100%">
+        <Box
+          sx={{
+            width: '70%',
+            position: 'relative',
+            aspectRatio: '1 / 1',
+          }}
+        >
+          <Image src={AddPlaylistLogo} fill alt="addplaylist-icon" />
+        </Box>
+        <Typography variant="h5" align="center" sx={{ color: 'text.primary' }}>
           Add a new playlist
         </Typography>
       </Stack>
