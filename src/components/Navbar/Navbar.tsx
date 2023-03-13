@@ -93,6 +93,8 @@ const Navbar = () => {
               ...ButtonStyling,
               height: '30px',
             }}
+            LinkComponent={Link}
+            href={'/uploadmusic'}
           >
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
               Upload Song
