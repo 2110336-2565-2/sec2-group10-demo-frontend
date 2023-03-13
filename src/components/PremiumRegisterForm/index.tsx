@@ -17,6 +17,9 @@ import {
 } from './utils'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { http } from '@/services/apiAxios'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
 interface PremiumRegisterFormProps {
   show: boolean
@@ -43,10 +46,26 @@ const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
       mode: 'onChange',
       resolver: zodResolver(premiumRegisterSchema),
     })
-
-  const onSubmit = handleSubmit((data) => {
+  const router = useRouter()
+  const onSubmit = handleSubmit(async (data) => {
     // TODO: call premium user api
-    console.log(data)
+    const sendData = {
+      name: data.name,
+      cardNumber: data.cardNumber,
+      expireDate: data.expire,
+      cvc: data.cvc,
+    }
+    await http
+      .put('/users/role/premium', sendData)
+      .then(() => {
+        router.push('/home')
+      })
+      .catch((e) => {
+        if (axios.isAxiosError(e)) {
+          alert(e.response?.data.message)
+          console.log(e)
+        }
+      })
   })
 
   return (
