@@ -10,7 +10,6 @@ interface PlaylistResponse {
 
 interface PlaylistCreate {
   name: string
-  description: string
   coverImage: string
 }
 
