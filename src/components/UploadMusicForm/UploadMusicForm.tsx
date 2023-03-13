@@ -1,6 +1,16 @@
 import { DEFAULT_COVER_IMAGE } from '@/constants'
+import { useAlbums } from '@/queries/useAlbum'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Container, Stack, TextField, Typography } from '@mui/material'
+import {
+  alpha,
+  Box,
+  Container,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useRef } from 'react'
 import { useController, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -8,8 +18,8 @@ import Button from '../Button'
 import EditableImage from '../EditableImage'
 
 const MusicSchema = z.object({
-  musicName: z.string(),
-  albumName: z.string(),
+  musicName: z.string().min(1),
+  albumName: z.string().min(1),
   musicCover: z.any(),
   musicFile: z.any(),
 })
@@ -32,6 +42,8 @@ const UploadMusicForm = () => {
     name: 'musicFile',
     control: control,
   })
+
+  const albumList = useAlbums()
 
   return (
     <Container maxWidth="sm">
@@ -76,12 +88,21 @@ const UploadMusicForm = () => {
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Add an Album*</Typography>
-              <TextField
+              <Select
                 variant="outlined"
                 placeholder="Add an Album"
-                inputProps={{ style: { height: '16px', padding: '8px 12px' } }}
+                sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
                 {...register('albumName')}
-              />
+              >
+                {albumList?.map((value, index) => {
+                  console.log(value)
+                  return (
+                    <MenuItem value={value.name} key={index}>
+                      {value.name}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Upload Music*</Typography>
