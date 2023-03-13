@@ -2,13 +2,15 @@ import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
 export interface Music {
-  id: string
-  title: string
-  artist: string
-  album: string
-  source: string
+  musicId: string
+  name: string
+  albumId: string
   coverImage: string
-  length: number
+  url: string
+  ownerId: string
+  duration: number
+  albumName: string
+  ownerName: string
 }
 
 const safeIndex = (index: number, length: number) => {

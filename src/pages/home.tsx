@@ -13,17 +13,7 @@ const TestHome = () => {
       <Grid container spacing={3}>
         {randomMusics?.map((randomMusic) => (
           <Grid key={randomMusic.musicId} {...{ xs: 6, sm: 4, md: 3, lg: 2 }}>
-            <SingleMusicBox
-              music={{
-                id: randomMusic.musicId,
-                title: randomMusic.name,
-                artist: randomMusic.ownerName,
-                album: randomMusic.albumName,
-                source: randomMusic.url,
-                coverImage: randomMusic.coverImage,
-                length: randomMusic.duration,
-              }}
-            />
+            <SingleMusicBox music={randomMusic} />
           </Grid>
         ))}
       </Grid>
