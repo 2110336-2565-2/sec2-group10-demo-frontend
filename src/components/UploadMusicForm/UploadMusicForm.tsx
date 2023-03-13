@@ -1,5 +1,6 @@
 import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { useAlbums } from '@/queries/useAlbum'
+import { http } from '@/services/apiAxios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   alpha,
@@ -19,7 +20,7 @@ import EditableImage from '../EditableImage'
 
 const MusicSchema = z.object({
   musicName: z.string().min(1),
-  albumName: z.string().min(1),
+  albumId: z.string().min(1),
   musicCover: z.any(),
   musicFile: z.any(),
 })
@@ -35,6 +36,15 @@ const UploadMusicForm = () => {
   const uploadMusic = async (data: Music) => {
     //TODO: login user api
     console.log(data)
+    if (data.musicCover != undefined && data.musicFile != undefined) {
+      const formData = new FormData()
+      formData.append('name', data.musicName)
+      formData.append('description', 'this is sound of dek wat')
+      formData.append('albumId', data.albumId)
+      formData.append('music', data.musicFile)
+      formData.append('coverImage', data.musicCover)
+      await http.post('users/musics', formData)
+    }
   }
 
   const musicFileRef = useRef<HTMLInputElement | null>(null)
@@ -92,12 +102,12 @@ const UploadMusicForm = () => {
                 variant="outlined"
                 placeholder="Add an Album"
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
-                {...register('albumName')}
+                {...register('albumId')}
               >
                 {albumList?.map((value, index) => {
                   console.log(value)
                   return (
-                    <MenuItem value={value.name} key={index}>
+                    <MenuItem value={value._id} key={index}>
                       {value.name}
                     </MenuItem>
                   )
