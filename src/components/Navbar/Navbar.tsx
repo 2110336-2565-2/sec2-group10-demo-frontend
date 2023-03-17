@@ -151,9 +151,9 @@ const Navbar = () => {
                 <Avatar
                   alt="avatar-icon"
                   src={data?.user?.image || undefined}
-                  sx={{ width: 30, height: 30 }}
+                  sx={{ width: 30, height: 30, cursor: 'pointer' }}
                 />
-                <Typography variant="h5" noWrap>
+                <Typography variant="h5" noWrap sx={{ cursor: 'pointer' }}>
                   {data?.user?.name}
                 </Typography>
               </Stack>
