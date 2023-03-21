@@ -7,7 +7,7 @@ import {
   Typography,
   IconButton,
 } from '@mui/material'
-import { usePlaylists } from '@/queries/usePlaylist'
+import { usePlaylistOnly } from '@/queries/useOnlyPlaylist'
 import { MouseEvent, useState } from 'react'
 import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded'
 import * as React from 'react'
@@ -25,7 +25,7 @@ interface Props {
 }
 
 const ListDown = ({ inputMusicID }: Props) => {
-  const playlists = usePlaylists()
+  const playlists = usePlaylistOnly()
   const [anchorElPlaylist, setAnchorElPlaylist] = useState<null | HTMLElement>(
     null
   )
