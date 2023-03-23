@@ -1,38 +1,11 @@
-import NewPlaylist from '@/components/NewPlaylist'
+import FollowButton from '@/components/FollowButton'
 
 const testbg = () => {
   return (
     <>
-      {/* <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1>
-      <h1>h1</h1> */}
-      <NewPlaylist />
+      <FollowButton isFollowing={false} />
+      <h1>++</h1>
+      <FollowButton isFollowing={true} />
       <h1>h1</h1>
       <h1>h1</h1>
       <h1>h1</h1>
