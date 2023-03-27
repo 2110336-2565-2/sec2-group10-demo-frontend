@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import PremiumRegisterForm from '@/components/PremiumRegisterForm'
 import { useUserProfile } from '@/queries/useProfile'
 import ArtistRegisterForm from '@/components/ArtistRegisterForm'
+
 const ButtonStyling = {
   width: '261px',
   height: '44px',
@@ -147,18 +148,26 @@ const ProfileTitle = ({
           borderRadius="50%"
         />
         <Stack spacing={1.25} flex={1}>
-          <Typography variant="h4">Profile</Typography>
-          <>
-            {owner === viewer ? (
-              <></>
-            ) : owner === 'artist' ? (
-              <Box>
-                <Typography color="primary.main">TODO</Typography>
-              </Box>
-            ) : (
-              <></>
-            )}
-          </>
+          <Stack spacing={1.25} direction="row" alignItems="center">
+            <Typography variant="h4">Profile</Typography>
+            <>
+              {owner === viewer ? (
+                <></>
+              ) : owner === 'artist' ? (
+                <Button
+                  text="Artist"
+                  variant="contained"
+                  sx={{ borderRadius: 16 }}
+                  style={{
+                    background:
+                      'linear-gradient(to right bottom, #7B7BFF, #1564FE)',
+                  }}
+                ></Button>
+              ) : (
+                <></>
+              )}
+            </>
+          </Stack>
           <EditableTypography
             variant="h1"
             showEditBox={saveButton.show}
@@ -218,12 +227,12 @@ const Profile = () => {
   const numberOfFollowers = userProfile?.followerCount
   const numberOfFollowing = userProfile?.followingCount
   const currentViewer = 'user' //user
-  const currentOwner = 'anotherUser' //user, anotherUser, artist
+  const currentOwner = 'artist' //user, anotherUser, artist
 
   return (
     <Stack
       justifyContent="flex-start"
-      alignItems="center"
+      alignItems="flex-start"
       width="100%"
       height="100%"
       spacing={2.5}
