@@ -71,9 +71,6 @@ const palette = {
   gray: {
     main: '#D9D9D9',
   },
-  disable: {
-    main: '#434378',
-  },
 }
 
 const components: Components = {
