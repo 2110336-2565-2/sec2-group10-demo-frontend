@@ -23,6 +23,7 @@ const MusicSchema = z.object({
   albumId: z.string().min(1),
   musicCover: z.any(),
   musicFile: z.any(),
+  musicGenre: z.string().min(1),
 })
 
 type Music = z.infer<typeof MusicSchema>
@@ -43,6 +44,7 @@ const UploadMusicForm = () => {
       formData.append('albumId', data.albumId)
       formData.append('music', data.musicFile)
       formData.append('coverImage', data.musicCover)
+      formData.append('genre', data.musicGenre)
       await http.post('users/musics', formData)
     }
   }
@@ -54,6 +56,15 @@ const UploadMusicForm = () => {
   })
 
   const albumList = useAlbums()
+  const genreList = [
+    'Pop',
+    'Hip-hop',
+    'Rock',
+    'EDM',
+    'Indie',
+    'Rhytm & blues',
+    'others',
+  ]
 
   return (
     <Container maxWidth="sm">
@@ -105,10 +116,26 @@ const UploadMusicForm = () => {
                 {...register('albumId')}
               >
                 {albumList?.map((value, index) => {
-                  console.log(value)
                   return (
                     <MenuItem value={value._id} key={index}>
                       {value.name}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </Stack>
+            <Stack spacing={0.5}>
+              <Typography variant="subtitle1">Select genre*</Typography>
+              <Select
+                variant="outlined"
+                placeholder="select genre"
+                sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
+                {...register('musicGenre')}
+              >
+                {genreList?.map((value, index) => {
+                  return (
+                    <MenuItem value={value} key={index}>
+                      {value}
                     </MenuItem>
                   )
                 })}
