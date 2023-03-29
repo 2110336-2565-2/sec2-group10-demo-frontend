@@ -1,5 +1,5 @@
-import NewPlaylist from '@/components/NewPlaylist'
-import PlaylistCard from '@/components/PlaylistCard'
+import NewPlaylist from '@/components/Playlist/NewPlaylist'
+import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import { usePlaylists } from '@/queries/usePlaylist'
 import { Stack, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
