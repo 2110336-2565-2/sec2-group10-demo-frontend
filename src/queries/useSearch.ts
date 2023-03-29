@@ -45,7 +45,7 @@ const getMusicSearch = (search: string) => {
 }
 
 const musicSearchKey = (search: string) => {
-  return search ? ['users/search/musics', search] : null
+  return ['users/search/musics', search] as const
 }
 
 const getPlaylistSearch = (search: string) => {
@@ -58,7 +58,7 @@ const getPlaylistSearch = (search: string) => {
 }
 
 const playlistSearchKey = (search: string) => {
-  return search ? ['users/search/playlists', search] : null
+  return ['users/search/playlists', search] as const
 }
 
 const getArtistSearch = (search: string) => {
@@ -71,19 +71,25 @@ const getArtistSearch = (search: string) => {
 }
 
 const artistSearchKey = (search: string) => {
-  return search ? ['users/search/artists', search] : null
+  return ['users/search/artists', search] as const
 }
 
 const useMusicSearch = (search: string) => {
-  return useSWR(musicSearchKey(search), () => getMusicSearch(search))
+  return useSWR(search ? musicSearchKey(search) : null, () =>
+    getMusicSearch(search)
+  )
 }
 
 const usePlaylistSearch = (search: string) => {
-  return useSWR(playlistSearchKey(search), () => getPlaylistSearch(search))
+  return useSWR(search ? playlistSearchKey(search) : null, () =>
+    getPlaylistSearch(search)
+  )
 }
 
 const useArtistSearch = (search: string) => {
-  return useSWR(artistSearchKey(search), () => getArtistSearch(search))
+  return useSWR(search ? artistSearchKey(search) : null, () =>
+    getArtistSearch(search)
+  )
 }
 
 export { useMusicSearch, usePlaylistSearch, useArtistSearch }
