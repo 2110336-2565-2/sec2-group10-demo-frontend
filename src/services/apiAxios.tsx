@@ -1,6 +1,8 @@
 import { API_HOST } from '@/configs'
+import { useError } from '@/hooks/useError'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { getSession } from 'next-auth/react'
+import { SWRConfig } from 'swr'
 
 class AxiosClient {
   axiosInstance: AxiosInstance
@@ -61,6 +63,20 @@ class AxiosClient {
   async del(url: string, config?: AxiosRequestConfig) {
     await this.axiosInstance.delete(url, config)
   }
+}
+
+export const HttpProvider = ({ children }: React.PropsWithChildren) => {
+  const { onError } = useError()
+
+  return (
+    <SWRConfig
+      value={{
+        onError: onError,
+      }}
+    >
+      {children}
+    </SWRConfig>
+  )
 }
 
 export const http = new AxiosClient()
