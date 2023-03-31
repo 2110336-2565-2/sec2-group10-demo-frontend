@@ -8,6 +8,7 @@ interface PlaylistResponse {
   coverImage: string
   creatorName: string
   creatorId: string
+  isAlbum: boolean
 }
 
 export interface MusicResponse {
@@ -24,6 +25,7 @@ export interface MusicResponse {
 
 interface PlaylistCreate {
   name: string
+  isAlbum: boolean
 }
 
 const getPlaylists = () => {
@@ -34,9 +36,10 @@ const usePlaylists = () => {
   return useSWR('/users/playlists/all', getPlaylists)
 }
 
-const createPlaylist = async ({ name }: PlaylistCreate) => {
+const createPlaylist = async ({ name, isAlbum }: PlaylistCreate) => {
   return await http.post<PlaylistResponse>('/users/playlists', {
     name: name,
+    isAlbum: isAlbum,
   })
 }
 
