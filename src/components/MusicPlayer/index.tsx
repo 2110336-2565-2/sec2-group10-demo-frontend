@@ -86,64 +86,76 @@ const MusicPlayer = () => {
 
   return (
     <Box
-      py={2}
-      px={4}
-      bgcolor="container.main"
-      borderRadius={'24px'}
-      position="absolute"
-      height={fullSize.show ? '100%' : 'auto'}
-      width="100%"
+      position="fixed"
       bottom={0}
+      left={0}
+      width="calc(100% - 240px)"
+      ml={'240px'}
       zIndex={10}
-      display="flex"
-      flexDirection="column-reverse"
     >
-      <HandleFullSize />
-      <Stack spacing={2}>
-        <Stack
-          direction={'row'}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-        >
+      <Box
+        py={2}
+        px={4}
+        mx={2}
+        my={1}
+        height={fullSize.show ? '100%' : 'auto'}
+        bgcolor="container.main"
+        borderRadius={'24px'}
+        display="flex"
+        flexDirection="column-reverse"
+      >
+        <HandleFullSize />
+        <Stack spacing={2}>
           <Stack
-            spacing={0.5}
-            flex={1}
-            overflow={'hidden'}
-            textOverflow={'ellipsis'}
+            direction={'row'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
           >
-            <Typography variant="h4" noWrap maxWidth="fit-content" zIndex={10}>
-              {music?.name}
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              noWrap
-              maxWidth="fit-content"
-              zIndex={10}
+            <Stack
+              spacing={0.5}
+              flex={1}
+              overflow={'hidden'}
+              textOverflow={'ellipsis'}
             >
-              {music?.ownerName}
-            </Typography>
+              <Typography
+                variant="h4"
+                noWrap
+                maxWidth="fit-content"
+                zIndex={10}
+              >
+                {music?.name}
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                noWrap
+                maxWidth="fit-content"
+                zIndex={10}
+              >
+                {music?.ownerName}
+              </Typography>
+            </Stack>
+            <MusicControl
+              sound={sound}
+              onPlay={() => play()}
+              onPause={() => pause()}
+              onSkipNext={handleSkipNext}
+              onSkipPrevious={handleSkipPrevious}
+            />
+            <SoundControl />
           </Stack>
-          <MusicControl
-            sound={sound}
-            onPlay={() => play()}
-            onPause={() => pause()}
-            onSkipNext={handleSkipNext}
-            onSkipPrevious={handleSkipPrevious}
-          />
-          <SoundControl />
+          <MusicTimeLine sound={sound} duration={(duration || 0) / 1000} />
         </Stack>
-        <MusicTimeLine sound={sound} duration={(duration || 0) / 1000} />
-      </Stack>
-      {fullSize.show && (
-        <FullSizeContent
-          title={music?.name || ''}
-          artist={music?.ownerName || ''}
-          coverImage={music?.coverImage || ''}
-          onClose={() => {
-            fullSize.onClose()
-          }}
-        />
-      )}
+        {fullSize.show && (
+          <FullSizeContent
+            title={music?.name || ''}
+            artist={music?.ownerName || ''}
+            coverImage={music?.coverImage || ''}
+            onClose={() => {
+              fullSize.onClose()
+            }}
+          />
+        )}
+      </Box>
     </Box>
   )
 }
