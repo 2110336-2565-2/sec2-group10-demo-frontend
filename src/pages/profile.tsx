@@ -185,7 +185,7 @@ const ProfileTitle = ({
 const Profile = () => {
   const playLists = usePlaylists()
   const userProfile = useUserProfile()
-  const numberOfPublicPlaylists = playLists?.length
+  const numberOfPublicPlaylists = playLists.data?.length
   const numberOfFollowers = userProfile?.followerCount
   const numberOfFollowing = userProfile?.followingCount
 

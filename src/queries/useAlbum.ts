@@ -1,5 +1,5 @@
 import { http } from '@/services/apiAxios'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 interface AlbumResponse {
   _id: string
@@ -20,13 +20,7 @@ const getAlbums = () => {
 }
 
 const useAlbums = () => {
-  const [albums, setAlbums] = useState<AlbumResponse[]>()
-
-  useEffect(() => {
-    getAlbums().then(setAlbums).catch(console.log)
-  }, [])
-
-  return albums
+  return useSWR('/users/playlists/all', getAlbums)
 }
 
 const createAlbum = async ({ name, coverImage }: AlbumCreate) => {

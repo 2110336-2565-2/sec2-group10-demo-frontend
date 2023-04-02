@@ -1,5 +1,5 @@
 import { http } from '@/services/apiAxios'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 interface RandomMusicResponse {
   name: string
@@ -18,13 +18,7 @@ const getRandomMusic = () => {
 }
 
 const useRandomMusic = () => {
-  const [randomMusic, setRandomMusic] = useState<RandomMusicResponse[]>()
-
-  useEffect(() => {
-    getRandomMusic().then(setRandomMusic).catch(console.log)
-  }, [])
-
-  return randomMusic
+  return useSWR('/users/musics/sample/50', getRandomMusic)
 }
 
 export { useRandomMusic }

@@ -12,7 +12,7 @@ const TestHome = () => {
       <Stack spacing={3}>
         <Typography variant="h1">Made For You</Typography>
         <Grid container spacing={3}>
-          {randomMusics?.map((randomMusic) => (
+          {randomMusics.data?.map((randomMusic) => (
             <Grid key={randomMusic.musicId} {...{ xs: 6, sm: 4, md: 3, lg: 2 }}>
               <SingleMusicBox music={randomMusic} />
             </Grid>

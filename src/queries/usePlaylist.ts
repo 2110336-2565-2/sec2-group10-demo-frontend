@@ -1,5 +1,5 @@
 import { http } from '@/services/apiAxios'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 interface PlaylistResponse {
   _id: string
@@ -24,7 +24,6 @@ export interface MusicResponse {
 
 interface PlaylistCreate {
   name: string
-  coverImage: string
 }
 
 const getPlaylists = () => {
@@ -32,38 +31,33 @@ const getPlaylists = () => {
 }
 
 const usePlaylists = () => {
-  const [playlists, setPlaylists] = useState<PlaylistResponse[]>()
-
-  useEffect(() => {
-    getPlaylists().then(setPlaylists).catch(console.log)
-  }, [])
-
-  return playlists
+  return useSWR('/users/playlists/all', getPlaylists)
 }
 
-const createPlaylist = async ({ name, coverImage }: PlaylistCreate) => {
+const createPlaylist = async ({ name }: PlaylistCreate) => {
   return await http.post<PlaylistResponse>('/users/playlists', {
     name: name,
-    coverImage: coverImage,
   })
 }
 
-const usePlaylist = (id: string | undefined) => {
-  const [playlist, setPlaylist] = useState<PlaylistResponse>()
-  useEffect(() => {
-    if (!id) return
-    getPlaylist(id).then(setPlaylist).catch(console.log)
-  }, [id])
-
-  return playlist
+const playlistKey = (id: string) => {
+  return ['users/playlists', id] as const
 }
 
 const getPlaylist = async (id: string) => {
   return await http.get<PlaylistResponse>(`/users/playlists/${id}`)
 }
 
+const usePlaylist = (id: string | undefined) => {
+  return useSWR(id ? playlistKey(id) : null, () => getPlaylist(id!))
+}
+
 const deleteMusicFromPlaylist = async (id: string, playlistId: string) => {
   return await http.del(`/users/playlists/${playlistId}/music/${id}`)
+}
+
+const playlistMusicsKey = (id: string) => {
+  return ['users/playlists', id, 'musics'] as const
 }
 
 const getPlaylistMusics = async (id: string) => {
@@ -71,12 +65,7 @@ const getPlaylistMusics = async (id: string) => {
 }
 
 const usePlaylistMusics = (id: string | undefined) => {
-  const [musics, setMusics] = useState<MusicResponse[]>()
-  useEffect(() => {
-    if (!id) return
-    getPlaylistMusics(id).then(setMusics).catch(console.log)
-  }, [id])
-  return musics
+  return useSWR(id ? playlistMusicsKey(id) : null, () => getPlaylistMusics(id!))
 }
 
 interface EditPlaylist {

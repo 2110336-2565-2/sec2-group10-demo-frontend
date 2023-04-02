@@ -94,7 +94,7 @@ const ListDown = ({ inputMusicID }: Props) => {
             onClose={handleClosePlaylist}
             TransitionComponent={Fade}
           >
-            {playlists?.map((playlist) => (
+            {playlists.data?.map((playlist) => (
               <MenuItem
                 key={playlist._id}
                 onClick={() => {

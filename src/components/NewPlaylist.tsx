@@ -1,5 +1,4 @@
 import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
-import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { createPlaylist } from '@/queries/usePlaylist'
 import { Box, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
@@ -11,7 +10,6 @@ const NewPlaylist = () => {
   const handleCreatePlaylist = async () => {
     const defaultItem = {
       name: 'MyPlaylist',
-      coverImage: DEFAULT_COVER_IMAGE,
     }
     const newItem = await createPlaylist(defaultItem)
     console.log('create New', newItem)

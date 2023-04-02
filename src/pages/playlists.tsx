@@ -13,7 +13,7 @@ const Playlist = () => {
         PLAYLISTS
       </Typography>
       <Grid container spacing={3}>
-        {playlists?.map((playlist) => {
+        {playlists.data?.map((playlist) => {
           return (
             <Grid key={playlist._id} {...{ xs: 6, sm: 4, md: 3, lg: 2 }}>
               <PlaylistCard

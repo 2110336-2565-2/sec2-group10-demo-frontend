@@ -1,5 +1,5 @@
 import { http } from '@/services/apiAxios'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 interface PlaylistOnlyResponse {
   _id: string
@@ -19,13 +19,7 @@ const getPlaylistOnly = () => {
 }
 
 const usePlaylistOnly = () => {
-  const [playlistsOnly, setPlaylistsOnly] = useState<PlaylistOnlyResponse[]>()
-
-  useEffect(() => {
-    getPlaylistOnly().then(setPlaylistsOnly).catch(console.log)
-  }, [])
-
-  return playlistsOnly
+  return useSWR('/users/playlists/all', getPlaylistOnly)
 }
 
 export { usePlaylistOnly }

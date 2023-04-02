@@ -36,29 +36,36 @@ const Playlist = () => {
   const playlist = usePlaylist(playlistId)
   const musics = usePlaylistMusics(playlistId)
 
-  const sumDuration = musics?.reduce((acc, cur) => acc + cur.duration, 0) || 0
+  const hasMusics = !!musics.data?.length
 
-  if (!playlist) return null
+  const sumDuration =
+    musics.data?.reduce((acc, cur) => acc + cur.duration, 0) || 0
+
+  if (playlist.isLoading) return null
+
+  if (!playlist.data) return <Typography>Playlist not found</Typography>
   return (
     <Stack minHeight={'100%'}>
       <PlaylistTitle
         playlistId={playlistId}
-        playlistName={playlist.name}
-        playlistOwner={playlist.creatorName}
-        numberOfSongs={musics?.length || 0}
+        playlistName={playlist.data?.name}
+        playlistOwner={playlist.data?.creatorName}
+        numberOfSongs={musics.data?.length || 0}
         length={sumDuration}
-        coverImageUrl={playlist.coverImage}
+        coverImageUrl={playlist.data?.coverImage}
       />
-      <Box
-        flex={1}
-        mx="-16px !important"
-        mb="-24px !important"
-        px="16px"
-        py="24px"
-        bgcolor={alpha('#000', 0.1)}
-      >
-        <MusicTable playlistId={playlistId} musics={musics} />
-      </Box>
+      {hasMusics ? (
+        <Box
+          flex={1}
+          mx="-16px !important"
+          mb="-24px !important"
+          px="16px"
+          py="24px"
+          bgcolor={alpha('#000', 0.1)}
+        >
+          <MusicTable playlistId={playlistId} musics={musics.data} />
+        </Box>
+      ) : null}
       <MusicPlayer />
     </Stack>
   )

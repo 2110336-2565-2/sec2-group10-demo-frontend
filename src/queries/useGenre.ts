@@ -1,17 +1,11 @@
 import { http } from '@/services/apiAxios'
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 const getGenre = () => {
   return http.get<string[]>('users/musics/availableGenre', {})
 }
 
 const useGenre = () => {
-  const [genre, setGenre] = useState<string[]>()
-
-  useEffect(() => {
-    getGenre().then(setGenre).catch(console.log)
-  }, [])
-
-  return genre
+  return useSWR('/users/musics/availableGenre', getGenre)
 }
 export { useGenre, getGenre }

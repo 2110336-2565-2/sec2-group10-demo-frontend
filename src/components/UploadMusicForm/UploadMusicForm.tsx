@@ -108,7 +108,7 @@ const UploadMusicForm = () => {
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
                 {...register('albumId')}
               >
-                {albumList?.map((value, index) => {
+                {albumList.data?.map((value, index) => {
                   return (
                     <MenuItem value={value._id} key={index}>
                       {value.name}
@@ -125,7 +125,7 @@ const UploadMusicForm = () => {
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
                 {...register('genre')}
               >
-                {genreList?.map((value, index) => {
+                {genreList.data?.map((value, index) => {
                   return (
                     <MenuItem value={value} key={index}>
                       {value}
