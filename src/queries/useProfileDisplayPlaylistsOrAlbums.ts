@@ -10,22 +10,36 @@ interface PlaylistOnlyResponse {
   creatorId: string
 }
 
-const getProfileDisplayPlaylistsOrAlbums = () => {
-  return http.get<PlaylistOnlyResponse[]>('users/playlists/all', {
+interface ProfileDisplayPlaylistsOrAlbumsResponse {
+  userId: string
+  role: string
+}
+
+const getProfileDisplayPlaylistsOrAlbums = async ({
+  userId,
+  role,
+}: ProfileDisplayPlaylistsOrAlbumsResponse) => {
+  const playlistType = role === 'user' ? 'playlist' : 'album'
+
+  return await http.get<PlaylistOnlyResponse[]>('/users/playlists', {
     params: {
-      filter: 'playlist',
+      userId: userId,
+      filter: playlistType,
     },
   })
 }
 
-const useProfileDisplayPlaylistsOrAlbums = () => {
+const useProfileDisplayPlaylistsOrAlbums = ({
+  userId,
+  role,
+}: ProfileDisplayPlaylistsOrAlbumsResponse) => {
   const [playlistsOnly, setPlaylistsOnly] = useState<PlaylistOnlyResponse[]>()
-
   useEffect(() => {
-    getProfileDisplayPlaylistsOrAlbums()
+    if (!userId) return
+    getProfileDisplayPlaylistsOrAlbums({ userId, role })
       .then(setPlaylistsOnly)
       .catch(console.log)
-  }, [])
+  }, [userId])
 
   return playlistsOnly
 }

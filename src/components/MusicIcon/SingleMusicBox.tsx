@@ -1,9 +1,10 @@
 import { Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
+import { useState } from 'react'
 import LongMenu from '@/components/MusicIcon/LongMenu'
 import { setPlaylistsAtom, Music } from '@/stores/musicPlayerStore'
 import { useAtom } from 'jotai'
-
+import Link from 'next/link'
 interface Props {
   music: Music
 }
@@ -13,6 +14,7 @@ const SingleMusicBox = ({ music }: Props) => {
   const playMusic = () => {
     setPlaylists([music], {})
   }
+  const [nameColor, setNameColor] = useState('text.secondary')
 
   return (
     <Box
@@ -55,9 +57,28 @@ const SingleMusicBox = ({ music }: Props) => {
           <Typography noWrap variant="h5" pr={2.5}>
             {music.name}
           </Typography>
-          <Typography noWrap variant="body1" color="text.secondary" pr={2.5}>
-            {music.ownerName}
-          </Typography>
+          <Link
+            href={`/users/${music.ownerId}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <Typography
+              noWrap
+              variant="body1"
+              color={nameColor}
+              pr={2.5}
+              onMouseOver={() => {
+                setNameColor('container.main')
+              }}
+              onMouseOut={() => {
+                setNameColor('text.secondary')
+              }}
+              // onClick={() => {
+              //   router.push('/profile/${music.ownerId}')
+              // }}
+            >
+              {music.ownerName}
+            </Typography>
+          </Link>
         </Stack>
       </Stack>
     </Box>
