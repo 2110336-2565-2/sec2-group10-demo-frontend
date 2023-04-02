@@ -20,8 +20,8 @@ const UpgradeAccount = () => {
   const upgradeToPremium = useShow()
   const upgradeToArtist = useShow()
   const userRole = useRoleProfile()
-  const isPremium = (userRole as any)?.includes('premium')
-  const isArtist = (userRole as any)?.includes('artist')
+  const isPremium = userRole.data?.includes('premium')
+  const isArtist = userRole.data?.includes('artist')
   return (
     <Box
       width="100%"
@@ -186,8 +186,8 @@ const Profile = () => {
   const playLists = usePlaylists()
   const userProfile = useUserProfile()
   const numberOfPublicPlaylists = playLists.data?.length
-  const numberOfFollowers = userProfile?.followerCount
-  const numberOfFollowing = userProfile?.followingCount
+  const numberOfFollowers = userProfile.data?.followerCount
+  const numberOfFollowing = userProfile.data?.followingCount
 
   return (
     <Stack
@@ -198,11 +198,11 @@ const Profile = () => {
       spacing={2.5}
     >
       <ProfileTitle
-        profileName={userProfile?.username || ''}
+        profileName={userProfile.data?.username || ''}
         numberOfPublicPlaylists={numberOfPublicPlaylists || 0}
         numberOfFollowers={numberOfFollowers || 0}
         numberOfFollowing={numberOfFollowing || 0}
-        profileImageUrl={userProfile?.profilePicture || ''}
+        profileImageUrl={userProfile.data?.profilePicture || ''}
       />
       <UpgradeAccount />
     </Stack>

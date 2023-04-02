@@ -1,5 +1,5 @@
 import { http } from '@/services/apiAxios'
-import { useState, useEffect } from 'react'
+import useSWR from 'swr'
 
 interface ProfileResponse {
   username: string
@@ -10,32 +10,18 @@ interface ProfileResponse {
   roles: string
 }
 
-const getRoleProfile = () => {
-  return http.get<ProfileResponse>('users/profile/me')
-}
-
-const useRoleProfile = () => {
-  const [role, setRole] = useState<ProfileResponse>()
-
-  useEffect(() => {
-    getRoleProfile().then(setRole).catch(console.log)
-  }, [])
-
-  return role?.roles
-}
-
 const getUserProfile = () => {
   return http.get<ProfileResponse>('users/profile/me')
 }
 
-const useUserProfile = () => {
-  const [profile, setProfile] = useState<ProfileResponse>()
-
-  useEffect(() => {
-    getUserProfile().then(setProfile).catch(console.log)
-  }, [])
-
-  return profile
+const useRoleProfile = () => {
+  return useSWR('/users/profile/me', () =>
+    getUserProfile().then((profile) => profile.roles)
+  )
 }
 
-export { getUserProfile, useUserProfile, getRoleProfile, useRoleProfile }
+const useUserProfile = () => {
+  return useSWR('/users/profile/me', getUserProfile)
+}
+
+export { getUserProfile, useUserProfile, useRoleProfile }
