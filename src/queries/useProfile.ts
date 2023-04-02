@@ -7,24 +7,25 @@ interface ProfileResponse {
   followerCount: number
   followingCount: number
   playlistCount: number
+  roles: string
 }
 
 const getRoleProfile = () => {
-  return http.get<[]>('/users/role')
+  return http.get<ProfileResponse>('users/profile/me')
 }
 
 const useRoleProfile = () => {
-  const [role, setRole] = useState<[]>()
+  const [role, setRole] = useState<ProfileResponse>()
 
   useEffect(() => {
     getRoleProfile().then(setRole).catch(console.log)
   }, [])
 
-  return role
+  return role?.roles
 }
 
 const getUserProfile = () => {
-  return http.get<ProfileResponse>('users/profile')
+  return http.get<ProfileResponse>('users/profile/me')
 }
 
 const useUserProfile = () => {
