@@ -1,56 +1,52 @@
+import { followArtist, unFollowArtist } from '@/queries/useArtist'
 import {
   Button,
   ButtonProps as MuiButtonProps,
-  createTheme,
-  ThemeProvider,
   Typography,
 } from '@mui/material'
+import { useState } from 'react'
 
 interface ButtonProps extends MuiButtonProps {
+  artistId: string
   isFollowing?: boolean
 }
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#3f3fe4',
-    },
-    secondary: {
-      main: '#434378',
-    },
-    container: {
-      main: '#0D173C',
-      light: '#1E2C60',
-    },
-    gray: {
-      main: '#D9D9D9',
-    },
-  },
-})
+const FollowButton = ({
+  artistId,
+  isFollowing: initIsFollowing,
+}: ButtonProps) => {
+  const [isFollowing, setIsFollowing] = useState<boolean>(
+    initIsFollowing || false
+  )
 
-const FollowButton = ({ isFollowing }: ButtonProps) => {
-  const color = isFollowing ? 'secondary' : 'primary'
+  const handleClick = async () => {
+    if (isFollowing) {
+      await unFollowArtist(artistId).then(() => setIsFollowing(false))
+    } else {
+      await followArtist(artistId).then(() => setIsFollowing(true))
+    }
+  }
+
+  const color = isFollowing ? 'purple.main' : 'primary.main'
   const text = isFollowing ? 'Unfollow' : 'Follow'
-
   return (
-    <ThemeProvider theme={theme}>
-      <Button
-        variant="contained"
-        color={color}
-        sx={{
-          p: '12px 20px',
-          borderRadius: '12px',
-          boxShadow: '-4px 4px 12px rgba(0, 0, 0, 0.3)',
-        }}
-        onClick={() => {
-          // TODO: follow&unfollow api
-        }}
-      >
-        <Typography variant={'h5'} color="text.primary">
-          {text}
-        </Typography>
-      </Button>
-    </ThemeProvider>
+    <Button
+      variant="contained"
+      sx={{
+        p: '12px 20px',
+        borderRadius: '12px',
+        boxShadow: '-4px 4px 12px rgba(0, 0, 0, 0.3)',
+        backgroundColor: color,
+        '&:hover': {
+          backgroundColor: color,
+        },
+      }}
+      onClick={handleClick}
+    >
+      <Typography variant={'h5'} color="text.primary">
+        {text}
+      </Typography>
+    </Button>
   )
 }
 
