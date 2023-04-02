@@ -1,6 +1,6 @@
 import ArtistCard from '@/components/ArtistCard'
 import SingleMusicBox from '@/components/MusicIcon/SingleMusicBox'
-import PlaylistCard from '@/components/PlaylistCard'
+import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import SearchBar from '@/components/SearchBar'
 import {
   useArtistSearch,
@@ -67,6 +67,7 @@ const Search = () => {
                   playlistName={playlist.name}
                   creatorName={playlist.creatorName}
                   image={playlist.coverImage}
+                  isAlbum={playlist.isAlbum}
                 />
               </Grid>
             ))}
