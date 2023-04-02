@@ -1,5 +1,6 @@
 import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { useAlbums } from '@/queries/useAlbum'
+import { useGenre } from '@/queries/useGenre'
 import { http } from '@/services/apiAxios'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -23,7 +24,7 @@ const MusicSchema = z.object({
   albumId: z.string().min(1),
   musicCover: z.any(),
   musicFile: z.any(),
-  musicGenre: z.string().min(1),
+  genre: z.string().min(1),
 })
 
 type Music = z.infer<typeof MusicSchema>
@@ -44,7 +45,7 @@ const UploadMusicForm = () => {
       formData.append('albumId', data.albumId)
       formData.append('music', data.musicFile)
       formData.append('coverImage', data.musicCover)
-      formData.append('genre', data.musicGenre)
+      formData.append('genre', data.genre)
       await http.post('users/musics', formData)
     }
   }
@@ -56,15 +57,7 @@ const UploadMusicForm = () => {
   })
 
   const albumList = useAlbums()
-  const genreList = [
-    'Pop',
-    'Hip-hop',
-    'Rock',
-    'EDM',
-    'Indie',
-    'Rhytm & blues',
-    'others',
-  ]
+  const genreList = useGenre()
 
   return (
     <Container maxWidth="sm">
@@ -130,7 +123,7 @@ const UploadMusicForm = () => {
                 variant="outlined"
                 placeholder="select genre"
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
-                {...register('musicGenre')}
+                {...register('genre')}
               >
                 {genreList?.map((value, index) => {
                   return (
