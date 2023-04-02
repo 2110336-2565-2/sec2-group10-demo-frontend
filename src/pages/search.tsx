@@ -31,9 +31,9 @@ const Search = () => {
   const hasPlaylists = !!playlists.data?.length
   const hasArtists = !!artists.data?.length
 
-  console.log('musics', musics.data)
-  console.log('playlists', playlists.data)
-  console.log('artists', artists.data)
+  // console.log('musics', musics.data)
+  // console.log('playlists', playlists.data)
+  // console.log('artists', artists.data)
 
   return (
     <Stack spacing={3.5} sx={{ margin: '40px 5%' }}>
