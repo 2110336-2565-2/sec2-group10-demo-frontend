@@ -1,15 +1,12 @@
 import { useShow } from '@/hooks/useShow'
-import {
-  TypographyProps,
-  Box,
-  Typography,
-  alpha,
-  useTheme,
-} from '@mui/material'
-import { useEffect, useRef } from 'react'
+import { Box, alpha, useTheme } from '@mui/material'
+import { Variant } from '@mui/material/styles/createTypography'
+import { useEffect } from 'react'
 import { Control, FieldValues, Path, useController } from 'react-hook-form'
 
-type EditableTypographyProps<F extends FieldValues> = TypographyProps & {
+type EditableTypographyProps<F extends FieldValues> = {
+  variant: Variant
+  children: React.ReactNode
   onFocus?: () => void
   enable?: boolean
   showEditBox?: boolean
@@ -18,20 +15,17 @@ type EditableTypographyProps<F extends FieldValues> = TypographyProps & {
 }
 
 const EditableTypography = <F extends FieldValues>({
-  children,
-  onChange,
+  variant = 'h1' as const,
   onFocus,
   enable,
   showEditBox,
   name,
   control,
-  ...props
 }: EditableTypographyProps<F>) => {
   const { field } = useController({
     name,
     control,
   })
-  const typoRef = useRef<HTMLParagraphElement>(null)
   const editBox = useShow()
   const theme = useTheme()
 
@@ -46,7 +40,6 @@ const EditableTypography = <F extends FieldValues>({
       <input
         {...field}
         autoComplete="off"
-        className={typoRef.current?.className}
         onFocus={() => {
           onFocus?.()
           editBox.onShow()
@@ -56,6 +49,11 @@ const EditableTypography = <F extends FieldValues>({
           width: '100%',
           backgroundColor: editBox.show ? alpha('#fff', 0.2) : 'transparent',
           color: theme.palette.text.primary,
+          fontFamily: theme.typography[variant].fontFamily,
+          fontSize: theme.typography[variant].fontSize,
+          fontWeight: theme.typography[variant].fontWeight,
+          lineHeight: theme.typography[variant].lineHeight,
+          letterSpacing: theme.typography[variant].letterSpacing,
           border: 'none',
           borderRadius: '8px',
           outline: 'none',
@@ -63,7 +61,6 @@ const EditableTypography = <F extends FieldValues>({
         }}
         disabled={enable === false}
       />
-      <Typography {...props} display="none" ref={typoRef} />
     </Box>
   )
 }
