@@ -1,5 +1,5 @@
 import { DEFAULT_COVER_IMAGE } from '@/constants'
-import { Box, Typography, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -19,9 +19,9 @@ const PlaylistCard = (props: Props) => {
       style={{ textDecoration: 'none', color: 'inherit' }}
     >
       <Box
-        px={'4%'}
-        py={'4%'}
-        pb={'16%'}
+        px={'6%'}
+        py={'5%'}
+        pb={'20%'}
         boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
         sx={{
           borderRadius: '4px',
