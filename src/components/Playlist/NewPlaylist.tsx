@@ -23,7 +23,6 @@ const NewPlaylist = () => {
       justifyContent="center"
       alignItems="center"
       bgcolor="container.light"
-      borderRadius="16px"
       py={'10%'}
       width={'335px'}
       height={'444px'}

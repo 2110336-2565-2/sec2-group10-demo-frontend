@@ -34,7 +34,6 @@ const NewAlbum = () => {
       justifyContent="center"
       alignItems="center"
       bgcolor={bgColor}
-      borderRadius="16px"
       py={'10%'}
       width={'335px'}
       height={'444px'}

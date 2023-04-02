@@ -73,6 +73,7 @@ const palette = {
   container: {
     main: '#0D173C',
     light: '#1E2C60',
+    light_2: '#1E4786',
   },
   gray: {
     main: '#D9D9D9',

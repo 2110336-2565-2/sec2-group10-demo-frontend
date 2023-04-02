@@ -13,7 +13,7 @@ interface Props {
 const PlaylistCard = (props: Props) => {
   const coverImage = props.image ? props.image : DEFAULT_COVER_IMAGE
   const creatorName = props.creatorName ? props.creatorName : 'Anonymous'
-  const bgColor = props.isAlbum ? 'secondary.dark' : 'container.light'
+  const bgColor = props.isAlbum ? 'container.light_2' : 'container.light'
 
   return (
     <Link
