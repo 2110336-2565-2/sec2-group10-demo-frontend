@@ -8,10 +8,12 @@ interface Props {
   image: string
   playlistName: string
   creatorName: string
+  isAlbum: boolean
 }
 const PlaylistCard = (props: Props) => {
   const coverImage = props.image ? props.image : DEFAULT_COVER_IMAGE
   const creatorName = props.creatorName ? props.creatorName : 'Anonymous'
+  const bgColor = props.isAlbum ? 'container.light_2' : 'container.light'
 
   return (
     <Link
@@ -25,8 +27,7 @@ const PlaylistCard = (props: Props) => {
         boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
         sx={{
           borderRadius: '4px',
-          // aspectRatio: '2 / 3',
-          bgcolor: 'container.light',
+          bgcolor: bgColor,
         }}
       >
         <Stack spacing={3} justifyContent={'center'}>

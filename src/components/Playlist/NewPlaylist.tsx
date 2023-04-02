@@ -1,4 +1,4 @@
-import AddPlaylistLogo from '@/assets/addplaylist-icon.svg'
+import AddPlaylistIcon from '@/assets/addplaylist-icon.svg'
 import { createPlaylist } from '@/queries/usePlaylist'
 import { Box, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
@@ -10,6 +10,7 @@ const NewPlaylist = () => {
   const handleCreatePlaylist = async () => {
     const defaultItem = {
       name: 'MyPlaylist',
+      isAlbum: false,
     }
     const newItem = await createPlaylist(defaultItem)
     console.log('create New', newItem)
@@ -22,28 +23,34 @@ const NewPlaylist = () => {
       justifyContent="center"
       alignItems="center"
       bgcolor="container.light"
-      borderRadius="4px"
       py={'10%'}
-      width={'100%'}
-      height={'100%'}
+      width={'335px'}
+      height={'444px'}
       boxShadow="0px 2px 12px rgba(0, 0, 0, 0.5)"
       onClick={handleCreatePlaylist}
       sx={{
         cursor: 'pointer',
       }}
     >
-      <Stack spacing={3.5} alignItems="center" width="100%">
+      <Stack spacing={5} alignItems="center" width="100%">
+        <Typography variant="h2" align="center" sx={{ color: 'text.primary' }}>
+          Playlist
+        </Typography>
         <Box
           sx={{
-            width: '70%',
+            width: '160px',
             position: 'relative',
             aspectRatio: '1 / 1',
           }}
         >
-          <Image src={AddPlaylistLogo} fill alt="addplaylist-icon" />
+          <Image src={AddPlaylistIcon} fill alt="addplaylist-icon" />
         </Box>
-        <Typography variant="h5" align="center" sx={{ color: 'text.primary' }}>
-          Add a new playlist
+        <Typography
+          variant="subtitle1"
+          align="center"
+          sx={{ color: 'text.primary' }}
+        >
+          List of play music
         </Typography>
       </Stack>
     </Box>

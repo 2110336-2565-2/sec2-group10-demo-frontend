@@ -15,7 +15,7 @@ interface AlbumCreate {
 
 const getAlbums = () => {
   return http.get<AlbumResponse[]>('users/playlists/all', {
-    params: { isAlbum: true },
+    params: { filter: 'album' },
   })
 }
 

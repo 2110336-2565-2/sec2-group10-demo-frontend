@@ -1,5 +1,5 @@
-import NewPlaylist from '@/components/NewPlaylist'
-import PlaylistCard from '@/components/PlaylistCard'
+import NewPlaylistCard from '@/components/Playlist/NewPlaylistCard'
+import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import { usePlaylists } from '@/queries/usePlaylist'
 import { Stack, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
@@ -21,12 +21,13 @@ const Playlist = () => {
                 playlistName={playlist.name}
                 creatorName={playlist.creatorName}
                 image={playlist.coverImage}
+                isAlbum={playlist.isAlbum}
               />
             </Grid>
           )
         })}
         <Grid key={'newplaylist'} {...{ xs: 6, sm: 4, md: 3, lg: 2 }}>
-          <NewPlaylist />
+          <NewPlaylistCard />
         </Grid>
       </Grid>
     </Stack>
