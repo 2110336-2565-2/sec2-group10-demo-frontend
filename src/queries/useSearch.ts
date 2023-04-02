@@ -27,12 +27,8 @@ interface PlaylistSearch {
 
 interface ArtistSearch {
   _id: string
-  name: string
-  description: string
+  username: string
   coverImage: string
-  isAlbum: boolean
-  creatorName: string
-  creatorId: string
 }
 
 const getMusicSearch = (search: string) => {
@@ -75,20 +71,26 @@ const artistSearchKey = (search: string) => {
 }
 
 const useMusicSearch = (search: string) => {
-  return useSWR(search ? musicSearchKey(search) : null, () =>
-    getMusicSearch(search)
+  return useSWR(
+    search ? musicSearchKey(search) : null,
+    () => getMusicSearch(search),
+    { keepPreviousData: true }
   )
 }
 
 const usePlaylistSearch = (search: string) => {
-  return useSWR(search ? playlistSearchKey(search) : null, () =>
-    getPlaylistSearch(search)
+  return useSWR(
+    search ? playlistSearchKey(search) : null,
+    () => getPlaylistSearch(search),
+    { keepPreviousData: true }
   )
 }
 
 const useArtistSearch = (search: string) => {
-  return useSWR(search ? artistSearchKey(search) : null, () =>
-    getArtistSearch(search)
+  return useSWR(
+    search ? artistSearchKey(search) : null,
+    () => getArtistSearch(search),
+    { keepPreviousData: true }
   )
 }
 

@@ -6,16 +6,14 @@ import Link from 'next/link'
 interface Props {
   id: string
   image: string
-  playlistName: string
-  creatorName: string
+  artistName: string
 }
-const PlaylistCard = (props: Props) => {
+const ArtistCard = (props: Props) => {
   const coverImage = props.image ? props.image : DEFAULT_COVER_IMAGE
-  const creatorName = props.creatorName ? props.creatorName : 'Anonymous'
 
   return (
     <Link
-      href={`/playlists/${props.id}`}
+      href={`/users/${props.id}`}
       style={{ textDecoration: 'none', color: 'inherit' }}
     >
       <Box
@@ -42,15 +40,12 @@ const PlaylistCard = (props: Props) => {
               style={{
                 borderRadius: '4px',
               }}
-              alt="mock image"
+              alt="mock-image"
             />
           </Box>
           <Stack spacing={0.5}>
             <Typography noWrap variant="h5" alignItems="center">
-              {props.playlistName}
-            </Typography>
-            <Typography noWrap variant="body1" color="text.secondary">
-              {creatorName}
+              {props.artistName}
             </Typography>
           </Stack>
         </Stack>
@@ -59,4 +54,4 @@ const PlaylistCard = (props: Props) => {
   )
 }
 
-export default PlaylistCard
+export default ArtistCard
