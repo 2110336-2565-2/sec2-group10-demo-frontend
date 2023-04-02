@@ -1,4 +1,4 @@
-import { CloudUpload, Home, QueueMusic } from '@mui/icons-material'
+import { CloudUpload, Home, QueueMusic, Search } from '@mui/icons-material'
 import {
   Avatar,
   Button,
@@ -70,17 +70,16 @@ const Navbar = () => {
               Home
             </Typography>
           </Button>
-          {/* <Button
-            startIcon={<QueueMusic sx={{ fontSize: '30px !important' }} />}
-            sx={{
-              ...ButtonStyling,
-              height: '30px',
-            }}
+          <Button
+            startIcon={<Search sx={{ fontSize: '30px !important' }} />}
+            sx={{ ...ButtonStyling, height: '30px' }}
+            LinkComponent={Link}
+            href={'/search'}
           >
             <Typography variant="h6" sx={{ textTransform: 'none' }}>
-              Playlist
+              Search
             </Typography>
-          </Button> */}
+          </Button>
         </Stack>
         <Stack spacing={1.5}>
           <Typography variant="h3">For Artists</Typography>
