@@ -1,34 +1,30 @@
 import { followArtist, unFollowArtist } from '@/queries/useArtist'
+import { useIsFollowing } from '@/queries/useProfile'
 import {
   Button,
   ButtonProps as MuiButtonProps,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
 
 interface ButtonProps extends MuiButtonProps {
   artistId: string
-  isFollowing?: boolean
 }
 
-const FollowButton = ({
-  artistId,
-  isFollowing: initIsFollowing,
-}: ButtonProps) => {
-  const [isFollowing, setIsFollowing] = useState<boolean>(
-    initIsFollowing || false
-  )
+const FollowButton = ({ artistId }: ButtonProps) => {
+  const { data, isLoading, mutate } = useIsFollowing(artistId)
 
   const handleClick = async () => {
-    if (isFollowing) {
-      await unFollowArtist(artistId).then(() => setIsFollowing(false))
+    if (data) {
+      await unFollowArtist(artistId).then(() => mutate(false))
     } else {
-      await followArtist(artistId).then(() => setIsFollowing(true))
+      await followArtist(artistId).then(() => mutate(true))
     }
   }
 
-  const color = isFollowing ? 'purple.main' : 'primary.main'
-  const text = isFollowing ? 'Unfollow' : 'Follow'
+  const color = data ? 'purple.main' : 'primary.main'
+  const text = data ? 'Unfollow' : 'Follow'
+
+  if (isLoading || data === undefined) return null
   return (
     <Button
       variant="contained"

@@ -11,6 +11,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { mutate } from 'swr'
 import DemoLogo from '../../assets/demo-logo.svg'
 const ButtonStyling = {
   justifyContent: 'left',
@@ -23,6 +24,7 @@ const Navbar = () => {
   const router = useRouter()
   const handleLogout = async () => {
     const logout_return = await signOut({ redirect: false })
+    await mutate(() => true, undefined, false)
     console.log('logout', logout_return)
     router.push('/login')
   }

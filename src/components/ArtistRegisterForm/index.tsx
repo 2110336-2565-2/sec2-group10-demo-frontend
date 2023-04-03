@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { formatBankAccount, validateBankAccount } from './utils'
 import { http } from '@/services/apiAxios'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { mutate } from 'swr'
 interface ArtistRegisterFormProps {
   show: boolean
   onClose?: () => void
@@ -29,7 +29,6 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
       mode: 'onChange',
       resolver: zodResolver(artistRegisterSchema),
     })
-  const router = useRouter()
   const onSubmit = handleSubmit(async (data) => {
     // TODO: call premium user api
     const sendData = {
@@ -39,7 +38,8 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
     await http
       .put('/users/role/artist', sendData)
       .then(() => {
-        router.push('/profile')
+        mutate(['/users/profile/me', 'role'])
+        onClose?.()
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {

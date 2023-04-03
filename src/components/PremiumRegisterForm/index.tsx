@@ -18,8 +18,8 @@ import {
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { http } from '@/services/apiAxios'
-import { useRouter } from 'next/router'
 import axios from 'axios'
+import { mutate } from 'swr'
 
 interface PremiumRegisterFormProps {
   show: boolean
@@ -46,7 +46,6 @@ const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
       mode: 'onChange',
       resolver: zodResolver(premiumRegisterSchema),
     })
-  const router = useRouter()
   const onSubmit = handleSubmit(async (data) => {
     // TODO: call premium user api
     const sendData = {
@@ -58,7 +57,8 @@ const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
     await http
       .put('/users/role/premium', sendData)
       .then(() => {
-        router.push('/profile')
+        mutate(['/users/profile/me', 'role'])
+        onClose?.()
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {

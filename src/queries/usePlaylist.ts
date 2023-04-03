@@ -57,11 +57,11 @@ const getPlaylistByUserId = (id: string, filter: PlaylistFilter) => {
   })
 }
 const usePlaylistByUserId = (
-  id: string,
+  id: string | undefined,
   filter: PlaylistFilter | undefined
 ) => {
   return useSWR(id && filter ? userPlaylistKey(id, filter) : null, () =>
-    getPlaylistByUserId(id, filter!)
+    getPlaylistByUserId(id!, filter!)
   )
 }
 

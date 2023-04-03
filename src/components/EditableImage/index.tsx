@@ -66,14 +66,16 @@ const EditableImage = <F extends FieldValues>({
         filter: 'drop-shadow(-3px 3px 50px rgba(0, 0, 0, 0.3))',
       }}
     >
-      <Image
-        src={previewUploadImageUrl || src}
-        alt={alt}
-        fill
-        sizes="100%"
-        priority
-        style={{ objectFit: 'cover', borderRadius }}
-      />
+      {(previewUploadImageUrl || src) && (
+        <Image
+          src={previewUploadImageUrl || src}
+          alt={alt}
+          fill
+          sizes="100%"
+          priority
+          style={{ objectFit: 'cover', borderRadius }}
+        />
+      )}
       <Stack
         zIndex={1}
         display={editBox.show ? 'flex' : 'none'}

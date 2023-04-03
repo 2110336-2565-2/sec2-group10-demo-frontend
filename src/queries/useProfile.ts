@@ -22,15 +22,19 @@ interface FolloweeResponse {
 const getFollower = async (followeeId: string) => {
   return await http.get<FolloweeResponse[]>(`/users/follower/${followeeId}`)
 }
-const useFollower = (followeeId: string) => {
-  return useSWR(['users/follower', followeeId], () => getFollower(followeeId))
+const useFollower = (followeeId: string | undefined) => {
+  return useSWR(followeeId ? ['users/follower', followeeId] : null, () =>
+    getFollower(followeeId!)
+  )
 }
 
 const getFollowing = async (followeeId: string) => {
   return await http.get<FolloweeResponse[]>(`/users/following/${followeeId}`)
 }
-const useFollowing = (followeeId: string) => {
-  return useSWR(['users/following', followeeId], () => getFollowing(followeeId))
+const useFollowing = (followeeId: string | undefined) => {
+  return useSWR(followeeId ? ['users/following', followeeId] : null, () =>
+    getFollowing(followeeId!)
+  )
 }
 
 const userKey = (id: string) => {
@@ -58,10 +62,25 @@ const useUserProfile = () => {
   return useSWR('/users/profile/me', getUserProfile)
 }
 
+const getIsFollowing = async (artistId: string) => {
+  return await http.get<boolean>(`/user/isFollowing`, {
+    params: {
+      artistId: artistId,
+    },
+  })
+}
+
+const useIsFollowing = (artistId: string | undefined) => {
+  return useSWR(artistId ? ['/user/isFollowing', artistId] : null, () =>
+    getIsFollowing(artistId!)
+  )
+}
+
 export {
   useUserProfile,
   useRoleProfile,
   useFollower,
   useFollowing,
   useUserProfileById,
+  useIsFollowing,
 }
