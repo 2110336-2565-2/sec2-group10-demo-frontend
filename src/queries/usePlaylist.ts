@@ -43,8 +43,26 @@ const createPlaylist = async ({ name, isAlbum }: PlaylistCreate) => {
   })
 }
 
-const playlistKey = (id: string) => {
-  return ['users/playlists', id] as const
+type PlaylistFilter = 'all' | 'album' | 'playlist'
+
+const userPlaylistKey = (id: string, filter: PlaylistFilter) => {
+  return ['users/playlists', id, filter] as const
+}
+const getPlaylistByUserId = (id: string, filter: PlaylistFilter) => {
+  return http.get<PlaylistResponse[]>('users/playlists', {
+    params: {
+      userId: id,
+      filter: filter,
+    },
+  })
+}
+const usePlaylistByUserId = (
+  id: string,
+  filter: PlaylistFilter | undefined
+) => {
+  return useSWR(id && filter ? userPlaylistKey(id, filter) : null, () =>
+    getPlaylistByUserId(id, filter!)
+  )
 }
 
 const getPlaylist = async (id: string) => {
@@ -52,7 +70,7 @@ const getPlaylist = async (id: string) => {
 }
 
 const usePlaylist = (id: string | undefined) => {
-  return useSWR(id ? playlistKey(id) : null, () => getPlaylist(id!))
+  return useSWR(id ? ['playlists', id] : null, () => getPlaylist(id!))
 }
 
 const deleteMusicFromPlaylist = async (id: string, playlistId: string) => {
@@ -98,4 +116,5 @@ export {
   usePlaylistMusics,
   editPlaylist,
   deletePlaylist,
+  usePlaylistByUserId,
 }
