@@ -139,23 +139,27 @@ const Navbar = () => {
               <Button variant="contained" onClick={handleLogout}>
                 Logout
               </Button>
-              <Stack
-                direction="row"
-                spacing={1}
-                alignItems="center"
-                onClick={() => {
-                  router.push('/profile')
+              <Button
+                sx={{
+                  ...ButtonStyling,
+                  height: '30px',
                 }}
+                LinkComponent={Link}
+                href={'/profile/me'}
               >
                 <Avatar
                   alt="avatar-icon"
                   src={data?.user?.image || undefined}
                   sx={{ width: 30, height: 30, cursor: 'pointer' }}
                 />
-                <Typography variant="h5" noWrap sx={{ cursor: 'pointer' }}>
+                <Typography
+                  variant="h5"
+                  noWrap
+                  sx={{ cursor: 'pointer', textTransform: 'none' }}
+                >
                   {data?.user?.name}
                 </Typography>
-              </Stack>
+              </Button>
             </>
           ) : (
             <Button

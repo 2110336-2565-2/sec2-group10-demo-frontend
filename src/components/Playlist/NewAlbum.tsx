@@ -9,7 +9,7 @@ import { useRoleProfile } from '@/queries/useProfile'
 const NewAlbum = () => {
   const router = useRouter()
   const userRole = useRoleProfile()
-  const isArtist = (userRole as any)?.includes('artist')
+  const isArtist = userRole.data?.includes('artist')
 
   const cursorType = isArtist ? 'pointer' : 'default'
   const bgColor = isArtist ? 'container.light' : 'container.dark'

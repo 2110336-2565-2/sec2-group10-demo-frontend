@@ -13,7 +13,7 @@ const ArtistCard = (props: Props) => {
 
   return (
     <Link
-      href={`/users/${props.id}`}
+      href={`/profile/${props.id}`}
       style={{ textDecoration: 'none', color: 'inherit' }}
     >
       <Box
