@@ -2,7 +2,6 @@ import Button from '@/components/Button'
 import ConfirmDialog from '@/components/ConfirmDialog'
 import EditableImage from '@/components/EditableImage'
 import EditableTypography from '@/components/EditableTypography'
-import MusicPlayer from '@/components/MusicPlayer'
 import MusicTable from '@/components/MusicTable'
 import { useShow } from '@/hooks/useShow'
 import {
@@ -71,7 +70,6 @@ const Playlist = () => {
           <MusicTable playlistId={playlistId} musics={musics.data} />
         </Box>
       ) : null}
-      <MusicPlayer />
     </Stack>
   )
 }
