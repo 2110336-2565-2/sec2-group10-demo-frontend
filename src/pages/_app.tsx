@@ -1,3 +1,4 @@
+import MusicPlayer from '@/components/MusicPlayer'
 import DesktopLayout from '@/layout/DesktopLoayput'
 import { HttpProvider } from '@/services/apiAxios'
 import '@/styles/globals.css'
@@ -7,7 +8,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import { SnackbarProvider } from 'notistack'
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -23,7 +23,6 @@ export default function MyApp(props: MyAppProps) {
     emotionCache = clientSideEmotionCache,
     pageProps: { session, ...pageProps },
   } = props
-  const router = useRouter()
 
   return (
     <CacheProvider value={emotionCache}>
@@ -40,7 +39,8 @@ export default function MyApp(props: MyAppProps) {
             <HttpProvider>
               <CssBaseline />
               <DesktopLayout>
-                <Component {...pageProps} key={router.asPath} />
+                <Component {...pageProps} key={props.router.asPath} />
+                <MusicPlayer />
               </DesktopLayout>
             </HttpProvider>
           </SnackbarProvider>

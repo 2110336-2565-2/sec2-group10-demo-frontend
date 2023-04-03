@@ -8,7 +8,7 @@ import {
   volumeAtom,
 } from '@/stores/musicPlayerStore'
 import { useAtom, useAtomValue } from 'jotai'
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 
 import MusicControl from './MusicControl'
 import MusicTimeLine from './MusicTimeLine'
@@ -17,7 +17,7 @@ import { useSound } from '@/hooks/useSound'
 import { useShow } from '@/hooks/useShow'
 import FullSizeContent from './FullSizeContent'
 
-const MusicPlayer = () => {
+const MusicPlayer = memo(() => {
   const fullSize = useShow()
   const volume = useAtomValue(volumeAtom)
   const music = useAtomValue(musicAtom)
@@ -158,6 +158,8 @@ const MusicPlayer = () => {
       </Box>
     </Box>
   )
-}
+})
+
+MusicPlayer.displayName = 'MusicPlayer'
 
 export default MusicPlayer
