@@ -1,10 +1,10 @@
-import { Box, Stack, Typography } from '@mui/material'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
-import { DEFAULT_COVER_IMAGE } from '@/constants'
-import { createPlaylist } from '@/queries/usePlaylist'
 import AddAlbumIcon from '@/assets/addalbum-icon.svg'
+import { createPlaylist } from '@/queries/usePlaylist'
 import { useRoleProfile } from '@/queries/useProfile'
+import { randomString } from '@/utils'
+import { Box, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const NewAlbum = () => {
   const router = useRouter()
@@ -17,9 +17,7 @@ const NewAlbum = () => {
   const handleCreateAlbum = async () => {
     if (isArtist) {
       const defaultItem = {
-        name: 'MyAlbum',
-        musics: [],
-        coverImage: DEFAULT_COVER_IMAGE,
+        name: 'MyAlbum' + randomString(5),
         isAlbum: true,
       }
       const newItem = await createPlaylist(defaultItem)

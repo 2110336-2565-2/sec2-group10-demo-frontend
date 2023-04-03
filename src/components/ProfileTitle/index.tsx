@@ -1,9 +1,9 @@
 import { useShow } from '@/hooks/useShow'
 import { http } from '@/services/apiAxios'
 import { Box, Stack, Typography } from '@mui/material'
-import axios from 'axios'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { mutate } from 'swr'
 import ArtistBadge from '../ArtistBadge'
 import Button from '../Button'
 import EditableImage from '../EditableImage'
@@ -66,27 +66,26 @@ const ProfileTitle = ({
     saveButton.onClose()
   }
   const handleSave = async (data: EditProfile) => {
-    const sendUserNameData = {
-      username: data.name,
+    if (data.name !== profileName) {
+      await http.patch(`/users/profile`, {
+        username: data.name,
+      })
     }
-    const formData = new FormData()
-    formData.append('profileImage', data.profileImage)
-    await http.patch(`/users/profile`, sendUserNameData).catch((e) => {
-      if (axios.isAxiosError(e)) {
-        alert(e.response?.data.message)
-        console.log(e)
-      }
-    })
-    await http.patch('/users/profile/image', formData)
 
-    // clear state
+    if (data.profileImage) {
+      const formData = new FormData()
+      formData.append('profileImage', data.profileImage)
+      await http.patch('/users/profile/image', formData)
+    }
+
     reset({}, { keepValues: true })
+    mutate('/users/profile/me')
     saveButton.onClose()
   }
 
   const titleDescription = () => {
     if (isArtist) {
-      return `${numberOfPublicPlaylists} Public Playlist ${numberOfFollowers} Followers ${numberOfFollowing} Following`
+      return `${numberOfPublicPlaylists} Public Album ${numberOfFollowers} Followers ${numberOfFollowing} Following`
     }
     return `${numberOfPublicPlaylists} Public Playlist ${numberOfFollowing} Following`
   }

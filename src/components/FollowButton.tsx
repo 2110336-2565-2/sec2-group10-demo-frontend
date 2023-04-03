@@ -1,24 +1,41 @@
 import { followArtist, unFollowArtist } from '@/queries/useArtist'
-import { useIsFollowing } from '@/queries/useProfile'
+import {
+  followerKey,
+  followingKey,
+  useIsFollowing,
+  userKey,
+} from '@/queries/useProfile'
 import {
   Button,
   ButtonProps as MuiButtonProps,
   Typography,
 } from '@mui/material'
+import { mutate } from 'swr'
 
 interface ButtonProps extends MuiButtonProps {
   artistId: string
 }
 
 const FollowButton = ({ artistId }: ButtonProps) => {
-  const { data, isLoading, mutate } = useIsFollowing(artistId)
+  const {
+    data,
+    isLoading,
+    mutate: mutateIsFollowing,
+  } = useIsFollowing(artistId)
 
   const handleClick = async () => {
+    if (!artistId) return
     if (data) {
-      await unFollowArtist(artistId).then(() => mutate(false))
+      await unFollowArtist(artistId).then(() => mutateIsFollowing(false))
     } else {
-      await followArtist(artistId).then(() => mutate(true))
+      await followArtist(artistId).then(() => mutateIsFollowing(true))
     }
+
+    await Promise.all([
+      mutate(userKey(artistId)),
+      mutate(followerKey(artistId)),
+      mutate(followingKey(artistId)),
+    ])
   }
 
   const color = data ? 'purple.main' : 'primary.main'

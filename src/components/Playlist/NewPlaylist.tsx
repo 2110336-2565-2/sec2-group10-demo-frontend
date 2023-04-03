@@ -1,5 +1,6 @@
 import AddPlaylistIcon from '@/assets/addplaylist-icon.svg'
 import { createPlaylist } from '@/queries/usePlaylist'
+import { randomString } from '@/utils'
 import { Box, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -9,7 +10,7 @@ const NewPlaylist = () => {
 
   const handleCreatePlaylist = async () => {
     const defaultItem = {
-      name: 'MyPlaylist',
+      name: 'MyPlaylist' + randomString(5),
       isAlbum: false,
     }
     const newItem = await createPlaylist(defaultItem)
