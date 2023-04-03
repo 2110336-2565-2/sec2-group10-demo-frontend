@@ -20,7 +20,7 @@ const getAlbums = () => {
 }
 
 const useAlbums = () => {
-  return useSWR('/users/playlists/all', getAlbums)
+  return useSWR(['/users/playlists/all', 'filter-album'], getAlbums)
 }
 
 const createAlbum = async ({ name, coverImage }: AlbumCreate) => {
