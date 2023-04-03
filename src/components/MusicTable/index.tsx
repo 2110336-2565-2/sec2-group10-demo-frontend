@@ -26,7 +26,12 @@ import { musicAtom, setPlaylistsAtom } from '@/stores/musicPlayerStore'
 
 import PlayMusicGif from '@/assets/playing-music.gif'
 import ConfirmDialog from '../ConfirmDialog'
-import { deleteMusicFromPlaylist, MusicResponse } from '@/queries/usePlaylist'
+import {
+  deleteMusicFromPlaylist,
+  MusicResponse,
+  playlistMusicsKey,
+} from '@/queries/usePlaylist'
+import { mutate } from 'swr'
 
 interface MusicTableProps {
   playlistId: string
@@ -99,8 +104,9 @@ const MusicRow = ({ playlistId, index, music, onClick }: MusicRowProps) => {
     },
   ]
 
-  const onDeleteMusic = () => {
-    deleteMusicFromPlaylist(music.musicId, playlistId)
+  const onDeleteMusic = async () => {
+    await deleteMusicFromPlaylist(music.musicId, playlistId)
+    await mutate(playlistMusicsKey(playlistId))
     deleteMusic.onClose()
   }
 

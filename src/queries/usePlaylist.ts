@@ -65,12 +65,16 @@ const usePlaylistByUserId = (
   )
 }
 
+const playlistKey = (id: string) => {
+  return ['users/playlists', id] as const
+}
+
 const getPlaylist = async (id: string) => {
   return await http.get<PlaylistResponse>(`/users/playlists/${id}`)
 }
 
 const usePlaylist = (id: string | undefined) => {
-  return useSWR(id ? ['playlists', id] : null, () => getPlaylist(id!))
+  return useSWR(id ? playlistKey(id) : null, () => getPlaylist(id!))
 }
 
 const deleteMusicFromPlaylist = async (id: string, playlistId: string) => {
@@ -117,4 +121,6 @@ export {
   editPlaylist,
   deletePlaylist,
   usePlaylistByUserId,
+  playlistKey,
+  playlistMusicsKey,
 }
