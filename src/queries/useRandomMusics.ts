@@ -18,7 +18,9 @@ const getRandomMusic = () => {
 }
 
 const useRandomMusic = () => {
-  return useSWR('/users/musics/sample/50', getRandomMusic)
+  return useSWR('/users/musics/sample/50', getRandomMusic, {
+    revalidateOnFocus: false,
+  })
 }
 
 export { useRandomMusic }

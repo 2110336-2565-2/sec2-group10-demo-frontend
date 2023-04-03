@@ -11,6 +11,7 @@ import {
   usePlaylist,
   usePlaylistMusics,
 } from '@/queries/usePlaylist'
+import { useUserProfile } from '@/queries/useProfile'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import {
   alpha,
@@ -35,6 +36,9 @@ const Playlist = () => {
   const playlistId = router.query.playlistId as string
   const playlist = usePlaylist(playlistId)
   const musics = usePlaylistMusics(playlistId)
+  const user = useUserProfile()
+
+  const isMe = user.data?._id === playlist.data?.creatorId
 
   const hasMusics = !!musics.data?.length
 
@@ -53,6 +57,7 @@ const Playlist = () => {
         numberOfSongs={musics.data?.length || 0}
         length={sumDuration}
         coverImageUrl={playlist.data?.coverImage}
+        editable={isMe}
       />
       {hasMusics ? (
         <Box
@@ -80,6 +85,7 @@ interface PlaylistTitleProps {
   numberOfSongs: number
   length: number
   coverImageUrl: string
+  editable?: boolean
 }
 
 const PlaylistTitle = ({
@@ -89,6 +95,7 @@ const PlaylistTitle = ({
   numberOfSongs,
   length,
   coverImageUrl,
+  editable,
 }: PlaylistTitleProps) => {
   const playlistMore = useShow()
   const saveButton = useShow()
@@ -160,6 +167,7 @@ const PlaylistTitle = ({
             height={200}
             name="coverImage"
             control={control}
+            enable={editable}
           />
           <Stack spacing={1.5} flex={1}>
             <EditableTypography
@@ -168,6 +176,7 @@ const PlaylistTitle = ({
               onFocus={saveButton.onShow}
               name="name"
               control={control}
+              enable={editable}
             >
               {playlistName}
             </EditableTypography>
@@ -201,34 +210,36 @@ const PlaylistTitle = ({
             </Stack>
           )}
         </Stack>
-        <Box>
-          <IconButton
-            onClick={(e) => {
-              playlistMore.onShow()
-              setAnchorEl(e.currentTarget)
-            }}
-          >
-            <MoreVertIcon fontSize="large" sx={{ color: 'text.primary' }} />
-          </IconButton>
-          <Menu
-            id="playlist-more-menu"
-            anchorEl={anchorEl}
-            open={playlistMore.show}
-            onClose={playlistMore.onClose}
-          >
-            {playlistActions.map((more) => (
-              <MenuItem
-                key={more.label}
-                onClick={() => {
-                  more.onClick()
-                  playlistMore.onClose()
-                }}
-              >
-                {more.label}
-              </MenuItem>
-            ))}
-          </Menu>
-        </Box>
+        {editable && (
+          <Box>
+            <IconButton
+              onClick={(e) => {
+                playlistMore.onShow()
+                setAnchorEl(e.currentTarget)
+              }}
+            >
+              <MoreVertIcon fontSize="large" sx={{ color: 'text.primary' }} />
+            </IconButton>
+            <Menu
+              id="playlist-more-menu"
+              anchorEl={anchorEl}
+              open={playlistMore.show}
+              onClose={playlistMore.onClose}
+            >
+              {playlistActions.map((more) => (
+                <MenuItem
+                  key={more.label}
+                  onClick={() => {
+                    more.onClick()
+                    playlistMore.onClose()
+                  }}
+                >
+                  {more.label}
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        )}
       </Stack>
       <ConfirmDialog
         open={deleteDialog.show}

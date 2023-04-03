@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useController, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -30,6 +31,7 @@ const MusicSchema = z.object({
 type Music = z.infer<typeof MusicSchema>
 
 const UploadMusicForm = () => {
+  const router = useRouter()
   const { register, handleSubmit, control } = useForm<Music>({
     resolver: zodResolver(MusicSchema),
     mode: 'onSubmit',
@@ -37,7 +39,6 @@ const UploadMusicForm = () => {
 
   const uploadMusic = async (data: Music) => {
     //TODO: login user api
-    console.log(data)
     if (data.musicCover != undefined && data.musicFile != undefined) {
       const formData = new FormData()
       formData.append('name', data.musicName)
@@ -47,6 +48,7 @@ const UploadMusicForm = () => {
       formData.append('coverImage', data.musicCover)
       formData.append('genre', data.genre)
       await http.post('users/musics', formData)
+      router.push(`/playlists/${data.albumId}`)
     }
   }
 

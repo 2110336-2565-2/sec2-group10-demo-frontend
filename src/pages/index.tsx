@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next'
 
-export default function Home() {
+export default function Index() {
   return <></>
 }
 
-export const getServersideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     redirect: {
       destination: '/home',

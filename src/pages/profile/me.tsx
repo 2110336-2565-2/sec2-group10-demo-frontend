@@ -4,7 +4,7 @@ import PremiumRegisterForm from '@/components/PremiumRegisterForm'
 import ProfileContent from '@/components/ProfileContent'
 import ProfileTitle from '@/components/ProfileTitle'
 import { useShow } from '@/hooks/useShow'
-import { usePlaylists } from '@/queries/usePlaylist'
+import { usePlaylistByUserId } from '@/queries/usePlaylist'
 import { useRoleProfile, useUserProfile } from '@/queries/useProfile'
 import { Box, Divider, Stack, Typography } from '@mui/material'
 const ButtonStyling = {
@@ -83,9 +83,14 @@ const UpgradeAccount = () => {
 }
 
 const Profile = () => {
-  const playLists = usePlaylists()
   const userProfile = useUserProfile()
-  const numberOfPublicPlaylists = playLists.data?.length
+  const playlistFilter = !userProfile.isLoading
+    ? userProfile.data?.roles.includes('artist')
+      ? 'album'
+      : 'playlist'
+    : undefined
+  const playlists = usePlaylistByUserId(userProfile.data?._id, playlistFilter)
+  const numberOfPublicPlaylists = playlists.data?.length
   const numberOfFollowers = userProfile.data?.followerCount
   const numberOfFollowing = userProfile.data?.followingCount
   const isArtist = userProfile.data?.roles.includes('artist')
