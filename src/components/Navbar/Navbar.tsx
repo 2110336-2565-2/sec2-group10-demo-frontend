@@ -145,14 +145,18 @@ const Navbar = () => {
                   height: '30px',
                 }}
                 LinkComponent={Link}
-                href={'/profile'}
+                href={'/profile/me'}
               >
                 <Avatar
                   alt="avatar-icon"
                   src={data?.user?.image || undefined}
                   sx={{ width: 30, height: 30, cursor: 'pointer' }}
                 />
-                <Typography variant="h5" noWrap sx={{ cursor: 'pointer' }}>
+                <Typography
+                  variant="h5"
+                  noWrap
+                  sx={{ cursor: 'pointer', textTransform: 'none' }}
+                >
                   {data?.user?.name}
                 </Typography>
               </Button>
