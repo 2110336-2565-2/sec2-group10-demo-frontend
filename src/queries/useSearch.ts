@@ -28,7 +28,11 @@ interface PlaylistSearch {
 interface ArtistSearch {
   _id: string
   username: string
-  coverImage: string
+  email: string
+  roles: string[]
+  registrationDate: string
+  accountNumber: number
+  profileImage: string
 }
 
 const getMusicSearch = (search: string) => {

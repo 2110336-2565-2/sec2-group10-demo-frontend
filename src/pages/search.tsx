@@ -88,7 +88,7 @@ const Search = () => {
                   <ArtistCard
                     id={artist._id}
                     artistName={artist.username}
-                    image={artist.coverImage}
+                    image={artist.profileImage}
                   />
                 </Grid>
               ))}
