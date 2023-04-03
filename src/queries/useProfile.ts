@@ -66,8 +66,8 @@ const useRoleProfile = () => {
   )
 }
 
-const useUserProfile = () => {
-  return useSWR('/users/profile/me', getUserProfile)
+const useUserProfile = (fetch = true) => {
+  return useSWR(fetch ? '/users/profile/me' : null, getUserProfile)
 }
 
 const getIsFollowing = async (artistId: string) => {

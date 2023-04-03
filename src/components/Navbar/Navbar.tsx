@@ -22,7 +22,7 @@ const ButtonStyling = {
 
 const Navbar = () => {
   const { status } = useSession()
-  const userProfile = useUserProfile()
+  const userProfile = useUserProfile(status === 'authenticated' ? true : false)
 
   const isArtist = userProfile.data?.roles.includes('artist')
 
