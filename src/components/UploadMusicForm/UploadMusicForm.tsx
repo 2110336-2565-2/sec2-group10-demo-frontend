@@ -7,6 +7,7 @@ import {
   alpha,
   Box,
   Container,
+  FormHelperText,
   MenuItem,
   Select,
   Stack,
@@ -23,8 +24,8 @@ import EditableImage from '../EditableImage'
 const MusicSchema = z.object({
   musicName: z.string().min(1),
   albumId: z.string().min(1),
-  musicCover: z.any(),
-  musicFile: z.any(),
+  musicCover: z.custom<File>((v) => v instanceof File),
+  musicFile: z.custom<File>((v) => v instanceof File),
   genre: z.string().min(1),
 })
 
@@ -32,7 +33,7 @@ type Music = z.infer<typeof MusicSchema>
 
 const UploadMusicForm = () => {
   const router = useRouter()
-  const { register, handleSubmit, control } = useForm<Music>({
+  const { register, handleSubmit, control, formState } = useForm<Music>({
     resolver: zodResolver(MusicSchema),
     mode: 'onSubmit',
   })
@@ -91,16 +92,25 @@ const UploadMusicForm = () => {
                 height={168}
                 name="musicCover"
                 control={control}
+                alwaysVisible
               />
+              {!!formState.errors.musicCover ? (
+                <FormHelperText error>Please upload music cover</FormHelperText>
+              ) : null}
             </Box>
+
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Add a Music Name*</Typography>
               <TextField
                 variant="outlined"
                 placeholder="Music Name"
                 inputProps={{ style: { height: '16px', padding: '8px 12px' } }}
+                error={!!formState.errors.musicName}
                 {...register('musicName')}
               />
+              {!!formState.errors.musicName ? (
+                <FormHelperText error>Please fill a music name</FormHelperText>
+              ) : null}
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Add an Album*</Typography>
@@ -108,6 +118,7 @@ const UploadMusicForm = () => {
                 variant="outlined"
                 placeholder="Add an Album"
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
+                error={!!formState.errors.albumId}
                 {...register('albumId')}
               >
                 {albumList.data?.map((value, index) => {
@@ -118,6 +129,11 @@ const UploadMusicForm = () => {
                   )
                 })}
               </Select>
+              {!!formState.errors.albumId ? (
+                <FormHelperText error>
+                  Please select target album
+                </FormHelperText>
+              ) : null}
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Select genre*</Typography>
@@ -125,6 +141,7 @@ const UploadMusicForm = () => {
                 variant="outlined"
                 placeholder="select genre"
                 sx={{ height: '32px', backgroundColor: alpha('#FFFFFF', 0.16) }}
+                error={!!formState.errors.genre}
                 {...register('genre')}
               >
                 {genreList.data?.map((value, index) => {
@@ -135,6 +152,9 @@ const UploadMusicForm = () => {
                   )
                 })}
               </Select>
+              {!!formState.errors.genre ? (
+                <FormHelperText error>Please select genre</FormHelperText>
+              ) : null}
             </Stack>
             <Stack spacing={0.5}>
               <Typography variant="subtitle1">Upload Music*</Typography>
@@ -150,8 +170,12 @@ const UploadMusicForm = () => {
                     field.onChange(e.target.files[0])
                   }
                 }}
+                required
                 style={{ display: 'none' }}
               />
+              {!!formState.errors.musicFile ? (
+                <FormHelperText error>Please upload music</FormHelperText>
+              ) : null}
               <Typography variant="caption">
                 {musicFileRef.current?.value.split('\\').pop()}
               </Typography>
