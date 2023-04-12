@@ -20,6 +20,7 @@ interface EditableImageProps<F extends FieldValues> {
   name: Path<F>
   control: Control<F>
   borderRadius?: string
+  alwaysVisible?: boolean
 }
 
 const EditableImage = <F extends FieldValues>({
@@ -31,6 +32,7 @@ const EditableImage = <F extends FieldValues>({
   name,
   control,
   borderRadius,
+  alwaysVisible,
 }: EditableImageProps<F>) => {
   const { field } = useController({
     name,
@@ -78,7 +80,7 @@ const EditableImage = <F extends FieldValues>({
       )}
       <Stack
         zIndex={1}
-        display={editBox.show ? 'flex' : 'none'}
+        display={editBox.show || alwaysVisible ? 'flex' : 'none'}
         position="absolute"
         top={0}
         left={0}
@@ -91,6 +93,9 @@ const EditableImage = <F extends FieldValues>({
           uploadInputRef.current?.click()
         }}
         borderRadius={borderRadius}
+        sx={{
+          cursor: 'pointer',
+        }}
       >
         <input
           type="file"
