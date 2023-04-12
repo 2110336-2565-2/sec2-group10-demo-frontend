@@ -84,6 +84,13 @@ const useIsFollowing = (artistId: string | undefined) => {
   )
 }
 
+const upgradeToPremium = async (data: { name: string; token: string }) => {
+  return await http.put<{
+    message: string
+    success: boolean
+  }>('/users/role/premium', data)
+}
+
 export {
   useUserProfile,
   useRoleProfile,
@@ -94,4 +101,6 @@ export {
   userKey,
   followerKey,
   followingKey,
+  getUserProfile,
+  upgradeToPremium,
 }
