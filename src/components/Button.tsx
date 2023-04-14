@@ -1,11 +1,6 @@
-import {
-  Button as MuiButton,
-  ButtonProps as MuiButtonProps,
-  Typography,
-  TypographyProps,
-} from '@mui/material'
-
-interface ButtonProps extends MuiButtonProps {
+import { Typography, TypographyProps } from '@mui/material'
+import { LoadingButton, LoadingButtonProps } from '@mui/lab'
+interface ButtonProps extends LoadingButtonProps {
   text?: string
   active?: boolean
   underline?: boolean
@@ -32,7 +27,7 @@ const Button = ({
   }
 
   return (
-    <MuiButton
+    <LoadingButton
       {...props}
       size={size}
       variant={variant}
@@ -49,7 +44,7 @@ const Button = ({
       >
         {text}
       </Typography>
-    </MuiButton>
+    </LoadingButton>
   )
 }
 
