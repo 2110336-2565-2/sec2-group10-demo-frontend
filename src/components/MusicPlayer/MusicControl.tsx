@@ -17,7 +17,6 @@ interface MusicControlProps {
   onSkipPrevious?: () => void
   onShuffle?: () => void
   onRepeat?: () => void
-  notAllow?: boolean
 }
 const MusicControl = (p: MusicControlProps) => {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -41,15 +40,15 @@ const MusicControl = (p: MusicControlProps) => {
         <ShuffleRoundedIcon onClick={p.onShuffle} sx={{ cursor: 'pointer' }} />
         <Stack direction={'row'}>
           <SkipPreviousRoundedIcon
-            sx={{ cursor: p.notAllow ? 'not-allowed' : 'pointer' }}
+            sx={{ cursor: 'pointer' }}
             fontSize={'large'}
-            onClick={() => !p.notAllow && p.onSkipPrevious?.()}
+            onClick={p.onSkipPrevious}
           />
           {isPlaying ? (
             <PauseRoundedIcon
-              onClick={() => !p.notAllow && p.onPause?.()}
+              onClick={p.onPause}
               fontSize={'large'}
-              sx={{ cursor: p.notAllow ? 'not-allowed' : 'pointer' }}
+              sx={{ cursor: 'pointer' }}
             />
           ) : (
             <PlayArrowRoundedIcon
@@ -60,8 +59,8 @@ const MusicControl = (p: MusicControlProps) => {
           )}
           <SkipNextRoundedIcon
             fontSize={'large'}
-            onClick={() => !p.notAllow && p.onSkipNext?.()}
-            sx={{ cursor: p.notAllow ? 'not-allowed' : 'pointer' }}
+            onClick={p.onSkipNext}
+            sx={{ cursor: 'pointer' }}
           />
         </Stack>
         <RepeatRoundedIcon onClick={p.onRepeat} sx={{ cursor: 'pointer' }} />

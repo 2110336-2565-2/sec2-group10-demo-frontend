@@ -6,10 +6,9 @@ interface MusicTimeLineProps {
   sound?: Howl
   duration: number
   onTimeChange?: (v: number) => void
-  notAllow?: boolean
 }
 
-const MusicTimeLine = ({ sound, duration, notAllow }: MusicTimeLineProps) => {
+const MusicTimeLine = ({ sound, duration }: MusicTimeLineProps) => {
   const [currTime, setCurrentTime] = useState(0)
   const [isSeeking, setIsSeeking] = useState(false)
 
@@ -54,7 +53,6 @@ const MusicTimeLine = ({ sound, duration, notAllow }: MusicTimeLineProps) => {
           setIsSeeking(false)
         }}
         onChange={(_, v) => setCurrentTime(((v as number) / 100) * duration)}
-        disabled={notAllow}
         sx={{
           '& .MuiSlider-thumb': {
             display: 'none',

@@ -6,8 +6,4 @@ const randomString = (length: number) => {
   return result
 }
 
-const getProbability = (probability: number) => {
-  return Math.random() < probability
-}
-
-export { randomString, getProbability }
+export { randomString }
