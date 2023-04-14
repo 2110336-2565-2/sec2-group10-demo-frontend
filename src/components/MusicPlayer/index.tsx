@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 
 import {
   autoPlayAtom,
+  isPlayAdsAtom,
   musicAtom,
   skipNextAtom,
   skipPreviousAtom,
@@ -16,6 +17,7 @@ import SoundControl from './SoundControl'
 import { useSound } from '@/hooks/useSound'
 import { useShow } from '@/hooks/useShow'
 import FullSizeContent from './FullSizeContent'
+import { useSnackbar } from 'notistack'
 
 const MusicPlayer = memo(() => {
   const fullSize = useShow()
@@ -24,6 +26,8 @@ const MusicPlayer = memo(() => {
   const [, skipNext] = useAtom(skipNextAtom)
   const [, skipPrevious] = useAtom(skipPreviousAtom)
   const [autoPlay, setAutoPlay] = useAtom(autoPlayAtom)
+  const isPlayingAds = useAtomValue(isPlayAdsAtom)
+  const { enqueueSnackbar } = useSnackbar()
   const musicSource = music?.url || (null as unknown as string)
   const [play, { pause, duration, sound, stop }] = useSound(musicSource, {
     volume: volume / 100,
@@ -47,6 +51,15 @@ const MusicPlayer = memo(() => {
       setAutoPlay(false)
     }
   }, [sound])
+
+  useEffect(() => {
+    if (isPlayingAds) {
+      enqueueSnackbar('Please Pay Premium Account To Remove Ads', {
+        variant: 'warning',
+        autoHideDuration: 10000,
+      })
+    }
+  }, [isPlayingAds, enqueueSnackbar])
 
   const handleSkipNext = () => {
     if (!sound) return
@@ -140,10 +153,15 @@ const MusicPlayer = memo(() => {
               onPause={() => pause()}
               onSkipNext={handleSkipNext}
               onSkipPrevious={handleSkipPrevious}
+              notAllow={isPlayingAds}
             />
             <SoundControl />
           </Stack>
-          <MusicTimeLine sound={sound} duration={(duration || 0) / 1000} />
+          <MusicTimeLine
+            sound={sound}
+            duration={(duration || 0) / 1000}
+            notAllow={isPlayingAds}
+          />
         </Stack>
         {fullSize.show && (
           <FullSizeContent
