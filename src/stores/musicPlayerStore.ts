@@ -1,3 +1,5 @@
+import { getRandomAdsMusic } from '@/queries/useRandomMusics'
+import { getProbability } from '@/utils'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 
@@ -26,12 +28,10 @@ const safeIndex = (index: number, length: number) => {
 export const volumeAtom = atomWithStorage('volume', 50)
 export const playlistsAtom = atom<Music[]>([])
 export const indexAtom = atom(0)
-export const musicAtom = atom((get) => {
-  const index = get(indexAtom)
-  const playlists = get(playlistsAtom)
-  return playlists[index]
-})
+export const musicAtom = atom<Music | undefined>(undefined)
 export const autoPlayAtom = atom(false)
+export const isPlayAdsAtom = atom(false)
+export const isPremiumAtom = atom(false)
 
 /**
  * Play the next music
@@ -44,10 +44,19 @@ export const autoPlayAtom = atom(false)
  */
 export const skipNextAtom = atom<null, [boolean], void>(
   null,
-  (get, set, play) => {
-    const playlists = get(playlistsAtom)
-    set(autoPlayAtom, play)
-    set(indexAtom, (index) => safeIndex(index + 1, playlists.length))
+  async (get, set, play) => {
+    if (!get(isPremiumAtom) && getProbability(0.2) && !get(isPlayAdsAtom)) {
+      set(isPlayAdsAtom, true)
+      set(autoPlayAtom, true)
+      set(musicAtom, await getRandomAdsMusic())
+    } else {
+      const playlists = get(playlistsAtom)
+      const nextIndex = safeIndex(get(indexAtom) + 1, playlists.length)
+      set(autoPlayAtom, play)
+      set(indexAtom, nextIndex)
+      set(musicAtom, playlists[nextIndex])
+      set(isPlayAdsAtom, false)
+    }
   }
 )
 
@@ -64,8 +73,10 @@ export const skipPreviousAtom = atom<null, [boolean], void>(
   null,
   (get, set, play) => {
     const playlists = get(playlistsAtom)
+    const prevIndex = safeIndex(get(indexAtom) - 1, playlists.length)
     set(autoPlayAtom, play)
-    set(indexAtom, (index) => safeIndex(index - 1, playlists.length))
+    set(indexAtom, prevIndex)
+    set(musicAtom, playlists[prevIndex])
   }
 )
 
@@ -88,9 +99,11 @@ export const setPlaylistsAtom = atom<
   null,
   [Music[], SetPlaylistsOptions],
   void
->(null, (_get, set, playlists, options) => {
+>(null, (get, set, playlists, options) => {
   const { playNow = true, startIndex = 0 } = options
+  if (get(isPlayAdsAtom)) return
   set(autoPlayAtom, playNow)
   set(playlistsAtom, playlists)
   set(indexAtom, startIndex)
+  set(musicAtom, playlists[startIndex])
 })
