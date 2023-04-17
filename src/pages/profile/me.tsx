@@ -40,7 +40,9 @@ const UpgradeAccount = () => {
               alignItems={'center'}
               justifyContent={'space-between'}
             >
-              <Typography variant="h5">Remove Ads</Typography>
+              <Typography variant="h5">
+                Remove Ads (899 bath one time)
+              </Typography>
               <Button
                 sx={{ ...ButtonStyling }}
                 text="Upgrade to Premium"

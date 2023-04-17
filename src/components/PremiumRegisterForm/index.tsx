@@ -1,25 +1,26 @@
+import Button from '@/components/Button'
+import { useOmise } from '@/hooks/useOmise'
+import { upgradeToPremium } from '@/queries/useProfile'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  alpha,
+  Box,
   Dialog,
-  TextFieldProps,
   Stack,
   TextField,
+  TextFieldProps,
   Typography,
-  Box,
-  alpha,
 } from '@mui/material'
-import Button from '@/components/Button'
-import { useForm } from 'react-hook-form'
+import { useSnackbar } from 'notistack'
 import { forwardRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { mutate } from 'swr'
+import { z } from 'zod'
 import {
   formatCreditCardNumber,
   formatExpirationDate,
   validateCreditCardNumber,
 } from './utils'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { http } from '@/services/apiAxios'
-import axios from 'axios'
-import { mutate } from 'swr'
 
 interface PremiumRegisterFormProps {
   show: boolean
@@ -41,31 +42,63 @@ const premiumRegisterSchema = z
 type PremiumRegisterFormValues = z.infer<typeof premiumRegisterSchema>
 
 const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
+  const { omise } = useOmise()
+  const { enqueueSnackbar } = useSnackbar()
   const { register, handleSubmit, formState } =
     useForm<PremiumRegisterFormValues>({
       mode: 'onChange',
       resolver: zodResolver(premiumRegisterSchema),
     })
   const onSubmit = handleSubmit(async (data) => {
-    // TODO: call premium user api
-    const sendData = {
-      name: data.name,
-      cardNumber: data.cardNumber,
-      expireDate: data.expire,
-      cvc: data.cvc,
-    }
-    await http
-      .put('/users/role/premium', sendData)
-      .then(() => {
-        mutate(['/users/profile/me', 'role'])
-        onClose?.()
-      })
-      .catch((e) => {
-        if (axios.isAxiosError(e)) {
-          alert(e.response?.data.message)
-          console.log(e)
+    const exp_month = +data.expire.split('/')[0]
+    const exp_year = +data.expire.split('/')[1]
+    const cvc = +data.cvc
+    omise?.createToken(
+      'card',
+      {
+        name: data.name,
+        number: data.cardNumber,
+        expiration_month: exp_month,
+        expiration_year: exp_year,
+        security_code: cvc,
+      },
+      async (statusCode, response) => {
+        if (statusCode === 200) {
+          const token = response.id
+          await upgradeToPremium({
+            token,
+            name: data.name,
+          })
+            .then((res) => {
+              if (res.success) {
+                mutate(['/users/profile/me', 'role'])
+                onClose?.()
+              }
+            })
+            .catch(() => {
+              enqueueSnackbar("Can't Make a payment. Please try again", {
+                variant: 'error',
+              })
+            })
+        } else {
+          enqueueSnackbar("Can't Make a payment. Please try again", {
+            variant: 'error',
+          })
         }
-      })
+      }
+    )
+    //   await http
+    //     .put('/users/role/premium', sendData)
+    //     .then(() => {
+    //       mutate(['/users/profile/me', 'role'])
+    //       onClose?.()
+    //     })
+    //     .catch((e) => {
+    //       if (axios.isAxiosError(e)) {
+    //         alert(e.response?.data.message)
+    //         console.log(e)
+    //       }
+    //     })
   })
 
   return (
