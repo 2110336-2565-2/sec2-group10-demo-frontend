@@ -18,21 +18,27 @@ const getRandomMusic = () => {
   return http.get<RandomMusicResponse[]>('/users/musics/sample/50')
 }
 
-const mockAdsMusic = {
-  musicId: 'ads',
-  name: 'ads',
-  albumId: '',
-  ownerId: '',
-  duration: 244,
-  albumName: '',
-  ownerName: '',
-  coverImage: 'https://picsum.photos/200',
-  url: 'https://storage.googleapis.com/demo-tuder-music/music/1680549084308.mp3',
+interface AdsMusicResponse {
+  _id: string
+  name: string
+  description: string
+  creationDate: Date
+  coverImage: string
+  url: string
+  duration: number
 }
 
-const getRandomAdsMusic = (): MusicResponse => {
+const getRandomAdsMusic = async (): Promise<MusicResponse> => {
   // TODO: get random ads music from api
-  return mockAdsMusic
+  const data = await http.get<AdsMusicResponse[]>('/users/advertisement/random')
+  return {
+    ...data[0],
+    musicId: data[0]._id,
+    albumId: '',
+    ownerId: '',
+    albumName: '',
+    ownerName: '',
+  }
 }
 
 const useRandomMusic = () => {
