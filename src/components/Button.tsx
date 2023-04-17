@@ -1,10 +1,16 @@
-import { Typography, TypographyProps } from '@mui/material'
-import { LoadingButton, LoadingButtonProps } from '@mui/lab'
-interface ButtonProps extends LoadingButtonProps {
+import {
+  Button as MuiButton,
+  ButtonProps as MuiButtonProps,
+  Typography,
+  TypographyProps,
+  CircularProgress,
+} from '@mui/material'
+interface ButtonProps extends MuiButtonProps {
   text?: string
   active?: boolean
   underline?: boolean
   textVariant?: TypographyProps['variant']
+  loading?: boolean
 }
 
 const Button = ({
@@ -15,6 +21,7 @@ const Button = ({
   text,
   underline,
   textVariant,
+  loading,
   ...props
 }: ButtonProps) => {
   const getColor = () => {
@@ -27,24 +34,29 @@ const Button = ({
   }
 
   return (
-    <LoadingButton
+    <MuiButton
       {...props}
       size={size}
       variant={variant}
+      disabled={loading}
       sx={{
         ...getColor(),
         ...sx,
       }}
     >
-      <Typography
-        variant={textVariant || 'h6'}
-        sx={{
-          textDecoration: underline ? 'underline' : 'none',
-        }}
-      >
-        {text}
-      </Typography>
-    </LoadingButton>
+      {loading ? (
+        <CircularProgress size={24} />
+      ) : (
+        <Typography
+          variant={textVariant || 'h6'}
+          sx={{
+            textDecoration: underline ? 'underline' : 'none',
+          }}
+        >
+          {text}
+        </Typography>
+      )}
+    </MuiButton>
   )
 }
 
