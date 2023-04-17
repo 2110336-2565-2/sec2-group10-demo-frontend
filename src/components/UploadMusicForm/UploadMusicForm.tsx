@@ -1,8 +1,8 @@
 import { DEFAULT_COVER_IMAGE } from '@/constants'
 import { useAlbums } from '@/queries/useAlbum'
 import { useGenre } from '@/queries/useGenre'
-import { http } from '@/services/apiAxios'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useSWRMutation from 'swr/mutation'
 import {
   alpha,
   Box,
@@ -20,6 +20,7 @@ import { useController, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import Button from '../Button'
 import EditableImage from '../EditableImage'
+import { uploadMusic } from '@/queries/useMusic'
 
 const MusicSchema = z.object({
   musicName: z.string().min(1),
@@ -37,18 +38,13 @@ const UploadMusicForm = () => {
     resolver: zodResolver(MusicSchema),
     mode: 'onSubmit',
   })
-
-  const uploadMusic = async (data: Music) => {
-    //TODO: login user api
+  const { trigger, isMutating } = useSWRMutation(
+    'users/musics',
+    (_, { arg }: { arg: Music }) => uploadMusic(arg) /* options */
+  )
+  const handleUploadMusic = async (data: Music) => {
     if (data.musicCover != undefined && data.musicFile != undefined) {
-      const formData = new FormData()
-      formData.append('name', data.musicName)
-      formData.append('description', 'this is sound of dek wat')
-      formData.append('albumId', data.albumId)
-      formData.append('music', data.musicFile)
-      formData.append('coverImage', data.musicCover)
-      formData.append('genre', data.genre)
-      await http.post('users/musics', formData)
+      await trigger(data)
       router.push(`/playlists/${data.albumId}`)
     }
   }
@@ -192,7 +188,8 @@ const UploadMusicForm = () => {
           <Button
             variant="contained"
             text="Submit"
-            onClick={handleSubmit(uploadMusic)}
+            onClick={handleSubmit(handleUploadMusic)}
+            loading={isMutating}
           />
         </Stack>
       </Box>
