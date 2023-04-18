@@ -73,6 +73,10 @@ const PremiumRegisterForm = ({ show, onClose }: PremiumRegisterFormProps) => {
               if (res.success) {
                 mutate(['/users/profile/me', 'role'])
                 onClose?.()
+              } else {
+                enqueueSnackbar("Can't Make a payment. Please try again", {
+                  variant: 'error',
+                })
               }
             })
             .catch(() => {
