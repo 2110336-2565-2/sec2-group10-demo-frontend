@@ -2,13 +2,16 @@ import ArtistCard from '@/components/ArtistCard'
 import SingleMusicBox from '@/components/MusicIcon/SingleMusicBox'
 import PlaylistCard from '@/components/Playlist/PlaylistCard'
 import SearchBar from '@/components/SearchBar'
+import { getRandomMusic } from '@/queries/useRandomMusics'
 import {
   useArtistSearch,
   useMusicSearch,
   usePlaylistSearch,
 } from '@/queries/useSearch'
+import { setPlaylistsAtom } from '@/stores/musicPlayerStore'
 import { Stack, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
+import { useSetAtom } from 'jotai'
 import { useForm } from 'react-hook-form'
 
 interface SearchFieldValues {
@@ -16,6 +19,7 @@ interface SearchFieldValues {
 }
 
 const Search = () => {
+  const setPlaylists = useSetAtom(setPlaylistsAtom)
   const { control, watch } = useForm<SearchFieldValues>({
     defaultValues: {
       search: '',
@@ -31,10 +35,6 @@ const Search = () => {
   const hasPlaylists = !!playlists.data?.length
   const hasArtists = !!artists.data?.length
 
-  // console.log('musics', musics.data)
-  // console.log('playlists', playlists.data)
-  // console.log('artists', artists.data)
-
   return (
     <Stack spacing={3.5} sx={{ margin: '40px 5%' }}>
       <SearchBar control={control} name="search" />
@@ -47,7 +47,13 @@ const Search = () => {
                 key={music.musicId}
                 {...{ xs: 2.4, sm: 2.4, md: 2.4, lg: 2.4 }}
               >
-                <SingleMusicBox music={music} />
+                <SingleMusicBox
+                  music={music}
+                  onClick={async () => {
+                    const otherMusics = await getRandomMusic(24)
+                    setPlaylists([music, ...otherMusics], {})
+                  }}
+                />
               </Grid>
             ))}
           </Grid>

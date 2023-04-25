@@ -1,19 +1,14 @@
-import { Box, Typography, Stack } from '@mui/material'
-import Image from 'next/image'
 import LongMenu from '@/components/MusicIcon/LongMenu'
-import { setPlaylistsAtom, Music } from '@/stores/musicPlayerStore'
-import { useAtom } from 'jotai'
+import { Music } from '@/stores/musicPlayerStore'
+import { Box, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
 
 interface Props {
   music: Music
+  onClick?: () => void
 }
 
-const SingleMusicBox = ({ music }: Props) => {
-  const [, setPlaylists] = useAtom(setPlaylistsAtom)
-  const playMusic = () => {
-    setPlaylists([music], {})
-  }
-
+const SingleMusicBox = ({ music, onClick }: Props) => {
   return (
     <Box
       px={'6%'}
@@ -25,7 +20,7 @@ const SingleMusicBox = ({ music }: Props) => {
         bgcolor: 'container.light',
         cursor: 'pointer',
       }}
-      onClick={playMusic}
+      onClick={onClick}
     >
       <Stack spacing={3} justifyContent={'center'}>
         <Box
