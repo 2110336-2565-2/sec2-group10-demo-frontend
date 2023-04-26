@@ -95,16 +95,13 @@ const usePlaylistMusics = (id: string | undefined) => {
 
 interface EditPlaylist {
   name?: string
-  description?: string
   coverImage?: File
 }
 const editPlaylist = (id: string, data: EditPlaylist) => {
-  // Todo: use this wait for backend fix
-  // const formData = new FormData()
-  // if (data.name) formData.append('name', data.name)
-  // if (data.description) formData.append('description', data.description)
-  // if (data.coverImage) formData.append('coverImage', data.coverImage)
-  return http.patch(`/users/playlists/${id}`, data)
+  const formData = new FormData()
+  if (data.name) formData.append('name', data.name)
+  if (data.coverImage) formData.append('coverImage', data.coverImage)
+  return http.patch(`/users/playlists/${id}`, formData)
 }
 
 const deletePlaylist = async (id: string) => {
