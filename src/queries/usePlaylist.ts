@@ -97,11 +97,16 @@ interface EditPlaylist {
   name?: string
   coverImage?: File
 }
-const editPlaylist = (id: string, data: EditPlaylist) => {
-  const formData = new FormData()
-  if (data.name) formData.append('name', data.name)
-  if (data.coverImage) formData.append('coverImage', data.coverImage)
-  return http.patch(`/users/playlists/${id}`, formData)
+const editPlaylist = async (id: string, data: EditPlaylist) => {
+  if (data.name) {
+    await http.patch(`/users/playlists/${id}`, { name: data.name })
+  }
+  if (data.coverImage) {
+    const formData = new FormData()
+    formData.append('playlistId ', id)
+    formData.append('coverImage', data.coverImage)
+    await http.patch(`/users/playlists/image`, formData)
+  }
 }
 
 const deletePlaylist = async (id: string) => {
