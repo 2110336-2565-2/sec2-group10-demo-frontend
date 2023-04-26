@@ -14,8 +14,8 @@ interface RandomMusicResponse {
   ownerName: string
 }
 
-const getRandomMusic = () => {
-  return http.get<RandomMusicResponse[]>('/users/musics/sample/50')
+const getRandomMusic = (nSample: number) => {
+  return http.get<RandomMusicResponse[]>(`/users/musics/sample/${nSample}`)
 }
 
 interface AdsMusicResponse {
@@ -41,10 +41,14 @@ const getRandomAdsMusic = async (): Promise<MusicResponse> => {
   }
 }
 
-const useRandomMusic = () => {
-  return useSWR('/users/musics/sample/50', getRandomMusic, {
-    revalidateOnFocus: false,
-  })
+const useRandomMusic = (nSample = 50) => {
+  return useSWR(
+    ['/users/musics/sample', nSample],
+    () => getRandomMusic(nSample),
+    {
+      revalidateOnFocus: false,
+    }
+  )
 }
 
-export { useRandomMusic, getRandomAdsMusic }
+export { useRandomMusic, getRandomAdsMusic, getRandomMusic }
