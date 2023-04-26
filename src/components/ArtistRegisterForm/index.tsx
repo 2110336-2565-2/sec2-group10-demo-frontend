@@ -37,9 +37,10 @@ const ArtistRegisterForm = ({ show, onClose }: ArtistRegisterFormProps) => {
     }
     await http
       .put('/users/role/artist', sendData)
-      .then(() => {
-        mutate(['/users/profile/me', 'role'])
-        onClose?.()
+      .then(async () => {
+        await mutate(['/users/profile/me', 'role'])
+        await mutate('/users/profile/me')
+        await onClose?.()
       })
       .catch((e) => {
         if (axios.isAxiosError(e)) {
