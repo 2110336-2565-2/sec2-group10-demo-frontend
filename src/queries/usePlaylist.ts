@@ -103,7 +103,7 @@ const editPlaylist = async (id: string, data: EditPlaylist) => {
   }
   if (data.coverImage) {
     const formData = new FormData()
-    formData.append('playlistId ', id)
+    formData.append('playlistId', id)
     formData.append('coverImage', data.coverImage)
     await http.patch(`/users/playlists/image`, formData)
   }
